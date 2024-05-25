@@ -1,0 +1,45 @@
+{
+    "Search": "Buscar",
+    "Modern": "Modern (es)",
+    "Ecommerce": "Ecommerce",
+    "eCommerce": "eCommerce",
+    "Contacts": "Contacts",
+    "Blog": "Blog",
+    "Posts": "Posts",
+    "Detail": "Detail",
+    "Shop": "Shop",
+    "List": "List",
+    "Checkout": "Checkout",
+    "Chats": "Chats",
+    "Users": "Users",
+    "Profile": "Profile",
+    "Followers": "Followers",
+    "Friends": "Friends",
+    "Gallery": "Gallery",
+    "Notes": "Notes",
+    "Calendar": "Calendar",
+    "Email": "Email",
+    "Tickets": "Tickets",
+    "investment": {
+        "title": "Inversiones",
+        "description": "Esta es la página de inversiones donde puede ver todos los activos disponibles.",
+        "breadcrumbTitle": "Inversiones"
+    },
+    "asset": {
+        "edit": {
+            "pageTitle": "Editar Activo",
+            "pageDescription": "Esta es la página de edición de activos.",
+            "formTitle": "Editar activo"
+        },
+        "add": {
+            "pageTitle": "Crear Activo",
+            "pageDescription": "Esta es la página de creación de activos.",
+            "formTitle": "Crear activo"
+        }
+    },
+    "breadcrumb": {
+        "Home": "Inicio",
+        "Assets": "Activos",
+        "Edit Asset": "Editar activo"
+    }
+}
