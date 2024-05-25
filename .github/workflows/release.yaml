@@ -1,0 +1,177 @@
+name: Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+jobs:
+  release:
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'Release')
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Extract version from PR title
+        id: extract_version
+        run: |
+          VERSION=$(echo "${{github.event.pull_request.title}}" | grep -oP '\d+\.\d+\.\d+')
+          if [ -z "$VERSION" ]; then
+            echo "Error: Failed to extract version from PR title" >&2
+            exit 1
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Extracted version: $VERSION"
+
+      - name: Install dependencies for backend
+        run: yarn install
+        working-directory: ${{ github.workspace }}/api
+      
+      - name: Test the backend
+        run: yarn test
+        working-directory: ${{ github.workspace }}/api
+
+      - name: Update package.json for backend
+        run: yarn version --new-version $VERSION
+        working-directory: ${{ github.workspace }}/api
+        env:
+          VERSION: ${{ env.VERSION }}
+          YARN_VERSION_GIT_TAG: ''
+      
+      - name: Install dependencies for frontend
+        run: yarn install
+        working-directory: ${{ github.workspace }}/web
+
+      - name: Test the frontend
+        run: yarn test
+        working-directory: ${{ github.workspace }}/web
+
+      - name: Update package.json for frontend
+        run: yarn version --new-version $VERSION
+        working-directory: ${{ github.workspace }}/web
+        env:
+          VERSION: ${{ env.VERSION }}
+          YARN_VERSION_GIT_TAG: ''
+
+      - name: Build the frontend
+        run: yarn build
+        working-directory: ${{ github.workspace }}/web
+
+      - id: commit
+        name: Commit version
+        uses: swinton/commit@v2.0.0
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            api/package.json
+            web/package.json
+          commit-message: "[AUTO] Release version ${{env.VERSION}}"
+          ref: refs/heads/master
+
+      #- name: Commit version
+      #  run: |
+      #    git config user.name "github-actions[bot]"
+      #    git config user.email "github-actions@github.com"
+      #    git add api/package.json web/package.json
+      #    git commit -m "[AUTO] Release version ${{env.VERSION}}"
+      #    git push origin master
+      #    RELEASE_SHA=$(git rev-parse HEAD)
+      #    echo "RELEASE_SHA=$RELEASE_SHA" >> $GITHUB_ENV
+      #    echo "Release SHA for tag: $RELEASE_SHA"
+
+      - name: Create environment file for frontent
+        run: |
+          echo "VITE_APP_VERSION=${{ env.VERSION }}"  > .env.production
+          echo "VITE_BACKEND_URL=${{secrets.BACKEND_URL}}" >> .env.production
+          echo "VITE_GOOGLE_CLIENT_ID=${{secrets.GOOGLE_CLIENT_ID}}"  >> .env.production
+          echo "VITE_TITLE=Homelab"  >> .env.production
+
+      - name: Create backend bundle
+        run: >
+          mkdir -p build && tar -czf build/homelab-backend.tar.gz \
+            --exclude build \
+            --exclude .git \
+            --exclude .github \
+            --exclude .env \
+            --exclude .gitignore .
+        shell: bash
+        working-directory: ${{ github.workspace }}/api
+
+      - name: Create frontend bundle
+        run: |
+          mkdir -p build && tar -czf build/homelab-frontend.tar.gz --exclude build .
+        shell: bash
+        working-directory: ${{ github.workspace }}/web/dist
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{env.VERSION}}
+          release_name: Release ${{env.VERSION}}
+          commitish: ${{ steps.commit.outputs.commit-sha }}
+          draft: false
+          prerelease: false
+
+      - name: Upload backend tarball to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ github.workspace }}/api/build/homelab-backend.tar.gz
+          asset_name: homelab-backend.tar.gz
+          asset_content_type: application/gzip
+
+      - name: Upload frontend tarball to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ github.workspace }}/web/dist/build/homelab-frontend.tar.gz
+          asset_name: homelab-frontend.tar.gz
+          asset_content_type: application/gzip
+
+      - name: Trigger deployment webhook
+        run: |
+          curl --header "Content-Type: application/json" \
+            --request POST --data '{ "app" : "homelab", "version" : "${{ env.VERSION }}"}' \
+            ${{ secrets.DEPLOYMENT_WEBHOOK_URL }}
+
+  down-merge:
+    needs: release
+    name: Down merge
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: develop
+          token: ${{ env.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Merge master into develop
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@github.com"
+          git merge origin/master
+          git push
+

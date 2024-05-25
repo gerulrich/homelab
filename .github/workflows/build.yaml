@@ -1,0 +1,36 @@
+name: build branch
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies for backend
+        working-directory: ${{ github.workspace }}/api
+        run: yarn install
+      
+      - name: Test the backend
+        working-directory: ${{ github.workspace }}/api
+        run: yarn test
+
+      - name: Install dependencies for frontend
+        working-directory: ${{ github.workspace }}/web
+        run: yarn install
+
+      - name: Test the frontend
+        working-directory: ${{ github.workspace }}/web
+        run: yarn test
+
+      - name: Build production bundle for frontend
+        working-directory: ${{ github.workspace }}/api
+        run: yarn eslint
