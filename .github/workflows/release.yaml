@@ -64,6 +64,20 @@ jobs:
           VERSION: ${{ env.VERSION }}
           YARN_VERSION_GIT_TAG: ''
 
+      - name: Create environment file
+        run: |
+          echo "VITE_APP_VERSION=$APP_VERSION"  > .env.production
+          echo "VITE_BACKEND_URL=$BACKEND_URL" >> .env.production
+          echo "VITE_GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID"  >> .env.production
+          echo "VITE_TITLE=Homelab"  >> .env.production
+          pwd
+          cat .env.production
+        env:
+          APP_VERSION: ${{ env.VERSION }}
+          BACKEND_URL: ${{secrets.BACKEND_URL}}
+          GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
+        working-directory: ${{ github.workspace }}/web
+
       - name: Build the frontend
         run: yarn build
         working-directory: ${{ github.workspace }}/web
@@ -80,23 +94,6 @@ jobs:
           commit-message: "[AUTO] Release version ${{env.VERSION}}"
           ref: refs/heads/master
 
-      #- name: Commit version
-      #  run: |
-      #    git config user.name "github-actions[bot]"
-      #    git config user.email "github-actions@github.com"
-      #    git add api/package.json web/package.json
-      #    git commit -m "[AUTO] Release version ${{env.VERSION}}"
-      #    git push origin master
-      #    RELEASE_SHA=$(git rev-parse HEAD)
-      #    echo "RELEASE_SHA=$RELEASE_SHA" >> $GITHUB_ENV
-      #    echo "Release SHA for tag: $RELEASE_SHA"
-
-      - name: Create environment file for frontent
-        run: |
-          echo "VITE_APP_VERSION=${{ env.VERSION }}"  > .env.production
-          echo "VITE_BACKEND_URL=${{secrets.BACKEND_URL}}" >> .env.production
-          echo "VITE_GOOGLE_CLIENT_ID=${{secrets.GOOGLE_CLIENT_ID}}"  >> .env.production
-          echo "VITE_TITLE=Homelab"  >> .env.production
 
       - name: Create backend bundle
         run: >
