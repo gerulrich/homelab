@@ -10,7 +10,7 @@ export default defineConfig({
       // svgr options: https://react-svgr.com/docs/options/
       svgrOptions: { exportType: 'name', default: true },
       include: "**/*.svg",
-      exclude: "src/assets/images/flag/*.svg",
+      exclude: ["src/assets/images/flag/*.svg", "src/assets/apps/*.svg"],
     }),
     react()
   ],
