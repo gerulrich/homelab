@@ -3,8 +3,8 @@ const https = require('https');
 
 const defaultBody = {
   excludeZeroPxAndQty: true,
-  T2: true,
-  T1: false,
+  T2: false,
+  T1: true,
   T0: false,
   'Content-Type': 'application/json'
 };
