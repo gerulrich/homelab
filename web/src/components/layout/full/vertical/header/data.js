@@ -1,7 +1,16 @@
 import img1 from '@app/assets/images/profile/user-1.jpg';
 import LedFxIcon from '@app/assets/apps/ledfx.png';
 import MongoExpressIcon from '@app/assets/apps/mongo-express.png';
-
+import plexIcon from '@app/assets/apps/plex.svg';
+import piholeIcon from '@app/assets/apps/pihole.svg';
+import guacamoleIcon from '@app/assets/apps/guacamole.svg'
+import photoprismIcon from '@app/assets/apps/photoprism.svg';
+import nodeRedIcon from '@app/assets/apps/node-red.svg';
+import homeassistantIcon from '@app/assets/apps/homeassistant.svg';
+import esphomeIcon from '@app/assets/apps/esphome.svg';
+import vaultIcon from '@app/assets/apps/vaultwarden.svg';
+import zigbeeIcon from '@app/assets/apps/zigbee2mqtt.svg';
+import mqttIcon from '@app/assets/apps/mqtt.svg';
 //
 // Notifications dropdown
 //
@@ -49,49 +58,49 @@ const appsLink = [
     href: 'https://plex.homelab.net.ar',
     title: 'Plex',
     subtext: 'Media Server',
-    avatar: "/src/assets/apps/plex.svg",
+    avatar: plexIcon,
   },
   {
     href: '/apps/ecommerce/shop',
     title: 'Pi Hole',
     subtext: 'Ad Blocking',
-    avatar: "/src/assets/apps/pihole.svg",
+    avatar: piholeIcon,
   },
   {
     href: 'https://guacamole.homelab.net.ar/',
     title: 'Guacamole',
     subtext: 'Remote Access',
-    avatar: "/src/assets/apps/guacamole.svg",
+    avatar: guacamoleIcon,
   },
   {
     href: '/apps/calendar',
     title: 'Photo Prism',
     subtext: 'Photo Organization & Storage',
-    avatar: "/src/assets/apps/photoprism.svg",
+    avatar: photoprismIcon,
   },
   {
     href: '/apps/contacts',
     title: 'Node Red',
     subtext: 'Task Automation and Workflow',
-    avatar: "/src/assets/apps/node-red.svg",
+    avatar: nodeRedIcon,
   },
   {
     href: 'https://hassio.homelab.net.ar',
     title: 'Home Assistant',
     subtext: 'Home Control and Automation',
-    avatar: "/src/assets/apps/homeassistant.svg",
+    avatar: homeassistantIcon,
   },
   {
     href: '/apps/email',
     title: 'ESP Home',
     subtext: 'Microcontrollers & Home Automation',
-    avatar: "/src/assets/apps/esphome.svg",
+    avatar: esphomeIcon,
   },
   {
     href: '/dashboards/ecommerce',
     title: 'Vault Garden ',
     subtext: 'Password Manager',
-    avatar: "/src/assets/apps/vaultwarden.svg"
+    avatar: vaultIcon
   },
   {
     href: '/dashboards/ecommerce',
@@ -103,7 +112,7 @@ const appsLink = [
     href: '/dashboards/ecommerce',
     title: 'Zigbee2MQTT ',
     subtext: 'Zigbee Devices and MQTT',
-    avatar: "/src/assets/apps/zigbee2mqtt.svg",
+    avatar: zigbeeIcon,
   },  
   {
     href: '/dashboards/ecommerce',
@@ -115,7 +124,7 @@ const appsLink = [
     href: '/dashboards/ecommerce',
     title: 'MQTT explorer ',
     subtext: 'Explore messages & topics',
-    avatar: "/src/assets/apps/mqtt.svg",
+    avatar: mqttIcon,
   }
 ];
 
