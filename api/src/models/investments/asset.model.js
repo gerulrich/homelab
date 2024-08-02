@@ -1,51 +1,63 @@
 const mongoose = require('mongoose');
 
-const AssetSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  symbol: {
-    type: String,
-    required: true
-  },
-  type: {
-    type: String,
-    enum: ['cedear', 'bono', 'on', 'foreign'],
-    required: true
-  },
-  market: {
-    type: String,
-    required: true
-  },
-  icon: {
-    type: String
-  },
-  description: {
-    type: String
-  },  
-  price: {
-    value: {
+const AssetSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true
+    },
+    symbol: {
+      type: String,
+      required: true
+    },
+    type: {
+      type: String,
+      enum: ['cedear', 'bono', 'on', 'foreign'],
+      required: true
+    },
+    market: {
+      type: String,
+      required: true
+    },
+    icon: {
+      type: String
+    },
+    description: {
+      type: String
+    },
+    price: {
+      value: {
+        type: Number
+      },
+      currency: {
+        type: String
+      }
+    },
+    ratio: {
       type: Number
     },
-    currency: {
-      type: String
+    maturity_date: {
+      type: Date
     }
   },
-  ratio: {
-    type: Number
+  {
+    toObject: {
+      transform: function (doc, ret) {
+        ret.uid = ret._id;
+        delete ret._id;
+        delete ret.__v;
+      }
+    },
+    toJSON: {
+      transform: function (doc, ret) {
+        ret.uid = ret._id;
+        delete ret._id;
+        delete ret.__v;
+      }
+    }
   },
-  maturityDate: {
-    type: Date
-  }
-}, { timestamps: true });
-
-AssetSchema.methods.toJSON = function() {
-  // eslint-disable-next-line no-unused-vars
-  const {__v, _id, ...asset} = this.toObject();
-  asset.uid = _id;
-  return asset;
-};
+  { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } },
+);
 
 const Asset = mongoose.model('Asset', AssetSchema);
 

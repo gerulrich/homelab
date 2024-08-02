@@ -16,6 +16,9 @@ const ForgotPasswordPage = Loadable(lazy(() => import('@app/views/auth/ForgotPas
 const ListAssets = Loadable(lazy(() => import('@app/views/investments/ListAssets')));
 const AddAsset = Loadable(lazy(() => import('@app/views/investments/AddAsset')));
 const EditAsset = Loadable(lazy(() => import('@app/views/investments/EditAsset')));
+const ListTransactions = Loadable(lazy(() => import('@app/views/investments/ListTransactions')));
+const AddTransaction = Loadable(lazy(() => import('@app/views/investments/AddTransaction')));
+const EditTransaction = Loadable(lazy(() => import('@app/views/investments/EditTransaction')));
 
 const Home = Loadable(lazy(() => import('@app/views/Home')));
 const Page = Loadable(lazy(() => import('@app/views/Page')));
@@ -36,6 +39,9 @@ export const AppRouter = [
         { path: '/investments/assets', element: <ListAssets /> },
         { path: '/investments/assets/new', element: <AddAsset /> },
         { path: '/investments/assets/:assetId', element: <EditAsset /> },
+        { path: '/investments/transactions', element: <ListTransactions /> },
+        { path: '/investments/transactions/new', element: <AddTransaction /> },
+        { path: '/investments/transactions/:transactionId', element: <EditTransaction /> },
         { path: '*', element: <Navigate to="/" /> },
       ],
     },
