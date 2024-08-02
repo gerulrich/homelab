@@ -11,16 +11,21 @@ export const WebsocketSlice = createSlice({
   name: 'websocket',
   initialState,
   reducers: {
-    setConnected(state, action) {
+    setConnected: (state, action) => {
       state.socket.isConnected = action.payload;
     },
-    addNotification(state, action) {
+    addNotification: (state, action) => {
       state.socket.notifications.push(action.payload);
     },
-    clearNotifications(state) {
+    clearNotifications: (state) => {
       state.socket.notifications = [];
+    },
+    markAllNotificationsAsRead: (state) => {
+      state.socket.notifications.forEach(notification => {
+        notification.read = true;
+      });
     },
   },
 });
 
-export const { setConnected, addNotification, clearNotifications } = WebsocketSlice.actions;
+export const { setConnected, addNotification, clearNotifications, markAllNotificationsAsRead } = WebsocketSlice.actions;

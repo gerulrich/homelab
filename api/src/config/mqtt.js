@@ -20,15 +20,28 @@ const initializeMQTT = (io) => {
   });
 
   client.on('message', (topic, payload) => {
-    if (topic === '/homelab/device/status') {
-      const { entity_id, state } = JSON.parse(payload.toString());
-      console.log(`Received Message: ${  entity_id  } ${  state}`);
-      io.emit('notification', `${entity_id  } ${  state}`);
+    switch (topic) {
+      case '/homelab/device/status':
+      case '/homelab/message': {
+        console.log(`Received Message: ${payload}`);
+        // payload from mqtt needed to be parsed with json
+        const msg = JSON.parse(payload);
+        if (msg.user) {
+          const sockets = Array.from(io.sockets.sockets.values());
+          const socket = sockets.find(socket => socket.uid === msg.user);
+          if (socket) {
+            socket.emit('notification', msg);
+          }
+        } else {
+          io.emit('notification', msg);
+        }
+        break;
+      }
+      default:
+        break;
     }
-
-    // TODO aqui va la lógica para recibir los eventos y procearlos
-
   });
+
   return client;
 };
 

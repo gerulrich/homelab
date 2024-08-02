@@ -36,6 +36,7 @@ export const useSearch = (url) => {
 
   return {
     data,
+    setData,
     search: q,
     setSearch,
     page,
@@ -43,6 +44,7 @@ export const useSearch = (url) => {
     size,
     setSize,
     loading,
+    setError,
     error,
   };
 }

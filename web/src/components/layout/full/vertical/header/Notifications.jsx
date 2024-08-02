@@ -11,13 +11,19 @@ import {
   Button,
   Chip,
 } from '@mui/material';
-import * as dropdownData from './data';
 import Scrollbar from '@app/components/customs/Scrollbar';
 
-import { IconBellRinging } from '@tabler/icons-react';
+import { IconBellRinging, IconTrash } from '@tabler/icons-react';
 import { Stack } from '@mui/system';
+import { useSelector } from 'react-redux';
+import { markAllNotificationsAsRead } from '@app/store/slices';
+import { useDispatch } from 'react-redux';
 
 const Notifications = () => {
+  const dispatch = useDispatch();
+  const notifications = useSelector((state) => state.websocket.socket.notifications);
+  const news = notifications.filter(item => !item.read).length;
+
   const [anchorEl2, setAnchorEl2] = useState(null);
 
   const handleClick2 = (event) => {
@@ -26,6 +32,10 @@ const Notifications = () => {
 
   const handleClose2 = () => {
     setAnchorEl2(null);
+  };
+
+  const handleReadAllNotifications = () => {
+    dispatch(markAllNotificationsAsRead());
   };
 
   return (
@@ -43,9 +53,15 @@ const Notifications = () => {
         }}
         onClick={handleClick2}
       >
-        <Badge variant="dot" color="primary">
-          <IconBellRinging size="21" stroke="1.5" />
-        </Badge>
+        {
+          news === 0
+            ? (<IconBellRinging size="21" stroke="1.5" />)
+            : (
+              <Badge variant="dot" color="primary">
+                <IconBellRinging size="21" stroke="1.5" />
+              </Badge>
+            )
+        }
       </IconButton>
       {/* ------------------------------------------- */}
       {/* Message Dropdown */}
@@ -66,10 +82,15 @@ const Notifications = () => {
       >
         <Stack direction="row" py={2} px={4} justifyContent="space-between" alignItems="center">
           <Typography variant="h6">Notifications</Typography>
-          <Chip label="5 new" color="primary" size="small" />
+          {
+            news > 0 && (<Chip label={`${news} news`} color="primary" size="small" />)
+          }
+          <IconButton onClick={handleReadAllNotifications} variant="outlined" color="primary">
+            <IconTrash size="21" stroke="1"/>
+          </IconButton>
         </Stack>
         <Scrollbar sx={{ height: '385px' }}>
-          {dropdownData.notifications.map((notification, index) => (
+          {notifications.map((notification, index) => (
             <Box key={index}>
               <MenuItem sx={{ py: 2, px: 4 }}>
                 <Stack direction="row" spacing={2}>
@@ -89,9 +110,10 @@ const Notifications = () => {
                       noWrap
                       sx={{
                         width: '240px',
+                        fontWeight: notification.read ? 'normal' : 'bold'
                       }}
                     >
-                      {notification.title}
+                      {notification.message}
                     </Typography>
                     <Typography
                       color="textSecondary"

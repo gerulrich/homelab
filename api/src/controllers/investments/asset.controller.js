@@ -1,24 +1,23 @@
 const Asset = require('@app/models/investments/asset.model');
 const { getPricingStrategy } = require('@app/services');
 
-const createAsset = async (req, res) => {
+const createAsset = async (req, res, next) => {
   const { type, symbol, ...data } = req.body;
   const strategy = getPricingStrategy(type);
   try {
-    const { price, maturityDate } = await strategy(symbol);
+    const { price, maturity_date } = await strategy(symbol);
     const assetData = {
       type: type === 'cedear-etf' ? 'cedear' : type,
       symbol,
       price,
-      maturityDate,
+      maturity_date,
       ...data
     };
     const asset = new Asset(assetData);
     await asset.save();
     res.status(201).json(asset);
   } catch (error) {
-    console.error('Error creating asset:', error);
-    res.status(500).json({ error: 'Error creating asset' });
+    next(error);
   }
 };
 
@@ -51,6 +50,9 @@ const getAssetById = async (req, res) => {
 const updateAssetById = async (req, res) => {
   const { id } = req.params;
   const { uid, ...data } = req.body; // eslint-disable-line no-unused-vars
+
+  // TODO type cedear-etf -> cedear.
+
   const asset = await Asset.findByIdAndUpdate(id, data, { new: true });
   return res.json(asset);
 };
