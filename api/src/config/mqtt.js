@@ -22,11 +22,11 @@ const initializeMQTT = (io) => {
   client.on('message', (topic, payload) => {
     switch (topic) {
       case '/homelab/device/status':
-      case '/homelab/message':
+      case '/homelab/message': {
         console.log(`Received Message: ${payload}`);
         // payload from mqtt needed to be parsed with json
         const msg = JSON.parse(payload);
-        if ( msg.user ) {
+        if (msg.user) {
           const sockets = Array.from(io.sockets.sockets.values());
           const socket = sockets.find(socket => socket.uid === msg.user);
           if (socket) {
@@ -36,6 +36,7 @@ const initializeMQTT = (io) => {
           io.emit('notification', msg);
         }
         break;
+      }
       default:
         break;
     }
