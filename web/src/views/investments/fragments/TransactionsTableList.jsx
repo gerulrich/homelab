@@ -20,11 +20,14 @@ import {
 } from '@mui/material';
 import { IconPlus, IconSearch } from '@tabler/icons-react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { green, yellow, purple, blue, deepPurple, pink, orange, teal } from '@mui/material/colors';
 import { useSearch } from '@app/hooks/useSearch';
 import { EditAndDeleteMenu } from './EditAndDeleteMenu';
 import axios from '@app/services/homelab'
+import { DateView } from '../../../components/utils/DateView';
+import { MoneyView } from '../../../components/utils/MoneyView';
 
-export const AssetsTableList = () => {
+export const TransactionsTableList = () => {
   const navigate = useNavigate();
   const {
     data,
@@ -37,7 +40,7 @@ export const AssetsTableList = () => {
     setSize,
     loading,
     error,
-    setError } = useSearch('/investments/assets');
+    setError } = useSearch('/investments/transactions');
   const [activeRowIndex, setActiveRowIndex] = useState(null);
   const emptyRows = Math.max(0, size - data.items.length);
 
@@ -48,12 +51,11 @@ export const AssetsTableList = () => {
     setPage(0);
   };
 
-  const onEdit = (asset) => navigate(`/investments/assets/${asset.uid}`);
-  const onDelete = (asset) => {
-    console.log(`Eliminando ${asset.name}`);
-    axios.delete(`/investments/assets/${asset.uid}`)
+  const onEdit = (transaction) => navigate(`/investments/transactions/${transaction.uid}`);
+  const onDelete = (transaction) => {
+    axios.delete(`/investments/transactions/${transaction.uid}`)
       .then(resp => {
-        const filtered = data.items.filter(item => item.uid != asset.uid);
+        const filtered = data.items.filter(item => item.uid != transaction.uid);
         const pagination = data.pagination;
         setData({
           items: filtered,
@@ -64,6 +66,50 @@ export const AssetsTableList = () => {
         alert(t('editAsset.errorLoadingAsset'));
       });
   }
+
+  const getAssetColor = (type) => {
+    switch (type) {
+      case 'cedear':
+        return blue[400];
+      case 'bono':
+        return pink[700];
+      case 'on':
+        return purple[500];
+      default:
+        return yellow[800];
+    }
+  };
+
+
+  const getTypeColor = (status) => {
+    switch (status) {
+      case 'buy':
+        return green[800];
+      case 'sell':
+        return pink[300];
+      case 'dividend':
+        return teal[500];
+      case 'coupon':
+        return orange[900];
+      default:
+        return deepPurple[500];
+    }
+  };
+
+  const formatDate = (date) => {
+    if (!date) return '';
+
+    // Obtener el locale del navegador
+    const locale = navigator.language;
+
+    // Formatear la fecha según el locale del usuario, sin la hora
+    return new Intl.DateTimeFormat(locale, {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+    }).format(new Date(date));
+  };
+  
 
   return (
     <>
@@ -87,8 +133,8 @@ export const AssetsTableList = () => {
           />
         </Box>
 
-        <Tooltip title="Agregar asset">
-            <IconButton component={NavLink} to="/investments/assets/new">
+        <Tooltip title="Nueva Transacción">
+            <IconButton component={NavLink} to="/investments/transactions/new">
               <IconPlus size="1.2rem" icon="filter" />
             </IconButton>
         </Tooltip>
@@ -105,19 +151,16 @@ export const AssetsTableList = () => {
             <TableHead>
               <TableRow>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Nombre</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">Fecha</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
                   <Typography variant="subtitle1" fontWeight="500">Ticker</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Ratio</Typography>
-                </TableCell>
-                <TableCell align="left" padding="normal">
                   <Typography variant="subtitle1" fontWeight="500">Tipo</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Mercado</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">Cantidad</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
                   <Typography variant="subtitle1" fontWeight="500">Precio</Typography>
@@ -136,58 +179,55 @@ export const AssetsTableList = () => {
                       onMouseLeave={() => setActiveRowIndex(null)}
                     >
                       <TableCell>
-
-                        <Stack spacing={2} direction="row" alignItems="center">
-                          <Avatar
-                            src={row.icon}
-                            width="32"
-                            variant="rounded"
-                          >{row.symbol}</Avatar>
-                          <Box>
-                            <Typography variant="h6" fontWeight="600">
-                              {row.name}
-                            </Typography>
-                          </Box>
-                        </Stack>
-
+                        <DateView date={row.date}/>
                       </TableCell>
 
                       <TableCell>
                         <Typography color="textSecondary" variant="h6" fontWeight="400">
-                          {row.symbol}
+                        <Chip label={row.asset.name}
+                         avatar={<Avatar alt="row.asset.name" src={row.asset.icon} />}
+                         sx={{
+                          backgroundColor: getAssetColor(row.asset.type),
+                          color: 'white',
+                          '&:hover': {
+                            backgroundColor: getAssetColor(row.asset.type, true),
+                          },
+                        }}
+                          />
                         </Typography>
                       </TableCell>
 
                       <TableCell>
                         <Typography color="textSecondary" variant="h6" fontWeight="400">
-                          {row.ratio}
+                        <Chip label={
+                            row.type === 'buy' ? 'Compra'
+                              : row.type === 'sell' ? 'Venta'
+                              : row.type === 'coupon' ? 'Cupón'
+                              : row.type === 'dividend' ? 'Dividendo'
+                              : 'Amortizacion'
+                              }
+                              sx={{
+                                backgroundColor: getTypeColor(row.type),
+                                color: 'white',
+                                '&:hover': {
+                                  backgroundColor: getTypeColor(row.type, true),
+                                },
+                              }} />
+
+
                         </Typography>
                       </TableCell>
 
                       <TableCell>
                         <Stack spacing={1} direction="row" alignItems="center">
-                          <Chip label={row.type} color={
-                            row.type === 'cedear'
-                              ? 'success'
-                              : row.type === 'on'
-                                ? 'warning'
-                                : row.type === 'bono'
-                                  ? 'primary'
-                                  : 'secondary'
-                          } />
+                          {row.quantity}
                         </Stack>
                       </TableCell>
 
                       <TableCell>
-                        <Typography>
-                          {row.market}
-                        </Typography>
+                        <MoneyView amount={row.price?.amount} currency={row.price?.currency}/>
                       </TableCell>
-                      <TableCell>
-                        <Typography>
-                          {row.price.value} {row.price.currency}
-                        </Typography>
-                      </TableCell>
+
                       <TableCell style={{ width: "48px", padding: "2px", marginRight: "25px" }}>
                         {activeRowIndex === index && (
                           <EditAndDeleteMenu 
@@ -226,4 +266,4 @@ export const AssetsTableList = () => {
   )
 }
 
-export default AssetsTableList;
+export default TransactionsTableList;

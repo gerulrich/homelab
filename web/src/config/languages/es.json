@@ -39,7 +39,8 @@
     },
     "breadcrumb": {
         "Home": "Inicio",
-        "Assets": "Activos",
-        "Edit Asset": "Editar activo"
+        "Assets": "Activos disponibles",
+        "Edit Asset": "Editar activo",
+        "Transactions": "Registro de Transacciones"
     }
 }

@@ -49,7 +49,8 @@ import {
     IconAppWindow,
     IconLockAccess,
     IconWallet,
-    IconBrandStackshare
+    IconBrandStackshare,
+    IconTransactionDollar,
   } from '@tabler/icons-react';
   
   import { uniqueId } from 'lodash';
@@ -83,6 +84,18 @@ import {
       title: 'Activos',
       icon: IconBrandStackshare,
       href: '/investments/assets',
+    },
+    {
+      id: uniqueId(),
+      title: 'Transacciones',
+      icon: IconTransactionDollar,
+      href: '/investments/transactions',
+    },
+    {
+      id: uniqueId(),
+      title: 'Cartera',
+      icon: IconWallet,
+      href: '/investments/wallet',
     },    
     {
       navlabel: true,

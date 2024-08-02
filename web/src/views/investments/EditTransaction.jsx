@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import PageContainer from "@app/components/container/PageContainer"
 import Breadcrumb from '@app/components/layout/full/shared/Breadcrumb';
 import ParentCard from "@app/components/common/ParentCard";
-import AssetForm from "@app/views/investments/fragments/AssetForm";
 import axios from '@app/services/homelab'
+import TransactionForm from './fragments/TransactionForm';
 
 const BCrumb = [
   {
@@ -14,69 +14,64 @@ const BCrumb = [
     title: 'Home',
   },
   {
-    to: '/investments/assets',
-    title: 'Assets',
+    to: '/investments/transactions',
+    title: 'Transaction',
   },
   {
-    title: 'Edit Asset',
+    title: 'Edit Transaction',
   },
 ];
 
-export const EditAsset = () => {
+export const EditTransaction = () => {
   const { t } = useTranslation();
-  const { assetId } = useParams();
+  const { transactionId } = useParams();
   const navigate = useNavigate();
   const [initialValues, setInitialValues] = useState({
-    asset_name: '',
-    symbol: '',
-    market: '',
-    asset_type: '',
-    icon: '',
-    description: '',
-    price: 0,
+    asset: {symbol: '', market: '', name: ''},
+    quantity: 0,
+    amount: 0,
     currency: '',
-    ratio: 1
+    type: '',
+    date: new Date()
   });
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`/investments/assets/${assetId}`)
+    axios.get(`/investments/transactions/${transactionId}`)
       .then(resp => {
-        const { name, type, price, ...others } = resp.data;
+        const { date, price, ...other } = resp.data;
         setInitialValues({
-          asset_name: name,
-          asset_type: type,
-          price: price.value,
+          date: new Date(date),
+          amount: price.amount,
           currency: price.currency,
-          ...others
+          ...other
         });
       }).catch(err => {
         setError(err.message);
       });
-  }, [assetId]);
+  }, [transactionId]);
 
-  const handleSubmit = (asset) => {
+  const handleSubmit = (transaction) => {
     setError(null);
-    const { asset_name, asset_type, price, currency, ...others } = asset;
-    axios.put(`/investments/assets/${assetId}`, {
-      name: asset_name,
-      type: asset_type,
-      ...others
-    }).then(() => navigate("/investments/assets/"))
+    const { quantity, amount, currency, asset, ...other } = transaction;
+    const body = {
+      quantity, price: { amount, currency }, asset: asset.uid, ...other
+    }
+    axios.put(`/investments/transactions/${transactionId}`, body).then(() => navigate("/investments/transactions/"))
       .catch(err => {
-        setError(t('editAsset.errorSavingAsset'));
+        setError(t('editTransaction.errorSavingTransaction'));
       });
   };
 
 
   return (
-    <PageContainer title={t('asset.edit.pageTitle')} description={t('editAsset.pageDescription')}>
+    <PageContainer title={t('transaction.edit.pageTitle')} description={t('editTransaction.pageDescription')}>
       <Breadcrumb title={t('investment.breadcrumbTitle')} items={BCrumb.map(item => ({ ...item, title: t(`breadcrumb.${item.title}`) }))} />
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <ParentCard title={t('asset.edit.formTitle')}>
+          <ParentCard title={t('transaction.edit.formTitle')}>
             {error && (<Alert severity="error">{error}</Alert>)}
-            <AssetForm initialValues={initialValues} onSubmit={handleSubmit} />
+            <TransactionForm initialValues={initialValues} onSubmit={handleSubmit} />
           </ParentCard>
         </Grid>
       </Grid>
@@ -84,4 +79,4 @@ export const EditAsset = () => {
   )
 }
 
-export default EditAsset;
+export default EditTransaction;

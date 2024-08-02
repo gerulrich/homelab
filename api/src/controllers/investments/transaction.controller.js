@@ -1,89 +1,84 @@
-const { validationResult } = require('express-validator');
-const Transaction = require('../../models/investments/transaction.model');
-const Holding = require('../../models/investments/holding.model');
+const Transaction = require('@app/models/investments/transaction.model');
 
-exports.createTransaction = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
+const createTransaction = async (req, res, next) => {
   try {
-    const transaction = new Transaction(req.body);
+    const user = req.user.uid;
+    const { date, asset, type, price, quantity, details } = req.body;
+    const transaction = new Transaction({ date, user, asset, type, price, quantity, details });
     await transaction.save();
-
-    await updateHoldings(transaction);
-
     res.status(201).json(transaction);
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Server Error');
+    next(error);
   }
 };
 
-// Actualizar una transacción
-exports.updateTransaction = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
+const getTransactionById = async (req, res, next) => {
   try {
-    const transaction = await Transaction.findById(req.params.id);
-
+    const { id } = req.params;
+    const transaction = await Transaction.findOne({ _id: id, user: req.user.uid })
+      .populate('user', 'email')
+      .populate('asset');
     if (!transaction) {
-      return res.status(404).json({ message: 'Transaction not found' });
+      return res.status(404).json({ message: 'Transaction ${id} not found' });
     }
-
-    // Guardar la cantidad anterior antes de la actualización
-    const oldQuantity = transaction.quantity;
-
-    // Actualizar la transacción con los nuevos valores
-    transaction.set(req.body);
-    await transaction.save();
-
-    // Calcular la diferencia entre la cantidad anterior y la nueva cantidad
-    const quantityDifference = transaction.quantity - oldQuantity;
-
-    // Actualizar las tenencias solo si la cantidad ha cambiado
-    if (quantityDifference !== 0) {
-      await updateHoldings(transaction, quantityDifference);
-    }
-
-    res.json(transaction);
+    return res.json(transaction);
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Server Error');
+    next(error);
   }
 };
 
-// Eliminar una transacción
-exports.deleteTransaction = async (req, res) => {
+const getAllTransactions = async (req, res, next) => {
   try {
-    const transaction = await Transaction.findByIdAndDelete(req.params.id);
-
-    // Actualizar las tenencias
-    await updateHoldings(transaction, true);
-
-    res.json({ message: 'Transaction deleted' });
+    const { limit = 25, offset = 0 } = req.query;
+    const query = { user: req.user.uid };
+    const [total, transactions] = await Promise.all([
+      Transaction.countDocuments(query),
+      Transaction.find(query)
+        .populate('asset', 'name symbol type icon')
+        .limit(parseInt(limit))
+        .skip(parseInt(offset))
+    ]);
+    res.json({
+      items: transactions,
+      pagination: {
+        total,
+        limit: parseInt(limit),
+        offset: parseInt(offset),
+      }
+    });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Server Error');
+    next(error);
   }
 };
 
-const updateHoldings = async (transaction, isDelete = false) => {
-  const { user, asset, quantity, type } = transaction;
-  const quantityChange = isDelete ? -quantity : (type === 'buy' ? quantity : -quantity);
-  let holding = await Holding.findOne({ user, asset });
-  if (!holding) {
-    holding = new Holding({
-      user,
-      asset,
-      quantity: 0
-    });
+const updateTransaction = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { uid, user, ...data } = req.body; // eslint-disable-line no-unused-vars
+    const transaction = await Transaction.findOneAndUpdate({ _id: id, user: req.user.uid }, data, { new: true });
+    return res.json(transaction);
+  } catch (error) {
+    next(error);
   }
+};
 
-  holding.quantity += quantityChange;
-  await holding.save();
+const deleteTransaction = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { deletedCount } = await Transaction.deleteOne({ _id: id, user: req.user.uid });
+    if (deletedCount === 0) {
+      return res.status(404).json({ msg: `Transaction ${id} not found` });
+    }
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  createTransaction,
+  getTransactionById,
+  getAllTransactions,
+  updateTransaction,
+  deleteTransaction
 };

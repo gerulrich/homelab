@@ -11,21 +11,6 @@ import esphomeIcon from '@app/assets/apps/esphome.svg';
 import vaultIcon from '@app/assets/apps/vaultwarden.svg';
 import zigbeeIcon from '@app/assets/apps/zigbee2mqtt.svg';
 import mqttIcon from '@app/assets/apps/mqtt.svg';
-//
-// Notifications dropdown
-//
-const notifications = [
-  {
-    avatar: img1,
-    title: 'Roman Joined the Team!',
-    subtitle: 'Congratulate him',
-  },
-  {
-    avatar: img1,
-    title: 'New message received',
-    subtitle: 'Salma sent you new message',
-  }
-];
 
 //
 // Profile dropdown
@@ -97,7 +82,7 @@ const appsLink = [
     avatar: esphomeIcon,
   },
   {
-    href: '/dashboards/ecommerce',
+    href: 'https://vault.homelab.net.ar',
     title: 'Vault Garden ',
     subtext: 'Password Manager',
     avatar: vaultIcon
@@ -163,4 +148,4 @@ const pageLinks = [
   },
 ];
 
-export { notifications, profile, pageLinks, appsLink };
+export { profile, pageLinks, appsLink };

@@ -11,7 +11,7 @@ const BymaPricing = async (type, symbol) => {
           value: item.trade,
           currency: item.denominationCcy
         },
-        maturityDate: item.maturityDate ? item.maturityDate : null
+        maturity_date: item.maturityDate ? item.maturityDate : null
       };
     }
   } catch (error) {
@@ -29,5 +29,5 @@ module.exports = {
   CedearPricing,
   ETFPricing,
   ONPricing,
-  BondPricing
+  BondPricing,
 };
