@@ -1,20 +1,22 @@
 import PropTypes from 'prop-types';
-import { Grid, Button, MenuItem, Autocomplete, Box, TextField, Chip, Avatar, Typography, FormHelperText } from '@mui/material';
+import { Grid, Button, MenuItem, Autocomplete, Box, TextField, Avatar, Typography, FormHelperText } from '@mui/material';
 import * as Yup from 'yup';
 import { Form, useFormik, FormikProvider } from 'formik';
 import CustomFormLabel from '@app/components/customs/CustomFormLabel';
 import CustomTextField from '@app/components/customs/CustomTextField';
 import useMounted from '@app/components/guards/UseMounted';
-import CustomSelect from '../../../components/customs/CustomSelect';
+import CustomSelect from '@app/components/customs/CustomSelect';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { useState } from 'react';
 import axios from '@app/services/homelab'
+import { useTranslation } from 'react-i18next';
 
 export const TransactionForm = ({ initialValues, onSubmit }) => {
   const mounted = useMounted();
   const [assets, setAssets] = useState([]);
+  const { t } = useTranslation();
   
   const fetchAssets = async(q) => {
     const response = await axios.get(`/investments/assets?q=${q}`)
@@ -23,20 +25,23 @@ export const TransactionForm = ({ initialValues, onSubmit }) => {
   
   const TransactionSchema = Yup.object().shape({
     date: Yup.date()
-      .required('La fecha es requerida')
-      .max(new Date(), 'La fecha no puede ser en el futuro'),
+      .required(t('form.validation.date.required'))
+      .max(new Date(), t('form.validation.date.max'))
+      .typeError(t('form.validation.date.typeError')),
     asset: Yup.object()
-      .required('El activo es requerido'),
-    quantity: Yup.number('La cantidad debe ser un número')
-      .required('La cantidad es requerida'),
+      .required(t('form.validation.asset.required')),
+    quantity: Yup.number()
+      .required(t('form.validation.quantity.required'))
+      .typeError(t('form.validation.quantity.typeError')),
     amount: Yup.number()
-      .required('El monto es requerido'),
+      .required(t('form.validation.amount.required'))
+      .typeError(t('form.validation.amount.typeError')),
     currency: Yup.string()
-      .required('La moneda es requerida')
-      .oneOf(['USD', 'EUR', 'ARS'], 'Moneda no válida'),
+    .required(t('form.validation.currency.required'))
+      .oneOf(['USD', 'EUR', 'ARS'], t('form.validation.currency.oneOf')),
     type: Yup.string()
-      .required('El tipo de operación es requerido')
-      .oneOf(['buy', 'sell', 'dividend', 'coupon', 'amortization'], 'Tipo de operación no válido'),
+      .required(t('form.validation.type.required'))
+      .oneOf(['buy', 'sell', 'dividend', 'coupon', 'amortization', 'split'], t('form.validation.type.oneOf')),
     details: Yup.string()
       .optional(),
   });
@@ -68,12 +73,10 @@ export const TransactionForm = ({ initialValues, onSubmit }) => {
     <FormikProvider value={formik}>
       <Form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
-          
-          
           {/* Date */}
           <Grid item xs={12} sm={2} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="quantity" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Fecha
+              {t('form.fields.date')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={10}>
@@ -93,7 +96,7 @@ export const TransactionForm = ({ initialValues, onSubmit }) => {
           {/* Asset */}
           <Grid item xs={12} sm={2} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="asset" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Activo
+            {t('form.fields.asset')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={10}>
@@ -121,19 +124,12 @@ export const TransactionForm = ({ initialValues, onSubmit }) => {
               value={formik.values.asset}
               onChange={(event, newValue) => formik.setFieldValue("asset", newValue, true)}
             />
-
-
-
-
-
-
           </Grid>
-
           
           {/* Quantity */}
           <Grid item xs={12} sm={2} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="quantity" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Cantidad
+            {t('form.fields.quantity')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={10}>
@@ -147,10 +143,10 @@ export const TransactionForm = ({ initialValues, onSubmit }) => {
               fullWidth />
           </Grid>
 
-          {/* Price */}
+          {/* Amount */}
           <Grid item xs={12} sm={2} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="amount" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Precio
+            {t('form.fields.amount')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={3}>
@@ -185,7 +181,7 @@ export const TransactionForm = ({ initialValues, onSubmit }) => {
           {/* Type */}
           <Grid item xs={12} sm={2} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="type" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Operación
+            {t('form.fields.type')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={3}>
@@ -200,6 +196,7 @@ export const TransactionForm = ({ initialValues, onSubmit }) => {
               <MenuItem value="dividend">Dividendo</MenuItem>
               <MenuItem value="coupon">Cupón</MenuItem>
               <MenuItem value="amortization">Amortización</MenuItem>
+              <MenuItem value="split">Split</MenuItem>
             </CustomSelect>
             {touched.type && formik.errors.type && (
               <FormHelperText error>
@@ -212,7 +209,7 @@ export const TransactionForm = ({ initialValues, onSubmit }) => {
           {/* Details */}
           <Grid item xs={12} sm={2} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="details" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Detalle
+            {t('form.fields.detail')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={10}>
@@ -226,11 +223,11 @@ export const TransactionForm = ({ initialValues, onSubmit }) => {
               fullWidth />
           </Grid>
 
-          {/* Botón de Guardar */}
+          {/* Save button */}
           <Grid item xs={12} sm={2}></Grid>
           <Grid item xs={12} sm={9}>
             <Button variant="contained" color="primary" type="submit" disabled={isSubmitting}>
-              Guardar
+              {t('form.save')}
             </Button>
           </Grid>
         </Grid>

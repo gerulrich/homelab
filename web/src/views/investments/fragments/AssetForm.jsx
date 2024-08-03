@@ -6,9 +6,11 @@ import CustomFormLabel from '@app/components/customs/CustomFormLabel';
 import CustomTextField from '@app/components/customs/CustomTextField';
 import CustomSelect from '@app/components/customs/CustomSelect';
 import useMounted from '@app/components/guards/UseMounted';
+import { useTranslation } from 'react-i18next';
 
 export const AssetForm = ({ initialValues, onSubmit }) => {
   const mounted = useMounted();
+  const { t } = useTranslation();
   const AssetSchema = Yup.object().shape({
     asset_name: Yup.string().required('Name is required'),
     symbol: Yup.string().required('Symbol is required'),
@@ -47,13 +49,13 @@ export const AssetForm = ({ initialValues, onSubmit }) => {
           {/* Nombre */}
           <Grid item xs={12} sm={2} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="asset-name" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Nombre
+            {t('form.fields.name')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={10}>
             <CustomTextField
               id="asset-name"
-              placeholder="Nombre del activo"
+              placeholder={t('form.placeholder.name')}
               {...getFieldProps('asset_name')}
               error={Boolean(touched.asset_name && errors.asset_name)}
               helperText={touched.asset_name && errors.asset_name}
@@ -63,13 +65,13 @@ export const AssetForm = ({ initialValues, onSubmit }) => {
           {/* Símbolo */}
           <Grid item xs={12} sm={2} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="asset-symbol" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Símbolo
+            {t('form.fields.symbol')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={3}>
             <CustomTextField
               id="asset-symbol"
-              placeholder="Símbolo del activo"
+              placeholder={t('form.placeholder.symbol')}
               {...getFieldProps('symbol')}
               error={Boolean(touched.symbol && errors.symbol)}
               helperText={touched.symbol && errors.symbol}
@@ -79,7 +81,7 @@ export const AssetForm = ({ initialValues, onSubmit }) => {
           {/* Tipo */}
           <Grid item xs={12} sm={1} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="asset-type" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Tipo
+            {t('form.fields.type')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={2}>
@@ -106,7 +108,7 @@ export const AssetForm = ({ initialValues, onSubmit }) => {
           {/* Mercado */}
           <Grid item xs={12} sm={1} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="asset-market" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Mercado
+            {t('form.fields.market')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={3}>
@@ -131,13 +133,13 @@ export const AssetForm = ({ initialValues, onSubmit }) => {
           {/* Ratio */}
           <Grid item xs={12} sm={2} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="asset-ratio" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Ratio
+            {t('form.fields.ratio')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={3}>
             <CustomTextField
               id="asset-ratio"
-              placeholder="Ratio del activo"
+              placeholder={t('form.placeholder.ratio')}
               {...getFieldProps('ratio')}
               error={Boolean(touched.ratio && errors.ratio)}
               helperText={touched.ratio && errors.ratio}
@@ -148,13 +150,13 @@ export const AssetForm = ({ initialValues, onSubmit }) => {
           {/* Icono */}
           <Grid item xs={12} sm={1} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="asset-icon" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Icono
+            {t('form.fields.icon')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={6}>
             <CustomTextField
               id="asset-icon"
-              placeholder="URL del icono"
+              placeholder={t('form.placeholder.icon')}
               {...getFieldProps('icon')}
               error={Boolean(touched.icon && errors.icon)}
               helperText={touched.icon && errors.icon}
@@ -164,13 +166,13 @@ export const AssetForm = ({ initialValues, onSubmit }) => {
           {/* Descripción */}
           <Grid item xs={12} sm={2} display="flex" alignItems="center">
             <CustomFormLabel htmlFor="asset-description" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
-              Descripción
+            {t('form.fields.description')}
             </CustomFormLabel>
           </Grid>
           <Grid item xs={12} sm={10}>
             <CustomTextField
               id="asset-description"
-              placeholder="Descripción del activo"
+              placeholder={t('form.placeholder.description')}
               {...getFieldProps('description')}
               error={Boolean(touched.description && errors.description)}
               helperText={touched.description && errors.description}
@@ -182,7 +184,7 @@ export const AssetForm = ({ initialValues, onSubmit }) => {
           <Grid item xs={12} sm={2}></Grid>
           <Grid item xs={12} sm={9}>
             <Button variant="contained" color="primary" type="submit" disabled={isSubmitting}>
-              Guardar
+            {t('form.save')}
             </Button>
           </Grid>
         </Grid>

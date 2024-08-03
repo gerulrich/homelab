@@ -1,43 +1,100 @@
 {
-    "Modern": "Modern",
-    "Ecommerce": "Ecommerce",
-    "eCommerce": "eCommerce",
-    "Contacts": "Contacts",
-    "Blog": "Blog",
-    "Posts": "Posts",
-    "Detail": "Detail",
-    "Shop": "Shop",
-    "List": "List",
-    "Checkout": "Checkout",
-    "Chats": "Chats",
-    "Users": "Users",
-    "Profile": "Profile",
-    "Followers": "Followers",
-    "Friends": "Friends",
-    "Gallery": "Gallery",
-    "Notes": "Notes",
-    "Calendar": "Calendar",
-    "Email": "Email",
-    "Tickets": "Tickets",
-    "investment": {
-        "title": "Investments",
-        "description": "This is the investments page where you can view all available assets.",
-        "breadcrumbTitle": "Investments"
+  "Modern": "Modern",
+  "Home": "Home",
+  "Assets": "Assets",
+  "Transactions": "Transactions",
+  "Wallet": "Wallet",
+  "Ecommerce": "Ecommerce",
+  "eCommerce": "eCommerce",
+  "Contacts": "Contacts",
+  "Blog": "Blog",
+  "Posts": "Posts",
+  "Detail": "Detail",
+  "Shop": "Shop",
+  "List": "List",
+  "Checkout": "Checkout",
+  "Chats": "Chats",
+  "Users": "Users",
+  "Profile": "Profile",
+  "Followers": "Followers",
+  "Friends": "Friends",
+  "Gallery": "Gallery",
+  "Notes": "Notes",
+  "Calendar": "Calendar",
+  "Email": "Email",
+  "Tickets": "Tickets",
+  "form": {
+    "title": {
+      "addTransaction": "New Transaction",
+      "editTransaction": "Edit Transaction",
+      "newAsset": "New Asset",
+      "editAsset": "Edit Asset"
     },
-    "asset": {
-        "edit": {
-            "pageTitle": "Edit asset",
-            "pageDescription": "Esta es la página de edición de activos.",
-            "formTitle": "Editar activo"
-        },
-        "add": {
-            "pageTitle": "New asset",
-            "pageDescription": "Esta es la página de creación de activos.",
-            "formTitle": "New asset"
-        }
+    "fields":{
+      "date": "Date",
+      "asset": "Asset",
+      "amount": "Amount",
+      "quantity": "Quantity",
+      "currency": "Currency",
+      "type": "Type",
+      "detail": "Detail",
+      "symbol": "Ticker",
+      "ratio": "Ratio",
+      "price": "Price",
+      "market": "Market",
+      "name": "Name",
+      "description": "Description",
+      "icon": "Icon"
+    },
+    "validation": {
+      "date": {
+        "typeError": "The date must be valid",
+        "max": "The date cannot be greater than the current date",
+        "required": "The date is required"
+      },
+      "amount": {
+        "required": "The amount is required",
+        "typeError": "The amount must be a number"
+      },
+      "quantity": {
+        "required": "The quantity is required",
+        "typeError": "The quantity must be a number"
+      },
+      "currency": {
+        "required": "The currency is required",
+        "oneOf": "Invalid currency"
+      },
+      "type": {
+        "required": "The type is required",
+        "oneOf": "Invalid type"
+      }
+    },
+    "placeholder": {
+      "name": "Enter the name",
+      "icon": "Icon URL",
+      "symbol": "Enter the ticker",
+      "description": "Enter the description"
+    },    
+    "save": "Save",
+    "search": "Search"
+  },
+  "page": {
+    "title": {
+      "transactions": "Transactions",
+      "assets": "Assets",
+      "addAsset": "New Asset",
+      "editAsset": "Edit Asset"
     },
     "breadcrumb": {
-        "Home": "Home",
-        "Assets": "Assets"
+      "home": "Home",
+      "investments": "Investments",
+      "transaction": "Transaction",
+      "transactions": "Transactions",
+      "newTransaction": "New Transaction",
+      "editTransaction": "Edit Transaction",
+      "assets": "Assets",
+      "newAsset": "New Asset",
+      "editAsset": "Edit Asset"
     }
+  }
 }

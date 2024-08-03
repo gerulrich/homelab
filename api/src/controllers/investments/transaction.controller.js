@@ -34,6 +34,7 @@ const getAllTransactions = async (req, res, next) => {
     const [total, transactions] = await Promise.all([
       Transaction.countDocuments(query),
       Transaction.find(query)
+        .sort({ date: 1 })
         .populate('asset', 'name symbol type icon')
         .limit(parseInt(limit))
         .skip(parseInt(offset))

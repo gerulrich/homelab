@@ -11,14 +11,14 @@ import TransactionForm from './fragments/TransactionForm';
 const BCrumb = [
   {
     to: '/',
-    title: 'Home',
+    title: 'home',
   },
   {
     to: '/investments/transactions',
-    title: 'Transaction',
+    title: 'transaction',
   },
   {
-    title: 'Add Transaction',
+    title: 'newTransaction',
   },
 ];
 
@@ -49,11 +49,11 @@ export const AddTransaction = () => {
 
 
   return (
-    <PageContainer title={t('transaction.add.pageTitle')} description={t('addTransaction.pageDescription')}>
-      <Breadcrumb title={t('investment.breadcrumbTitle')} items={BCrumb.map(item => ({ ...item, title: t(`breadcrumb.${item.title}`) }))} />
+    <PageContainer title={t('page.title.addTransaction')} description={t('page.description.addTransaction')}>
+      <Breadcrumb title={t('page.breadcrumb.investments')} items={BCrumb.map(item => ({ ...item, title: t(`page.breadcrumb.${item.title}`) }))} />
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <ParentCard title={t('transaction.add.formTitle')}>
+          <ParentCard title={t('form.title.addTransaction')}>
             {error && (<Alert severity="error">{error}</Alert>)}
             <TransactionForm initialValues={initialValues} onSubmit={handleSubmit} />
           </ParentCard>

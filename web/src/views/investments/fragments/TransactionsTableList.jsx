@@ -20,15 +20,17 @@ import {
 } from '@mui/material';
 import { IconPlus, IconSearch } from '@tabler/icons-react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { green, yellow, purple, blue, deepPurple, pink, orange, teal } from '@mui/material/colors';
+import { green, yellow, purple, blue, deepPurple, pink, orange, teal, lime } from '@mui/material/colors';
 import { useSearch } from '@app/hooks/useSearch';
 import { EditAndDeleteMenu } from './EditAndDeleteMenu';
 import axios from '@app/services/homelab'
 import { DateView } from '../../../components/utils/DateView';
 import { MoneyView } from '../../../components/utils/MoneyView';
+import { useTranslation } from 'react-i18next';
 
 export const TransactionsTableList = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const {
     data,
     setData,
@@ -80,7 +82,6 @@ export const TransactionsTableList = () => {
     }
   };
 
-
   const getTypeColor = (status) => {
     switch (status) {
       case 'buy':
@@ -91,6 +92,8 @@ export const TransactionsTableList = () => {
         return teal[500];
       case 'coupon':
         return orange[900];
+      case 'split':
+          return lime[600];
       default:
         return deepPurple[500];
     }
@@ -124,7 +127,7 @@ export const TransactionsTableList = () => {
                   </InputAdornment>
                 ),
               }}
-            placeholder="Search"
+            placeholder={t('form.search')}
             size="small"
             type="search"
             variant="outlined"
@@ -151,19 +154,19 @@ export const TransactionsTableList = () => {
             <TableHead>
               <TableRow>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Fecha</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.date')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Ticker</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.symbol')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Tipo</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.type')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Cantidad</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.quantity')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Precio</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.amount')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
                 </TableCell>
@@ -204,7 +207,8 @@ export const TransactionsTableList = () => {
                               : row.type === 'sell' ? 'Venta'
                               : row.type === 'coupon' ? 'Cupón'
                               : row.type === 'dividend' ? 'Dividendo'
-                              : 'Amortizacion'
+                              : row.type === 'amortization' ? 'Amortizacion'
+                              : 'Split'
                               }
                               sx={{
                                 backgroundColor: getTypeColor(row.type),

@@ -7,10 +7,10 @@ import TransactionsTableList from './fragments/TransactionsTableList';
 const BCrumb = [
   {
     to: '/',
-    title: 'Home',
+    title: 'home',
   },
   {
-    title: 'Transactions',
+    title: 'transactions',
   },
 ];
 
@@ -18,7 +18,7 @@ export const ListTransactions = () => {
   const { t } = useTranslation();
   return (
     <PageContainer title={t('investment.title')} description={t('investment.description')}>
-      <Breadcrumb title={t('investment.breadcrumbTitle')} items={BCrumb.map(item => ({ ...item, title: t(`breadcrumb.${item.title}`) }))} />
+      <Breadcrumb title={t('page.breadcrumb.investments')} items={BCrumb.map(item => ({ ...item, title: t(`page.breadcrumb.${item.title}`) }))} />
       <BlankCard>
         <TransactionsTableList />
       </BlankCard>

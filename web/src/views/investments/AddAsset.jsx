@@ -5,23 +5,25 @@ import Breadcrumb from '@app/components/layout/full/shared/Breadcrumb';
 import ParentCard from "@app/components/common/ParentCard";
 import AssetForm from "@app/views/investments/fragments/AssetForm";
 import axios from '@app/services/homelab'
+import { useTranslation } from 'react-i18next';
 
 const BCrumb = [
   {
     to: '/',
-    title: 'Home',
+    title: 'home',
   },
   {
-    title: 'Activos / Instrumentos',
+    title: 'assets',
     to: '/investments/assets',
   },
   {
-    title: 'Nuevo instrumento',
+    title: 'newAsset',
   },
 ];
 
 export const AddAsset = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const handleSubmit = (asset) => {
     const { asset_name, asset_type, price, currency, ...others } = asset;
     axios.post('/investments/assets/', {
@@ -32,11 +34,11 @@ export const AddAsset = () => {
   }
 
   return (
-    <PageContainer title="Horizontal Form" description="this is Horizontal Form page">
-      <Breadcrumb title="Activos" items={BCrumb} />
+    <PageContainer title={t('page.title.addAsset')} description={t('page.description.addAsset')}>
+      <Breadcrumb title={t('page.breadcrumb.investments')} items={BCrumb.map(item => ({ ...item, title: t(`page.breadcrumb.${item.title}`) }))} />
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <ParentCard title="Nuevo asset">
+          <ParentCard title={t('form.title.newAsset')}>
             { }
             <AssetForm initialValues={
               {

@@ -22,10 +22,12 @@ import { IconPlus, IconSearch } from '@tabler/icons-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSearch } from '@app/hooks/useSearch';
 import { EditAndDeleteMenu } from './EditAndDeleteMenu';
+import { useTranslation } from 'react-i18next';
 import axios from '@app/services/homelab'
 
 export const AssetsTableList = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const {
     data,
     setData,
@@ -78,7 +80,7 @@ export const AssetsTableList = () => {
                   </InputAdornment>
                 ),
               }}
-            placeholder="Search"
+            placeholder={t('form.search')}
             size="small"
             type="search"
             variant="outlined"
@@ -105,22 +107,22 @@ export const AssetsTableList = () => {
             <TableHead>
               <TableRow>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Nombre</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.name')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Ticker</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.symbol')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Ratio</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.ratio')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Tipo</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.type')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Mercado</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.market')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">Precio</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.price')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
                 </TableCell>

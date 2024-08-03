@@ -1,46 +1,101 @@
 {
-    "Search": "Buscar",
-    "Modern": "Modern (es)",
-    "Ecommerce": "Ecommerce",
-    "eCommerce": "eCommerce",
-    "Contacts": "Contacts",
-    "Blog": "Blog",
-    "Posts": "Posts",
-    "Detail": "Detail",
-    "Shop": "Shop",
-    "List": "List",
-    "Checkout": "Checkout",
-    "Chats": "Chats",
-    "Users": "Users",
-    "Profile": "Profile",
-    "Followers": "Followers",
-    "Friends": "Friends",
-    "Gallery": "Gallery",
-    "Notes": "Notes",
-    "Calendar": "Calendar",
-    "Email": "Email",
-    "Tickets": "Tickets",
-    "investment": {
-        "title": "Inversiones",
-        "description": "Esta es la página de inversiones donde puede ver todos los activos disponibles.",
-        "breadcrumbTitle": "Inversiones"
+  "Search": "Buscar",
+  "Modern": "Modern (es)",
+  "Home": "Inicio",
+  "Assets": "Activos",
+  "Transactions": "Transacciones",
+  "Wallet": "Cartera",
+  "Ecommerce": "Ecommerce",
+  "eCommerce": "eCommerce",
+  "Contacts": "Contacts",
+  "Blog": "Blog",
+  "Posts": "Posts",
+  "Detail": "Detail",
+  "Shop": "Shop",
+  "List": "List",
+  "Checkout": "Checkout",
+  "Chats": "Chats",
+  "Users": "Users",
+  "Profile": "Profile",
+  "Followers": "Followers",
+  "Friends": "Friends",
+  "Gallery": "Gallery",
+  "Notes": "Notes",
+  "Calendar": "Calendar",
+  "Email": "Email",
+  "Tickets": "Tickets",
+  "form": {
+    "title": {
+      "addTransaction": "Nueva Transacción",
+      "editTransaction": "Editar Transacción",
+      "newAsset": "Nuevo Activo",
+      "editAsset": "Editar Activo"
     },
-    "asset": {
-        "edit": {
-            "pageTitle": "Editar Activo",
-            "pageDescription": "Esta es la página de edición de activos.",
-            "formTitle": "Editar activo"
-        },
-        "add": {
-            "pageTitle": "Crear Activo",
-            "pageDescription": "Esta es la página de creación de activos.",
-            "formTitle": "Crear activo"
-        }
+    "fields":{
+      "date": "Fecha",
+      "asset": "Activo",
+      "amount": "Monto",
+      "quantity": "Cantidad",
+      "currency": "Moneda",
+      "type": "Tipo",
+      "detail": "Detalle",
+      "symbol": "Ticker",
+      "ratio": "Ratio",
+      "price": "Precio",
+      "market": "Mercado",
+      "name": "Nombre",
+      "description": "Descripción",
+      "icon": "Icono"
+    },
+    "validation": {
+      "date": {
+        "typeError": "La fecha debe ser válida",
+        "max": "La fecha no puede ser mayor a la fecha actual",
+        "required": "La fecha es requerida"
+      },
+      "amount": {
+        "required": "El monto es requerido",
+        "typeError": "El monto debe ser un número"
+      },
+      "quantity": {
+        "required": "La cantidad es requerida",
+        "typeError": "La cantidad debe ser un número"
+      },
+      "currency": {
+        "required": "La moneda es requerida",
+        "oneOf": "Moneda no válida"
+      },
+      "type": {
+        "required": "El tipo de operación es requerido",
+        "oneOf": "Tipo de operación no válido"
+      }
+    },
+    "placeholder": {
+      "name": "Ingrese el nombre",
+      "icon": "URL del icono",
+      "symbol": "Ingrese el ticker",
+      "description": "Ingrese la descripción"
+    },
+    "save": "Guardar",
+    "search": "Buscar"
+  },
+  "page": {
+    "title": {
+      "transactions": "Registro de Transacciones",
+      "assets": "Activos",
+      "addAsset": "Nuevo Activo",
+      "editAsset": "Editar Activo"
     },
     "breadcrumb": {
-        "Home": "Inicio",
-        "Assets": "Activos disponibles",
-        "Edit Asset": "Editar activo",
-        "Transactions": "Registro de Transacciones"
+      "home": "Inicio",
+      "investments": "Inversiones",
+      "transaction": "Transacciones",
+      "transactions": "Registro de Transacciones",
+      "newTransaction": "Nueva Transacción",
+      "editTransaction": "Editar Transacción",
+      "assets": "Activos",
+      "newAsset": "Nuevo Activo",
+      "editAsset": "Editar Activo"
     }
+  }
 }

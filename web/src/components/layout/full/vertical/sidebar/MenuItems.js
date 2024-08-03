@@ -81,19 +81,19 @@ import {
     },
     {
       id: uniqueId(),
-      title: 'Activos',
+      title: 'Assets',
       icon: IconBrandStackshare,
       href: '/investments/assets',
     },
     {
       id: uniqueId(),
-      title: 'Transacciones',
+      title: 'Transactions',
       icon: IconTransactionDollar,
       href: '/investments/transactions',
     },
     {
       id: uniqueId(),
-      title: 'Cartera',
+      title: 'Wallet',
       icon: IconWallet,
       href: '/investments/wallet',
     },    
