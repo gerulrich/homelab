@@ -11,14 +11,14 @@ import axios from '@app/services/homelab'
 const BCrumb = [
   {
     to: '/',
-    title: 'Home',
+    title: 'home',
   },
   {
     to: '/investments/assets',
-    title: 'Assets',
+    title: 'assets',
   },
   {
-    title: 'Edit Asset',
+    title: 'editAsset',
   },
 ];
 
@@ -70,11 +70,11 @@ export const EditAsset = () => {
 
 
   return (
-    <PageContainer title={t('asset.edit.pageTitle')} description={t('editAsset.pageDescription')}>
-      <Breadcrumb title={t('investment.breadcrumbTitle')} items={BCrumb.map(item => ({ ...item, title: t(`breadcrumb.${item.title}`) }))} />
+    <PageContainer title={t('page.title.editAsset')} description={t('page.description.editAsset')}>
+      <Breadcrumb title={t('page.breadcrumb.investments')} items={BCrumb.map(item => ({ ...item, title: t(`page.breadcrumb.${item.title}`) }))} />
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <ParentCard title={t('asset.edit.formTitle')}>
+          <ParentCard title={t('form.title.editAsset')}>
             {error && (<Alert severity="error">{error}</Alert>)}
             <AssetForm initialValues={initialValues} onSubmit={handleSubmit} />
           </ParentCard>
