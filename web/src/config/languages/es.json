@@ -68,6 +68,15 @@
       "type": {
         "required": "El tipo de operación es requerido",
         "oneOf": "Tipo de operación no válido"
+      },
+      "name": {
+        "required": "El nombre es requerido"
+      },
+      "symbol": {
+        "required": "El ticker es requerido"
+      },
+      "market": {
+        "required": "El mercado es requerido"
       }
     },
     "placeholder": {

@@ -67,6 +67,15 @@
       "type": {
         "required": "The type is required",
         "oneOf": "Invalid type"
+      },
+      "name": {
+        "required": "The name is required"
+      },
+      "symbol": {
+        "required": "The ticker is required"
+      },
+      "market": {
+        "required": "The market is required"
       }
     },
     "placeholder": {

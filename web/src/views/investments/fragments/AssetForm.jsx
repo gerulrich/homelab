@@ -12,10 +12,10 @@ export const AssetForm = ({ initialValues, onSubmit }) => {
   const mounted = useMounted();
   const { t } = useTranslation();
   const AssetSchema = Yup.object().shape({
-    asset_name: Yup.string().required('Name is required'),
-    symbol: Yup.string().required('Symbol is required'),
-    asset_type: Yup.string().required('Type is required'),
-    market: Yup.string().required('Market is required'),
+    asset_name: Yup.string().required(t('form.validation.name.required')),
+    symbol: Yup.string().required(t('form.validation.symbol.required')),
+    asset_type: Yup.string().required(t('form.validation.type.required')),
+    market: Yup.string().required(t('form.validation.market.required')),
   });
 
   const formik = useFormik({
