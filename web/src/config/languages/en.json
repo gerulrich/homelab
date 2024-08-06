@@ -4,6 +4,7 @@
   "Assets": "Assets",
   "Transactions": "Transactions",
   "Wallet": "Wallet",
+  "Users": "Users",
   "Ecommerce": "Ecommerce",
   "eCommerce": "eCommerce",
   "Contacts": "Contacts",
@@ -14,7 +15,6 @@
   "List": "List",
   "Checkout": "Checkout",
   "Chats": "Chats",
-  "Users": "Users",
   "Profile": "Profile",
   "Followers": "Followers",
   "Friends": "Friends",
@@ -28,7 +28,9 @@
       "addTransaction": "New Transaction",
       "editTransaction": "Edit Transaction",
       "newAsset": "New Asset",
-      "editAsset": "Edit Asset"
+      "editAsset": "Edit Asset",
+      "newUser": "New User",
+      "editUser": "Edit User"
     },
     "fields":{
       "date": "Date",
@@ -44,7 +46,13 @@
       "market": "Market",
       "name": "Name",
       "description": "Description",
-      "icon": "Icon"
+      "icon": "Icon",
+      "enabled": "Enabled",
+      "google": "Google",
+      "roles": "Roles",
+      "email": "Email",
+      "picture": "Picture",
+      "plan": "Plan"
     },
     "validation": {
       "date": {
@@ -82,7 +90,9 @@
       "name": "Enter the name",
       "icon": "Icon URL",
       "symbol": "Enter the ticker",
-      "description": "Enter the description"
+      "description": "Enter the description",
+      "email": "Enter the email",
+      "picture": "Picture URL"
     },    
     "save": "Save",
     "search": "Search"
@@ -103,7 +113,10 @@
       "editTransaction": "Edit Transaction",
       "assets": "Assets",
       "newAsset": "New Asset",
-      "editAsset": "Edit Asset"
+      "editAsset": "Edit Asset",
+      "users": "Users",
+      "newUser": "New User",
+      "editUser": "Edit User"
     }
   }
 }

@@ -16,16 +16,17 @@ import {
   Stack,
   Chip,
   TextField,
-  InputAdornment
+  InputAdornment,
+  Checkbox
 } from '@mui/material';
-import { IconPlus, IconSearch } from '@tabler/icons-react';
+import { IconPlus, IconSearch, IconSquare, IconSquareCheck } from '@tabler/icons-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSearch } from '@app/hooks/useSearch';
-import { useTranslation } from 'react-i18next';
 import axios from '@app/services/homelab'
+import { useTranslation } from 'react-i18next';
 import { EditAndDeleteMenu } from '../../../components/customs/EditAndDeleteMenu';
 
-export const AssetsTableList = () => {
+export const UsersTableList = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const {
@@ -39,7 +40,7 @@ export const AssetsTableList = () => {
     setSize,
     loading,
     error,
-    setError } = useSearch('/investments/assets');
+    setError } = useSearch('/auth/users');
   const [activeRowIndex, setActiveRowIndex] = useState(null);
   const emptyRows = Math.max(0, size - data.items.length);
 
@@ -50,12 +51,11 @@ export const AssetsTableList = () => {
     setPage(0);
   };
 
-  const onEdit = (asset) => navigate(`/investments/assets/${asset.uid}`);
-  const onDelete = (asset) => {
-    console.log(`Eliminando ${asset.name}`);
-    axios.delete(`/investments/assets/${asset.uid}`)
+  const onEdit = (user) => navigate(`/settings/users/${user.uid}`);
+  const onDelete = (user) => {
+    axios.delete(`/auth/users/${user.uid}`)
       .then(resp => {
-        const filtered = data.items.filter(item => item.uid != asset.uid);
+        const filtered = data.items.filter(item => item.uid != user.uid);
         const pagination = data.pagination;
         setData({
           items: filtered,
@@ -63,7 +63,6 @@ export const AssetsTableList = () => {
         })
       }).catch(err => {
         setError(err.message);
-        alert(t('editAsset.errorLoadingAsset'));
       });
   }
 
@@ -89,8 +88,8 @@ export const AssetsTableList = () => {
           />
         </Box>
 
-        <Tooltip title="Agregar asset">
-            <IconButton component={NavLink} to="/investments/assets/new">
+        <Tooltip title="Nuevo usuario">
+            <IconButton component={NavLink} to="/settings/users/new">
               <IconPlus size="1.2rem" icon="filter" />
             </IconButton>
         </Tooltip>
@@ -110,19 +109,19 @@ export const AssetsTableList = () => {
                   <Typography variant="subtitle1" fontWeight="500">{t('form.fields.name')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.symbol')}</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.email')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.ratio')}</Typography>
-                </TableCell>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.plan')}</Typography>
+                </TableCell>                
                 <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.type')}</Typography>
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.roles')}</Typography>
                 </TableCell>
-                <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.market')}</Typography>
+                <TableCell align="center" padding="normal">
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.enabled')}</Typography>
                 </TableCell>
-                <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.price')}</Typography>
+                <TableCell align="center" padding="normal">
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.google')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
                 </TableCell>
@@ -138,12 +137,10 @@ export const AssetsTableList = () => {
                       onMouseLeave={() => setActiveRowIndex(null)}
                     >
                       <TableCell>
-
-                        <Stack spacing={2} direction="row" alignItems="center">
+                      <Stack spacing={2} direction="row" alignItems="center">
                           <Avatar
-                            src={row.icon}
+                            src={row.picture}
                             width="32"
-                            variant="rounded"
                           >{row.symbol}</Avatar>
                           <Box>
                             <Typography variant="h6" fontWeight="600">
@@ -151,52 +148,50 @@ export const AssetsTableList = () => {
                             </Typography>
                           </Box>
                         </Stack>
-
                       </TableCell>
 
                       <TableCell>
                         <Typography color="textSecondary" variant="h6" fontWeight="400">
-                          {row.symbol}
+                          {row.email}
                         </Typography>
                       </TableCell>
 
                       <TableCell>
-                        <Typography color="textSecondary" variant="h6" fontWeight="400">
-                          {row.ratio}
+                      <Typography variant="caption">
+                        lifetime pass
                         </Typography>
                       </TableCell>
 
                       <TableCell>
-                        <Stack spacing={1} direction="row" alignItems="center">
-                          <Chip label={row.type} color={
-                            row.type === 'cedear'
-                              ? 'success'
-                              : row.type === 'on'
-                                ? 'warning'
-                                : row.type === 'bono'
-                                  ? 'primary'
-                                  : 'secondary'
-                          } />
-                        </Stack>
+                        <Typography variant="caption">
+                          {row.roles.join(', ')}
+                        </Typography>
                       </TableCell>
 
-                      <TableCell>
-                        <Typography>
-                          {row.market}
-                        </Typography>
+                      <TableCell align="center">
+                        {
+                          row.enabled
+                           ? (<IconSquareCheck/>)
+                           : (<IconSquare />)
+                        }
                       </TableCell>
-                      <TableCell>
-                        <Typography>
-                          {row.price.value} {row.price.currency}
-                        </Typography>
+
+                      <TableCell align="center">
+                      {
+                          row.google
+                           ? (<IconSquareCheck/>)
+                           : (<IconSquare />)
+                        }
                       </TableCell>
+
                       <TableCell style={{ width: "48px", padding: "2px", marginRight: "25px" }}>
                         {activeRowIndex === index && (
-                          <EditAndDeleteMenu
+                            <EditAndDeleteMenu
                             resource={row}
                             onEdit={onEdit}
                             onDelete={onDelete}
-                          />)}
+                          />
+                        )}
                       </TableCell>
                     </TableRow>
                   );
@@ -228,4 +223,4 @@ export const AssetsTableList = () => {
   )
 }
 
-export default AssetsTableList;
+export default UsersTableList;

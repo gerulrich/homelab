@@ -5,6 +5,8 @@
   "Assets": "Activos",
   "Transactions": "Transacciones",
   "Wallet": "Cartera",
+  "Settings": "Configuración",
+  "Users": "Usuarios",
   "Ecommerce": "Ecommerce",
   "eCommerce": "eCommerce",
   "Contacts": "Contacts",
@@ -15,7 +17,6 @@
   "List": "List",
   "Checkout": "Checkout",
   "Chats": "Chats",
-  "Users": "Users",
   "Profile": "Profile",
   "Followers": "Followers",
   "Friends": "Friends",
@@ -29,7 +30,8 @@
       "addTransaction": "Nueva Transacción",
       "editTransaction": "Editar Transacción",
       "newAsset": "Nuevo Activo",
-      "editAsset": "Editar Activo"
+      "editAsset": "Editar Activo",
+      "editUser": "Editar Usuario"
     },
     "fields":{
       "date": "Fecha",
@@ -45,7 +47,13 @@
       "market": "Mercado",
       "name": "Nombre",
       "description": "Descripción",
-      "icon": "Icono"
+      "icon": "Icono",
+      "enabled": "Habilitado",
+      "google": "Google",
+      "roles": "Roles",
+      "email": "Email",
+      "plan": "Plan",
+      "picture": "Foto"
     },
     "validation": {
       "date": {
@@ -83,7 +91,9 @@
       "name": "Ingrese el nombre",
       "icon": "URL del icono",
       "symbol": "Ingrese el ticker",
-      "description": "Ingrese la descripción"
+      "description": "Ingrese la descripción",
+      "email": "Ingrese el email",
+      "picture": "URL de la foto"
     },
     "save": "Guardar",
     "search": "Buscar"
@@ -104,7 +114,9 @@
       "editTransaction": "Editar Transacción",
       "assets": "Activos",
       "newAsset": "Nuevo Activo",
-      "editAsset": "Editar Activo"
+      "editAsset": "Editar Activo",
+      "users": "Usuarios",
+      "editUser": "Editar Usuario"
     }
   }
 }
