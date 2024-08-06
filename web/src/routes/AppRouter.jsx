@@ -20,6 +20,10 @@ const ListTransactions = Loadable(lazy(() => import('@app/views/investments/List
 const AddTransaction = Loadable(lazy(() => import('@app/views/investments/AddTransaction')));
 const EditTransaction = Loadable(lazy(() => import('@app/views/investments/EditTransaction')));
 
+const ListUsers = Loadable(lazy(() => import('@app/views/users/ListUsers')));
+const EditUser = Loadable(lazy(() => import('@app/views/users/EditUser')));
+const AddUser = Loadable(lazy(() => import('@app/views/users/AddUser')));
+
 const Home = Loadable(lazy(() => import('@app/views/Home')));
 const Page = Loadable(lazy(() => import('@app/views/Page')));
 
@@ -42,6 +46,10 @@ export const AppRouter = [
         { path: '/investments/transactions', element: <ListTransactions /> },
         { path: '/investments/transactions/new', element: <AddTransaction /> },
         { path: '/investments/transactions/:transactionId', element: <EditTransaction /> },
+        { path: '/settings/users', element: <ListUsers /> },
+        { path: '/settings/users/:userId', element: <EditUser /> },
+        { path: '/settings/users/new', element: <AddUser /> },
+
         { path: '*', element: <Navigate to="/" /> },
       ],
     },

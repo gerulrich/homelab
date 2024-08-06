@@ -22,11 +22,11 @@ import { IconPlus, IconSearch } from '@tabler/icons-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { green, yellow, purple, blue, deepPurple, pink, orange, teal, lime } from '@mui/material/colors';
 import { useSearch } from '@app/hooks/useSearch';
-import { EditAndDeleteMenu } from './EditAndDeleteMenu';
 import axios from '@app/services/homelab'
 import { DateView } from '../../../components/utils/DateView';
 import { MoneyView } from '../../../components/utils/MoneyView';
 import { useTranslation } from 'react-i18next';
+import { EditAndDeleteMenu } from '../../../components/customs/EditAndDeleteMenu';
 
 export const TransactionsTableList = () => {
   const navigate = useNavigate();
@@ -234,7 +234,7 @@ export const TransactionsTableList = () => {
 
                       <TableCell style={{ width: "48px", padding: "2px", marginRight: "25px" }}>
                         {activeRowIndex === index && (
-                          <EditAndDeleteMenu 
+                          <EditAndDeleteMenu
                             resource={row}
                             onEdit={onEdit}
                             onDelete={onDelete}

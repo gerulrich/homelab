@@ -51,6 +51,7 @@ import {
     IconWallet,
     IconBrandStackshare,
     IconTransactionDollar,
+    IconUsers,
   } from '@tabler/icons-react';
   
   import { uniqueId } from 'lodash';
@@ -96,11 +97,17 @@ import {
       title: 'Wallet',
       icon: IconWallet,
       href: '/investments/wallet',
-    },    
+    },
     {
       navlabel: true,
       subheader: 'Settings',
     },
+    {
+      id: uniqueId(),
+      title: 'Users',
+      icon: IconUsers,
+      href: '/settings/users',
+    },    
   ];
   
   export default Menuitems;
