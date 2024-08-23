@@ -30,6 +30,7 @@ app.use('/message', require('./routes/message'));
 app.use('/investments/assets', require('./routes/investments/asset.routes.js'));
 app.use('/investments/transactions', require('./routes/investments/transaction.routes.js'));
 app.use('/auth/users', require('./routes/auth/user.routes.js'));
+app.use('/tv/channels', require('./routes/television/channel.routes.js'));
 
 // HTTP 404 error handling
 app.use((req, res, next) => {  
