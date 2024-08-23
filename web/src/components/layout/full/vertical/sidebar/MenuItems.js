@@ -52,6 +52,7 @@ import {
     IconBrandStackshare,
     IconTransactionDollar,
     IconUsers,
+    IconDeviceTvOld,
   } from '@tabler/icons-react';
   
   import { uniqueId } from 'lodash';
@@ -107,7 +108,13 @@ import {
       title: 'Users',
       icon: IconUsers,
       href: '/settings/users',
-    },    
+    },
+    {
+      id: uniqueId(),
+      title: 'Canales',
+      icon: IconDeviceTvOld,
+      href: '/settings/channels',
+    },
   ];
   
   export default Menuitems;

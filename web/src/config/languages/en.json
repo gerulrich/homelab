@@ -52,7 +52,15 @@
       "roles": "Roles",
       "email": "Email",
       "picture": "Picture",
-      "plan": "Plan"
+      "plan": "Plan",
+      "category": "Category",
+      "number": "Number",
+      "media_url": "URL",
+      "logo": "Logo",
+      "keyId": "Key ID",
+      "key": "Key",
+      "licenseUrl": "License URL",
+      "epg_id": "EPG ID"
     },
     "validation": {
       "date": {

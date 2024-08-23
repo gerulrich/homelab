@@ -53,7 +53,15 @@
       "roles": "Roles",
       "email": "Email",
       "plan": "Plan",
-      "picture": "Foto"
+      "picture": "Foto",
+      "category": "Categoría",
+      "number": "Número",
+      "media_url": "URL",
+      "logo": "Logo",
+      "keyId": "Key ID",
+      "key": "Key",
+      "licenseUrl": "License URL",
+      "epg_id": "EPG ID"
     },
     "validation": {
       "date": {
@@ -93,7 +101,21 @@
       "symbol": "Ingrese el ticker",
       "description": "Ingrese la descripción",
       "email": "Ingrese el email",
-      "picture": "URL de la foto"
+      "picture": "URL de la foto",
+      "licenseUrl": "URL de la licencia"
+    },
+    "values": {
+      "plan": {
+        "basic": "Básico",
+        "pro": "Pro",
+        "max": "Max"
+      },
+      "category": {
+          "general": "General",
+          "movies": "Películas",
+          "sports": "Deportes",
+          "news": "Noticias"
+      }
     },
     "save": "Guardar",
     "search": "Buscar"
