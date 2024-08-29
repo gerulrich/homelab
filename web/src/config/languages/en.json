@@ -100,7 +100,21 @@
       "symbol": "Enter the ticker",
       "description": "Enter the description",
       "email": "Enter the email",
-      "picture": "Picture URL"
+      "picture": "Picture URL",
+      "licenseUrl": "URL de la licencia"
+    },
+    "values": {
+      "plan": {
+        "basic": "Basic",
+        "pro": "Pro",
+        "max": "Max"
+      },
+      "category": {
+          "general": "General",
+          "movies": "Movies & Series",
+          "sports": "Sports",
+          "news": "News"
+      }
     },    
     "save": "Save",
     "search": "Search"

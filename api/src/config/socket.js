@@ -6,15 +6,19 @@ const initializeSocketIO = (server) => {
 
   io.on('connection', (socket) => {
     const token = socket.handshake.headers['x-token'];
-    const { uid } = decodeJWT(token);
-    if (!uid) return socket.disconnect();
-
-    console.log(`Cliente conectado ${  socket.id  } (${  uid  })`);
-    socket.uid = uid;
-
-    socket.on('disconnect', () => {
-      console.log(`Cliente desconectado ${  socket.id  } (${  uid  })`);
-    });
+    
+    try {
+      const { uid } = decodeJWT(token);
+      if (!uid) return socket.disconnect();
+      console.log(`Cliente conectado ${  socket.id  } (${  uid  })`);
+      socket.uid = uid;
+      socket.on('disconnect', () => {
+        console.log(`Cliente desconectado ${  socket.id  } (${  uid  })`);
+      });
+    } catch (error) {
+      console.error(error);
+      socket.disconnect();
+    }
   });
 
   return io;
