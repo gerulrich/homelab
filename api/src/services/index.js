@@ -1,6 +1,8 @@
 const { CedearPricing, ETFPricing, ONPricing, BondPricing } = require('./byma.pricing');
 const ForeignPricing = require('./foreing.pricing');
 
+const { getJwt, getPrograms } = require('./flow');
+
 const getPricingStrategy = (type) => {
   switch (type) {
     case 'cedear':
@@ -16,4 +18,8 @@ const getPricingStrategy = (type) => {
   }
 };
 
-module.exports = { getPricingStrategy };
+module.exports = { 
+  getPricingStrategy,
+  getPrograms,
+  getJwt
+};

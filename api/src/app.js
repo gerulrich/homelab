@@ -6,7 +6,7 @@ const cors = require('cors');
 const morgan = require('@app/middlewares/morgan');
 const logger = require('@app/helpers/logger');
 const { initializeMongoose, initializeSocketIO, initializeMQTT } = require('@app/config');
-const { investmentJob } = require('@app/jobs');
+const { investmentJob, epgJob } = require('@app/jobs');
 
 console.log = (message) => logger.info(message);
 console.error = (message) => logger.error(message);
@@ -46,5 +46,6 @@ app.use((err, req, res, next) => {
 const PORT = process.env.NODE_PORT || 3000;
 
 cron.schedule('*/10 10-17 * * 1-5', () => investmentJob());
+cron.schedule('0 */4 * * *', () => epgJob());
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
