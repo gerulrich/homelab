@@ -30,8 +30,13 @@ const isMamushkaTokenValid = async(token) => {
       'Origin': 'https://web.app.flow.com.ar/inicio'
     }
   };
-  const response = await axios.request(config);
-  return response.status === 200;
+  try {
+    const response = await axios.request(config);
+    return response.status === 200;
+  } catch (error) {
+    console.log(`Error validating token: ${error}`);
+  }
+  return false;
 };
 
 const getTokenSession = async () => {
@@ -72,13 +77,9 @@ const getMamushkaToken = async (sessionToken) => {
     },
     data: { token: sessionToken, ...mamushkaData }
   };
-  try {
-    const response = await axios.request(config);
-    const token = response.data.token_mamushka;
-    return token;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await axios.request(config);
+  const token = response.data.token_mamushka;
+  return token;  
 };
 
 const getPrograms = async (jwt, number) => {

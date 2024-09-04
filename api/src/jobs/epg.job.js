@@ -1,6 +1,7 @@
 const { getPrograms, getJwt } = require('@app/services');
 const Channel = require('@app//models/television/channel');
 const Program = require('@app//models/television/program');
+const Notification = require('../models/notification');
 
 const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const random = (min, max) => Math.floor((((max - min) * Math.random()) + 3) * 1000);
@@ -71,7 +72,7 @@ const processChannels = async (channels) => {
 
 let running = false;
 
-const epgJob = async () => {
+const epgJob = async (io) => {
   if (running) {
     console.log('EPG job already running');
     return;
@@ -83,9 +84,22 @@ const epgJob = async () => {
     const channels = await getChannels();
     const total = await processChannels(channels);
     console.log(`EPG job finished, ${total} programs saved`);
+    const result = await Program.deleteMany({ start: { $lt: new Date(Date.now() - (24 * 60 * 60 * 1000)) }, media_url: { $in: [null, ''] } });
+    console.log(`Deleted ${result.deletedCount} programs older than 24 hours where media_url is null`);
   } catch (error) {
-    // TODO: send notification (saving with mongoose)
     console.error('EPG job encountered an error:', error);
+    await Notification.findOneAndUpdate(
+      { type: 'system',
+        component: 'epg',
+        severity: 'error',
+        content: 'EPG job encountered an error',
+        read: false 
+      }, { created: new Date() }, { upsert: true });
+    io.to('admin').emit('notification', { 
+      type: 'system',
+      component: 'epg',
+      severity: 'error',
+      content: 'EPG job encountered an error' });
   } finally {
     running = false;
   }

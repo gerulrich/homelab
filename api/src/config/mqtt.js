@@ -21,24 +21,30 @@ const initializeMQTT = (io) => {
 
   client.on('message', (topic, payload) => {
     switch (topic) {
-      case '/homelab/device/status':
       case '/homelab/message': {
         console.log(`Received Message: ${payload}`);
         // payload from mqtt needed to be parsed with json
         const msg = JSON.parse(payload);
-        if (msg.user) {
-          const sockets = Array.from(io.sockets.sockets.values());
-          const socket = sockets.find(socket => socket.uid === msg.user);
-          if (socket) {
-            socket.emit('notification', msg);
-          }
-        } else {
-          io.emit('notification', msg);
-        }
+        switch (msg.type) {
+          case 'system':
+            console.log(msg.content);
+            io.to('admin').emit('notification', msg);
+            break;
+          case 'user':
+            if (msg.user) {
+              const sockets = Array.from(io.sockets.sockets.values());
+              const socket = sockets.find(socket => socket.uid === msg.user);
+              if (socket) {
+                socket.emit('notification', msg);
+              }
+            } else {
+              io.emit('notification', msg);
+            }
+        };
         break;
       }
-      default:
-        break;
+      case '/homelab/device/status':
+        console.log(`Received Device Status: ${payload}`);
     }
   });
 

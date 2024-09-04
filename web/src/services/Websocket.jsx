@@ -16,6 +16,7 @@ export const Websocket = ({ children }) => {
       socket.on('connect', () => dispatch(setConnected(true)));
       socket.on('disconnect', () => dispatch(setConnected(false)));
       socket.on('notification', (message) => {
+        console.log('New notification', message);
         handleNotification(message, dispatch);
       })
     };
