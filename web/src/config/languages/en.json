@@ -1,9 +1,11 @@
 {
+  "Search": "Buscar",
   "Modern": "Modern",
   "Home": "Home",
   "Assets": "Assets",
   "Transactions": "Transactions",
   "Wallet": "Wallet",
+  "Settings": "Configuración",
   "Users": "Users",
   "Ecommerce": "Ecommerce",
   "eCommerce": "eCommerce",
@@ -23,122 +25,151 @@
   "Calendar": "Calendar",
   "Email": "Email",
   "Tickets": "Tickets",
-  "form": {
-    "title": {
-      "addTransaction": "New Transaction",
-      "editTransaction": "Edit Transaction",
-      "newAsset": "New Asset",
-      "editAsset": "Edit Asset",
-      "newUser": "New User",
-      "editUser": "Edit User"
-    },
-    "fields":{
-      "date": "Date",
-      "asset": "Asset",
-      "amount": "Amount",
-      "quantity": "Quantity",
-      "currency": "Currency",
-      "type": "Type",
-      "detail": "Detail",
-      "symbol": "Ticker",
-      "ratio": "Ratio",
-      "price": "Price",
-      "market": "Market",
-      "name": "Name",
-      "description": "Description",
-      "icon": "Icon",
-      "enabled": "Enabled",
-      "google": "Google",
-      "roles": "Roles",
-      "email": "Email",
-      "picture": "Picture",
-      "plan": "Plan",
-      "category": "Category",
-      "number": "Number",
-      "media_url": "URL",
-      "logo": "Logo",
-      "keyId": "Key ID",
-      "key": "Key",
-      "licenseUrl": "License URL",
-      "epg_id": "EPG ID"
-    },
-    "validation": {
-      "date": {
-        "typeError": "The date must be valid",
-        "max": "The date cannot be greater than the current date",
-        "required": "The date is required"
+  "form":
+  {
+      "title":
+      {
+          "addTransaction": "New Transaction",
+          "editTransaction": "Edit Transaction",
+          "newAsset": "New Asset",
+          "editAsset": "Edit Asset",
+          "newUser": "New User",
+          "editUser": "Edit User"
       },
-      "amount": {
-        "required": "The amount is required",
-        "typeError": "The amount must be a number"
+      "fields":
+      {
+          "date": "Date",
+          "asset": "Asset",
+          "amount": "Amount",
+          "quantity": "Quantity",
+          "currency": "Currency",
+          "type": "Type",
+          "detail": "Detail",
+          "symbol": "Ticker",
+          "ratio": "Ratio",
+          "price": "Price",
+          "market": "Market",
+          "name": "Name",
+          "description": "Description",
+          "icon": "Icon",
+          "enabled": "Enabled",
+          "google": "Google",
+          "roles": "Roles",
+          "email": "Email",
+          "picture": "Picture",
+          "plan": "Plan",
+          "category": "Category",
+          "number": "Number",
+          "media_url": "URL",
+          "logo": "Logo",
+          "keyId": "Key ID",
+          "key": "Key",
+          "licenseUrl": "License URL",
+          "epg_id": "EPG ID",
+          "title": "Título",
+          "channel": "Canal",
+          "start_time": "Hora de inicio"
       },
-      "quantity": {
-        "required": "The quantity is required",
-        "typeError": "The quantity must be a number"
+      "validation":
+      {
+          "date":
+          {
+              "typeError": "The date must be valid",
+              "max": "The date cannot be greater than the current date",
+              "required": "The date is required"
+          },
+          "amount":
+          {
+              "required": "The amount is required",
+              "typeError": "The amount must be a number"
+          },
+          "quantity":
+          {
+              "required": "The quantity is required",
+              "typeError": "The quantity must be a number"
+          },
+          "currency":
+          {
+              "required": "The currency is required",
+              "oneOf": "Invalid currency"
+          },
+          "type":
+          {
+              "required": "The type is required",
+              "oneOf": "Invalid type"
+          },
+          "name":
+          {
+              "required": "The name is required"
+          },
+          "symbol":
+          {
+              "required": "The ticker is required"
+          },
+          "market":
+          {
+              "required": "The market is required"
+          }
       },
-      "currency": {
-        "required": "The currency is required",
-        "oneOf": "Invalid currency"
+      "placeholder":
+      {
+          "name": "Enter the name",
+          "icon": "Icon URL",
+          "symbol": "Enter the ticker",
+          "description": "Enter the description",
+          "email": "Enter the email",
+          "picture": "Picture URL",
+          "licenseUrl": "URL de la licencia"
       },
-      "type": {
-        "required": "The type is required",
-        "oneOf": "Invalid type"
+      "values":
+      {
+          "plan":
+          {
+              "basic": "Basic",
+              "pro": "Pro",
+              "max": "Max"
+          },
+          "category":
+          {
+              "general": "General",
+              "movies": "Movies & Series",
+              "sports": "Sports",
+              "news": "News"
+          }
       },
-      "name": {
-        "required": "The name is required"
-      },
-      "symbol": {
-        "required": "The ticker is required"
-      },
-      "market": {
-        "required": "The market is required"
-      }
-    },
-    "placeholder": {
-      "name": "Enter the name",
-      "icon": "Icon URL",
-      "symbol": "Enter the ticker",
-      "description": "Enter the description",
-      "email": "Enter the email",
-      "picture": "Picture URL",
-      "licenseUrl": "URL de la licencia"
-    },
-    "values": {
-      "plan": {
-        "basic": "Basic",
-        "pro": "Pro",
-        "max": "Max"
-      },
-      "category": {
-          "general": "General",
-          "movies": "Movies & Series",
-          "sports": "Sports",
-          "news": "News"
-      }
-    },    
-    "save": "Save",
-    "search": "Search"
+      "save": "Save",
+      "search": "Search"
   },
-  "page": {
-    "title": {
-      "transactions": "Transactions",
-      "assets": "Assets",
-      "addAsset": "New Asset",
-      "editAsset": "Edit Asset"
-    },
-    "breadcrumb": {
-      "home": "Home",
-      "investments": "Investments",
-      "transaction": "Transaction",
-      "transactions": "Transactions",
-      "newTransaction": "New Transaction",
-      "editTransaction": "Edit Transaction",
-      "assets": "Assets",
-      "newAsset": "New Asset",
-      "editAsset": "Edit Asset",
-      "users": "Users",
-      "newUser": "New User",
-      "editUser": "Edit User"
-    }
+  "page":
+  {
+      "title":
+      {
+          "transactions": "Transactions",
+          "assets": "Assets",
+          "addAsset": "New Asset",
+          "editAsset": "Edit Asset"
+      },
+      "breadcrumb":
+      {
+          "home": "Home",
+          "investments": "Investments",
+          "transaction": "Transaction",
+          "transactions": "Transactions",
+          "newTransaction": "New Transaction",
+          "editTransaction": "Edit Transaction",
+          "assets": "Assets",
+          "newAsset": "New Asset",
+          "editAsset": "Edit Asset",
+          "users": "Users",
+          "newUser": "New User",
+          "editUser": "Edit User",
+          "programs": "Programs",
+          "channels": "Live Channels"
+      }
+  },
+  "clipboard":
+  {
+      "copied": "Copied to clipboard!",
+      "cliCopied": "cli copied to clipboard!"
   }
 }

@@ -27,6 +27,7 @@ const AddUser = Loadable(lazy(() => import('@app/views/users/AddUser')));
 const ListChannels = Loadable(lazy(() => import('@app/views/television/ListChannels')));
 const EditChannel = Loadable(lazy(() => import('@app/views/television/EditChannel')));
 const AddChannel = Loadable(lazy(() => import('@app/views/television/AddChannel')));
+const ListPrograms = Loadable(lazy(() => import('@app/views/television/ListPrograms')));
 
 const Home = Loadable(lazy(() => import('@app/views/Home')));
 const Page = Loadable(lazy(() => import('@app/views/Page')));
@@ -56,6 +57,7 @@ export const AppRouter = [
         { path: '/settings/channels', element: <ListChannels /> },
         { path: '/settings/channels/new', element: <AddChannel />},
         { path: '/settings/channels/:channelId', element: <EditChannel />},
+        { path: '/settings/programs', element: <ListPrograms /> },
 
         { path: '*', element: <Navigate to="/" /> },
       ],

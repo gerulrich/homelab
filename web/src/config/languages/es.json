@@ -25,120 +25,151 @@
   "Calendar": "Calendar",
   "Email": "Email",
   "Tickets": "Tickets",
-  "form": {
-    "title": {
-      "addTransaction": "Nueva Transacción",
-      "editTransaction": "Editar Transacción",
-      "newAsset": "Nuevo Activo",
-      "editAsset": "Editar Activo",
-      "editUser": "Editar Usuario"
-    },
-    "fields":{
-      "date": "Fecha",
-      "asset": "Activo",
-      "amount": "Monto",
-      "quantity": "Cantidad",
-      "currency": "Moneda",
-      "type": "Tipo",
-      "detail": "Detalle",
-      "symbol": "Ticker",
-      "ratio": "Ratio",
-      "price": "Precio",
-      "market": "Mercado",
-      "name": "Nombre",
-      "description": "Descripción",
-      "icon": "Icono",
-      "enabled": "Habilitado",
-      "google": "Google",
-      "roles": "Roles",
-      "email": "Email",
-      "plan": "Plan",
-      "picture": "Foto",
-      "category": "Categoría",
-      "number": "Número",
-      "media_url": "URL",
-      "logo": "Logo",
-      "keyId": "Key ID",
-      "key": "Key",
-      "licenseUrl": "License URL",
-      "epg_id": "EPG ID"
-    },
-    "validation": {
-      "date": {
-        "typeError": "La fecha debe ser válida",
-        "max": "La fecha no puede ser mayor a la fecha actual",
-        "required": "La fecha es requerida"
+  "form":
+  {
+      "title":
+      {
+          "addTransaction": "Nueva Transacción",
+          "editTransaction": "Editar Transacción",
+          "newAsset": "Nuevo Activo",
+          "editAsset": "Editar Activo",
+          "newUser": "New User",
+          "editUser": "Editar Usuario"
       },
-      "amount": {
-        "required": "El monto es requerido",
-        "typeError": "El monto debe ser un número"
+      "fields":
+      {
+          "date": "Fecha",
+          "asset": "Activo",
+          "amount": "Monto",
+          "quantity": "Cantidad",
+          "currency": "Moneda",
+          "type": "Tipo",
+          "detail": "Detalle",
+          "symbol": "Ticker",
+          "ratio": "Ratio",
+          "price": "Precio",
+          "market": "Mercado",
+          "name": "Nombre",
+          "description": "Descripción",
+          "icon": "Icono",
+          "enabled": "Habilitado",
+          "google": "Google",
+          "roles": "Roles",
+          "email": "Email",
+          "plan": "Plan",
+          "picture": "Foto",
+          "category": "Categoría",
+          "number": "Número",
+          "media_url": "URL",
+          "logo": "Logo",
+          "keyId": "Key ID",
+          "key": "Key",
+          "licenseUrl": "License URL",
+          "epg_id": "EPG ID",
+          "title": "Título",
+          "channel": "Canal",
+          "start_time": "Hora de inicio"
       },
-      "quantity": {
-        "required": "La cantidad es requerida",
-        "typeError": "La cantidad debe ser un número"
+      "validation":
+      {
+          "date":
+          {
+              "typeError": "La fecha debe ser válida",
+              "max": "La fecha no puede ser mayor a la fecha actual",
+              "required": "La fecha es requerida"
+          },
+          "amount":
+          {
+              "required": "El monto es requerido",
+              "typeError": "El monto debe ser un número"
+          },
+          "quantity":
+          {
+              "required": "La cantidad es requerida",
+              "typeError": "La cantidad debe ser un número"
+          },
+          "currency":
+          {
+              "required": "La moneda es requerida",
+              "oneOf": "Moneda no válida"
+          },
+          "type":
+          {
+              "required": "El tipo de operación es requerido",
+              "oneOf": "Tipo de operación no válido"
+          },
+          "name":
+          {
+              "required": "El nombre es requerido"
+          },
+          "symbol":
+          {
+              "required": "El ticker es requerido"
+          },
+          "market":
+          {
+              "required": "El mercado es requerido"
+          }
       },
-      "currency": {
-        "required": "La moneda es requerida",
-        "oneOf": "Moneda no válida"
+      "placeholder":
+      {
+          "name": "Ingrese el nombre",
+          "icon": "URL del icono",
+          "symbol": "Ingrese el ticker",
+          "description": "Ingrese la descripción",
+          "email": "Ingrese el email",
+          "picture": "URL de la foto",
+          "licenseUrl": "URL de la licencia"
       },
-      "type": {
-        "required": "El tipo de operación es requerido",
-        "oneOf": "Tipo de operación no válido"
+      "values":
+      {
+          "plan":
+          {
+              "basic": "Básico",
+              "pro": "Pro",
+              "max": "Max"
+          },
+          "category":
+          {
+              "general": "General",
+              "movies": "Películas & Series",
+              "sports": "Deportes",
+              "news": "Noticias"
+          }
       },
-      "name": {
-        "required": "El nombre es requerido"
-      },
-      "symbol": {
-        "required": "El ticker es requerido"
-      },
-      "market": {
-        "required": "El mercado es requerido"
-      }
-    },
-    "placeholder": {
-      "name": "Ingrese el nombre",
-      "icon": "URL del icono",
-      "symbol": "Ingrese el ticker",
-      "description": "Ingrese la descripción",
-      "email": "Ingrese el email",
-      "picture": "URL de la foto",
-      "licenseUrl": "URL de la licencia"
-    },
-    "values": {
-      "plan": {
-        "basic": "Básico",
-        "pro": "Pro",
-        "max": "Max"
-      },
-      "category": {
-          "general": "General",
-          "movies": "Películas & Series",
-          "sports": "Deportes",
-          "news": "Noticias"
-      }
-    },
-    "save": "Guardar",
-    "search": "Buscar"
+      "save": "Guardar",
+      "search": "Buscar"
   },
-  "page": {
-    "title": {
-      "transactions": "Registro de Transacciones",
-      "assets": "Activos",
-      "addAsset": "Nuevo Activo",
-      "editAsset": "Editar Activo"
-    },
-    "breadcrumb": {
-      "home": "Inicio",
-      "investments": "Inversiones",
-      "transaction": "Transacciones",
-      "transactions": "Registro de Transacciones",
-      "newTransaction": "Nueva Transacción",
-      "editTransaction": "Editar Transacción",
-      "assets": "Activos",
-      "newAsset": "Nuevo Activo",
-      "editAsset": "Editar Activo",
-      "users": "Usuarios",
-      "editUser": "Editar Usuario"
-    }
+  "page":
+  {
+      "title":
+      {
+          "transactions": "Registro de Transacciones",
+          "assets": "Activos",
+          "addAsset": "Nuevo Activo",
+          "editAsset": "Editar Activo"
+      },
+      "breadcrumb":
+      {
+          "home": "Inicio",
+          "investments": "Inversiones",
+          "transaction": "Transacciones",
+          "transactions": "Registro de Transacciones",
+          "newTransaction": "Nueva Transacción",
+          "editTransaction": "Editar Transacción",
+          "assets": "Activos",
+          "newAsset": "Nuevo Activo",
+          "editAsset": "Editar Activo",
+          "users": "Usuarios",
+          "newUser": "New User",
+          "editUser": "Editar Usuario",
+          "programs": "Programas emitidos",
+          "channels": "Canales en vivo"
+      }
+  },
+  "clipboard":
+  {
+      "copied": "¡Texto copiado al portapapeles!",
+      "cliCopied": "cli copiado al portapapeles!"
   }
 }

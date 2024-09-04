@@ -6,6 +6,10 @@ export const handleNotification = (notification, dispatch) => {
         return;
     }
     switch (notification.type) {
+        case 'system':
+            dispatch(addNotification(notification));
+            break;
+        
         case "message":
             dispatch(addNotification(notification));
             break;

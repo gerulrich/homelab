@@ -10,10 +10,11 @@ import {
   Typography,
   Button,
   Chip,
+  Divider,
 } from '@mui/material';
 import Scrollbar from '@app/components/customs/Scrollbar';
 
-import { IconBellRinging, IconTrash } from '@tabler/icons-react';
+import { IconBellRinging, IconExclamationCircle, IconMessageReport, IconTrash } from '@tabler/icons-react';
 import { Stack } from '@mui/system';
 import { useSelector } from 'react-redux';
 import { markAllNotificationsAsRead } from '@app/store/slices';
@@ -90,18 +91,19 @@ const Notifications = () => {
           </IconButton>
         </Stack>
         <Scrollbar sx={{ height: '385px' }}>
-          {notifications.map((notification, index) => (
+          <Divider/>
+          {notifications.filter(item => item.read === true).map((notification, index) => (
             <Box key={index}>
               <MenuItem sx={{ py: 2, px: 4 }}>
                 <Stack direction="row" spacing={2}>
-                  <Avatar
-                    src={notification.avatar}
-                    alt={notification.avatar}
-                    sx={{
-                      width: 48,
-                      height: 48,
-                    }}
-                  />
+                  {
+                    notification.type === 'system' && notification.severity === 'error' 
+                    ? (
+                      <IconExclamationCircle size='40' stroke='1.5' color='red'/>
+                    )
+                    : (<Avatar></Avatar>)
+                  }
+                  
                   <Box>
                     <Typography
                       variant="subtitle2"
@@ -113,7 +115,7 @@ const Notifications = () => {
                         fontWeight: notification.read ? 'normal' : 'bold'
                       }}
                     >
-                      {notification.message}
+                      {notification.content}
                     </Typography>
                     <Typography
                       color="textSecondary"

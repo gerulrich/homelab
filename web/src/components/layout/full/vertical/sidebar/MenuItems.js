@@ -79,6 +79,16 @@ import {
     },
     {
       navlabel: true,
+      subheader: 'TV',
+    },
+    {
+      id: uniqueId(),
+      title: 'Programas',
+      icon: IconDeviceTvOld,
+      href: '/settings/programs',
+    },
+    {
+      navlabel: true,
       subheader: 'Inversiones',
     },
     {

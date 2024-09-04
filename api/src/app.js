@@ -31,6 +31,7 @@ app.use('/investments/assets', require('./routes/investments/asset.routes.js'));
 app.use('/investments/transactions', require('./routes/investments/transaction.routes.js'));
 app.use('/auth/users', require('./routes/auth/user.routes.js'));
 app.use('/tv/channels', require('./routes/television/channel.routes.js'));
+app.use('/tv/programs', require('./routes/television/program.routes.js'));
 
 // HTTP 404 error handling
 app.use((req, res, next) => {  
@@ -46,6 +47,6 @@ app.use((err, req, res, next) => {
 const PORT = process.env.NODE_PORT || 3000;
 
 cron.schedule('*/10 10-17 * * 1-5', () => investmentJob());
-cron.schedule('0 */4 * * *', () => epgJob());
+cron.schedule('0 */4 * * *', () => epgJob(io));
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
