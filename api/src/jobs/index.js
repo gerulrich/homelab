@@ -1,7 +1,7 @@
-const investmentJob = require('./investment.job');
+const financialJob = require('./financial.job.js');
 const epgJob = require('./epg.job');
 
 module.exports = {
-  investmentJob,
+  financialJob,
   epgJob,
 };

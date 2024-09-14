@@ -38,7 +38,7 @@ const StyledBadge = styled(Badge, {
 }));
 
 export const AvatarBadge = ({ children }) => {
-    const isConnected = useSelector((state) => state.websocket.socket.isConnected);
+    const isConnected = useSelector((state) => state.websocket.isConnected);
     return (
         <StyledBadge
             overlap="circular"

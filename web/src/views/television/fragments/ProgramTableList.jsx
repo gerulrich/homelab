@@ -23,7 +23,7 @@ import { IconCopy, IconPlus, IconSearch } from '@tabler/icons-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSearch } from '@app/hooks/useSearch';
 import { useTranslation } from 'react-i18next';
-import { DateTimeView } from '../../../components/utils/DateTimeView';
+import { DateTimeView } from '@app/components/utils/DateTimeView';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 

@@ -95,7 +95,8 @@ export const AssetForm = ({ initialValues, onSubmit }) => {
               <MenuItem value="cedear-etf">Cedear (ETF)</MenuItem>
               <MenuItem value="bono">Bono</MenuItem>
               <MenuItem value="on">ON</MenuItem>
-              <MenuItem value="foreign">Extranjero</MenuItem>
+              <MenuItem value="foreign-stock">Acción del exterior</MenuItem>
+              <MenuItem value="local-stock">Acción local</MenuItem>
             </CustomSelect>
             {touched.asset_type && formik.errors.asset_type && (
               <FormHelperText error>
