@@ -23,7 +23,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useSearch } from '@app/hooks/useSearch';
 import { useTranslation } from 'react-i18next';
 import axios from '@app/services/homelab'
-import { EditAndDeleteMenu } from '../../../components/customs/EditAndDeleteMenu';
+import { EditAndDeleteMenu } from '@app/components/customs/EditAndDeleteMenu';
 
 export const AssetsTableList = () => {
   const navigate = useNavigate();

@@ -12,7 +12,7 @@ const AssetSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['cedear', 'bono', 'on', 'foreign'],
+      enum: ['cedear', 'bono', 'on', 'local-stock', 'foreign-stock'],
       required: true
     },
     market: {

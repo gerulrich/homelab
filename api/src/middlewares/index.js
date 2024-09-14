@@ -1,6 +1,6 @@
-const requestValidator = require('../middlewares/request-validator');
-const validateJWT = require('../middlewares/validate-jwt');
-const rolesAllowed = require('../middlewares/roles-allowed');
+const requestValidator = require('@app/middlewares/request-validator');
+const validateJWT = require('@app/middlewares/validate-jwt');
+const rolesAllowed = require('@app/middlewares/roles-allowed');
 
 module.exports = {
   requestValidator,

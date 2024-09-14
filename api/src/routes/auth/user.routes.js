@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { createUser, getAllUsers, getUserById, updateUserById, deleteUser } = require('@app/controllers/auth/user.controller');
-const validateJWT = require('../../middlewares/validate-jwt');
-const requestValidator = require('../../middlewares/request-validator');
-const { rolesAllowed } = require('../../middlewares/roles-allowed');
+const validateJWT = require('@app/middlewares/validate-jwt');
+const requestValidator = require('@app/middlewares/request-validator');
+const { rolesAllowed } = require('@app/middlewares/roles-allowed');
 
 // Middleware for validating asset fields
 const validateUserFields = [

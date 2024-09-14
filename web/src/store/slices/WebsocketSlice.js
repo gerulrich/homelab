@@ -1,10 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  socket: {
-    isConnected: false,
-    notifications: [],
-  },
+  isConnected: false
 };
 
 export const WebsocketSlice = createSlice({
@@ -12,20 +9,9 @@ export const WebsocketSlice = createSlice({
   initialState,
   reducers: {
     setConnected: (state, action) => {
-      state.socket.isConnected = action.payload;
-    },
-    addNotification: (state, action) => {
-      state.socket.notifications.push(action.payload);
-    },
-    clearNotifications: (state) => {
-      state.socket.notifications = [];
-    },
-    markAllNotificationsAsRead: (state) => {
-      state.socket.notifications.forEach(notification => {
-        notification.read = true;
-      });
-    },
-  },
+      state.isConnected = action.payload;
+    }
+  }
 });
 
-export const { setConnected, addNotification, clearNotifications, markAllNotificationsAsRead } = WebsocketSlice.actions;
+export const { setConnected } = WebsocketSlice.actions;

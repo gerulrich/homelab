@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   IconButton,
@@ -17,15 +17,29 @@ import Scrollbar from '@app/components/customs/Scrollbar';
 import { IconBellRinging, IconExclamationCircle, IconMessageReport, IconTrash } from '@tabler/icons-react';
 import { Stack } from '@mui/system';
 import { useSelector } from 'react-redux';
-import { markAllNotificationsAsRead } from '@app/store/slices';
+import { setNotifications } from '@app/store/slices';
+import { markNotificationsAsRead } from '@app/store/thunks/markNotificationsAsRead';
 import { useDispatch } from 'react-redux';
+import axios from '@app/services/homelab'
+import { DateTimeView } from '../../../../utils/DateTimeView';
 
 const Notifications = () => {
   const dispatch = useDispatch();
-  const notifications = useSelector((state) => state.websocket.socket.notifications);
+  const notifications = useSelector((state) => state.notification.notifications);
   const news = notifications.filter(item => !item.read).length;
 
   const [anchorEl2, setAnchorEl2] = useState(null);
+
+  useEffect(() => {
+    axios.get('/notifications')
+    .then(response => {
+      dispatch(setNotifications(response.data.items));
+    })
+    .catch(error => {
+      console.error('Error fetching notifications:', error);
+    });
+  }, []);
+  
 
   const handleClick2 = (event) => {
     setAnchorEl2(event.currentTarget);
@@ -35,8 +49,9 @@ const Notifications = () => {
     setAnchorEl2(null);
   };
 
-  const handleReadAllNotifications = () => {
-    dispatch(markAllNotificationsAsRead());
+  const handleMarkAsRead = () => {
+    const notificationIds = notifications.map(notification => notification._id);
+    dispatch(markNotificationsAsRead(notificationIds));
   };
 
   return (
@@ -86,13 +101,17 @@ const Notifications = () => {
           {
             news > 0 && (<Chip label={`${news} news`} color="primary" size="small" />)
           }
-          <IconButton onClick={handleReadAllNotifications} variant="outlined" color="primary">
+          {
+            news > 0 &&
+             (
+          <IconButton onClick={handleMarkAsRead} variant="outlined" color="primary">
             <IconTrash size="21" stroke="1"/>
-          </IconButton>
+          </IconButton>)
+          }
         </Stack>
         <Scrollbar sx={{ height: '385px' }}>
           <Divider/>
-          {notifications.filter(item => item.read === true).map((notification, index) => (
+          {notifications.filter(item => !item.read).map((notification, index) => (
             <Box key={index}>
               <MenuItem sx={{ py: 2, px: 4 }}>
                 <Stack direction="row" spacing={2}>
@@ -125,6 +144,7 @@ const Notifications = () => {
                       }}
                       noWrap
                     >
+                      {notification.created && (<DateTimeView date={notification.created} />)}
                       {notification.subtitle}
                     </Typography>
                   </Box>

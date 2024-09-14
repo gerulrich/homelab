@@ -1,4 +1,4 @@
-import { addNotification } from '@app/store/slices/WebsocketSlice';
+import { addNotification } from '@app/store/slices/NotificationSlice';
 
 export const handleNotification = (notification, dispatch) => {
     if (!notification.type) {

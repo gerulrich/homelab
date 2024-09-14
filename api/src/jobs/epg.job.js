@@ -1,7 +1,7 @@
 const { getPrograms, getJwt } = require('@app/services');
-const Channel = require('@app//models/television/channel');
-const Program = require('@app//models/television/program');
-const Notification = require('../models/notification');
+const Channel = require('@app/models/television/channel');
+const Program = require('@app/models/television/program');
+const Notification = require('@app/models/notification.model');
 
 const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const random = (min, max) => Math.floor((((max - min) * Math.random()) + 3) * 1000);
