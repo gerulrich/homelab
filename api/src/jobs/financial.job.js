@@ -39,8 +39,10 @@ const fetchAndUpdateQuotes = async () => {
   const itemUSD = itemsToUpdate.find(item => item.symbol === 'AL30D');
   const rate = itemUSD.trade / itemARS.trade;
 
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
   await Quote.findOneAndUpdate(
-    { asset: 'ARS' },
+    { asset: 'ARS', date:  currentDate },
     { $set: { rate: rate, date:  new Date() }},
     { upsert: true }
   );
