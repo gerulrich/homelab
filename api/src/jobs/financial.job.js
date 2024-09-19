@@ -13,9 +13,8 @@ const fetchAndUpdateAssets = async (service, assetType, rate) => {
 
     const itemsToUpdate = items.filter(item => symbols.includes(item.symbol) && item.trade > 0);
     const updateOperations = itemsToUpdate.map(item => {
-      const endsWithD = item.symbol.endsWith('D');
-      const value = endsWithD ? item.trade : Number(item.trade * rate).toFixed(2);
-      const currency = endsWithD ? item.denominationCcy : 'USD';
+      const value = item.denominationCcy === 'ARS' ? Number(item.trade * rate).toFixed(2) : item.trade;
+      const currency = 'USD';
       return {
         updateOne: {
           filter: { symbol: item.symbol },
