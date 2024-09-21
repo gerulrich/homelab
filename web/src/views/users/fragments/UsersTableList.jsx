@@ -214,6 +214,8 @@ export const UsersTableList = () => {
           count={data.pagination.total}
           rowsPerPage={size}
           page={page}
+          showFirstButton={true}
+          showLastButton={true}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
