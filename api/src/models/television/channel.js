@@ -17,6 +17,10 @@ const ChannelSchema = Schema({
     enum: ['basic', 'pro', 'max'],
     required: true
   },
+  level: {
+    type: Number,
+    required: true
+  },
   epg_id: String,
   drm: {
     type: { type: String },

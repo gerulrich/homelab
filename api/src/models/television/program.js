@@ -48,6 +48,10 @@ const ProgramSchema = Schema({
   series_id: String,
   season_id: String,
   program_id: String,
+  plan: {
+    level: Number,
+    name: String
+  },
   channel: {
     type: Schema.Types.ObjectId,
     ref: 'Channel',

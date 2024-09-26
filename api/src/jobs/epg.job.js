@@ -50,6 +50,10 @@ const getEpgData = async (jwt, channel) => {
       channel: channel._id,
       channel_name: channel.name,
       epg_name: channel.epg_id,
+      plan: {
+        level: channel.level,
+        name: channel.plan,
+      },
     };
   });
 };
@@ -92,8 +96,8 @@ const epgJob = async (io) => {
       { type: 'system',
         component: 'epg',
         severity: 'error',
-        content: 'EPG job encountered an error',
-        read: false 
+        content: `EPG job encountered an error: ${  error.message}`,
+        read: false
       }, { created: new Date() }, { upsert: true });
     io.to('admin').emit('notification', { 
       type: 'system',
