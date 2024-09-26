@@ -27,16 +27,18 @@ const getChannelById = async(req, res) => {
 };
 
 const createChannel = async(req, res) => {
-  const { _id, ...others } = req.body; // eslint-disable-line no-unused-vars
-  const channel = new Channel(others);
+  const { _id, plan, ...others } = req.body; // eslint-disable-line no-unused-vars
+  const level = plan === 'basic' ? 1 : plan === 'pro' ? 2 : 3;
+  const channel = new Channel({plan, level, ...others});
   channel.save();
   res.json(channel);
 };
 
 const updateChannel = async(req, res) => {
   const { id } = req.params;
-  const { _id, ...others } = req.body; // eslint-disable-line no-unused-vars
-  const channel = await Channel.findByIdAndUpdate(id, others, {new : true});
+  const { _id, plan, ...others } = req.body; // eslint-disable-line no-unused-vars
+  const level = plan === 'basic' ? 1 : plan === 'pro' ? 2 : 3;
+  const channel = await Channel.findByIdAndUpdate(id, {plan, level, ...others}, {new : true});
   res.json(channel);
 };
 
