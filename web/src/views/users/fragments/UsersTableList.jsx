@@ -158,7 +158,7 @@ export const UsersTableList = () => {
 
                       <TableCell>
                       <Typography variant="caption">
-                        lifetime pass
+                        {row.plan}
                         </Typography>
                       </TableCell>
 
