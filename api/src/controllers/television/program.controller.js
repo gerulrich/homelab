@@ -1,8 +1,11 @@
 const Program = require('@app/models/television/program');
 
 const getPrograms = async(req, res) => {
+  const user_level = req.user.level;
   const { limit = 25, offset = 0, q = '' } = req.query;
-  const query = q ? { $text: { $search: q } } : {};
+  const query = q ? {
+    $and: [ { $text: { $search: q } }, { 'plan.level': { $lte: user_level } }]
+  } : { 'plan.level': { $lte: user_level } };
   const [total, programs] = await Promise.all([
     Program.countDocuments(query),
     Program.find(query).sort({ start: 1 }).limit(parseInt(limit)).skip(parseInt(offset))

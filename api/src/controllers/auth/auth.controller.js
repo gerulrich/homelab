@@ -15,7 +15,8 @@ const login = async (req, res) => {
         message: 'Email or password is incorrect'
       });
     }
-    const access_token = await createJWT(user.id, user.roles, JWT_EXPIRES_SECONDS);
+    const level = user.plan === 'basic' ? 1 : user.plan === 'pro' ? 2 : 3;
+    const access_token = await createJWT(user.id, user.roles, level, JWT_EXPIRES_SECONDS);
 
     return res.json({
       user,
@@ -60,7 +61,8 @@ const googleSignIn = async (req, res) => {
       return res.status(401).json({ message: 'User is blocked' });
     }
 
-    const access_token = await createJWT(user.id, user.roles, JWT_EXPIRES_SECONDS);
+    const level = user.plan === 'basic' ? 1 : user.plan === 'pro' ? 2 : 3;
+    const access_token = await createJWT(user.id, user.roles, level, JWT_EXPIRES_SECONDS);
 
     res.json({
       user,

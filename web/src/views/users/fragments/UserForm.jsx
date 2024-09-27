@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import CustomFormLabel from '@app/components/customs/CustomFormLabel';
 import CustomTextField from '@app/components/customs/CustomTextField';
 import useMounted from '@app/components/guards/UseMounted';
+import CustomSelect from '@app/components/customs/CustomSelect';
 import { useTranslation } from 'react-i18next';
 
 export const UserForm = ({ initialValues, onSubmit }) => {
@@ -120,6 +121,35 @@ export const UserForm = ({ initialValues, onSubmit }) => {
                 checked={formik.values.google}
               />
           </Grid>
+
+          {/* plan */}
+          <Grid item xs={12} sm={2} display="flex" alignItems="center">
+            <CustomFormLabel htmlFor="picture" sx={{ mt: 0, mb: { xs: '-10px', sm: 0 } }}>
+            {t('form.fields.plan')}
+            </CustomFormLabel>
+          </Grid>
+          <Grid item xs={12} sm={10}>
+            
+          <CustomSelect
+              id="plan"
+              name="plan"
+              value={formik.values.plan}
+              onChange={formik.handleChange}
+              fullWidth>
+              <MenuItem value="basic">{t('form.values.plan.basic')}</MenuItem>
+              <MenuItem value="pro">{t('form.values.plan.pro')}</MenuItem>
+              <MenuItem value="max">{t('form.values.plan.max')}</MenuItem>
+            </CustomSelect>
+            {touched.plan && formik.errors.plan && (
+              <FormHelperText error>
+                {' '}
+                {formik.errors.plan}{' '}
+              </FormHelperText>
+            )}
+
+
+
+          </Grid>          
           
           {/* Botón de Guardar */}
           <Grid item xs={12} sm={2}></Grid>

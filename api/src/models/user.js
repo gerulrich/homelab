@@ -28,6 +28,12 @@ const UserSchema = Schema({
   google: {
     type: Boolean,
     default: false
+  },
+  plan: {
+    type: String,
+    enum: ['basic', 'pro', 'max'],
+    default: 'basic',
+    required: true
   }
 });
 

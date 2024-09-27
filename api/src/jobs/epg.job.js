@@ -96,7 +96,7 @@ const epgJob = async (io) => {
       { type: 'system',
         component: 'epg',
         severity: 'error',
-        content: `EPG job encountered an error: ${  error.message}`,
+        content: `EPG job encountered an error: ${error.message}`,
         read: false
       }, { created: new Date() }, { upsert: true });
     io.to('admin').emit('notification', { 
