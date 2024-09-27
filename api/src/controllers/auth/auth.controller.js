@@ -16,7 +16,7 @@ const login = async (req, res) => {
       });
     }
     const level = user.plan === 'basic' ? 1 : user.plan === 'pro' ? 2 : 3;
-    const access_token = await createJWT(user.id, user.roles, level, userJWT_EXPIRES_SECONDS);
+    const access_token = await createJWT(user.id, user.roles, level, JWT_EXPIRES_SECONDS);
 
     return res.json({
       user,
