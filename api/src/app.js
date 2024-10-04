@@ -16,8 +16,9 @@ const server = require('http').createServer(app);
 
 initializeMongoose();
 const io = initializeSocketIO(server, app);
+const mqtt = initializeMQTT(io);
 app.set('socketio', io);
-app.set('mqtt', initializeMQTT(io));
+app.set('mqtt', mqtt);
 
 // middlewares
 app.use(express.json());
@@ -46,7 +47,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.NODE_PORT || 3000;
 
-cron.schedule('*/10 10-17 * * 1-5', () => financialJob(io));
+cron.schedule('*/10 10-17 * * 1-5', () => financialJob(io, mqtt));
 cron.schedule('0 */4 * * *', () => epgJob(io));
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
