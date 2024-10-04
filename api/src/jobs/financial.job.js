@@ -48,9 +48,17 @@ const fetchAndUpdateQuotes = async () => {
   return rate;
 };
 
-const financialJob = async (io) => {
+const checkAlerts = async (rate, mqtt) => {
+  const value = 1 / rate;
+  if (value > process.env.FINANCIAL_USD_LIMIT) {
+    mqtt.publish('/telegram/send', `El dólar está a $${value.toFixed(2)}`);
+  }
+};
+
+const financialJob = async (io, mqtt) => {
   try {
     const rate = await fetchAndUpdateQuotes();
+    checkAlerts(rate, mqtt);
     const requests = [
       fetchAndUpdateAssets('etf', 'cedear', rate),
       fetchAndUpdateAssets('cedears', 'cedear', rate),
