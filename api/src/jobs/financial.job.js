@@ -53,7 +53,7 @@ const checkAlerts = async (rate, mqtt) => {
   if (value > process.env.FINANCIAL_USD_LIMIT) {
     mqtt.publish('/telegram/send', `El dólar está a $${value.toFixed(2)}`);
   }
-}
+};
 
 const financialJob = async (io, mqtt) => {
   try {
