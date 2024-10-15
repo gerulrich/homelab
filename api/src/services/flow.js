@@ -92,12 +92,12 @@ const getPrograms = async (jwt, number) => {
     headers: { 
       'Authorization': `Bearer ${jwt}`,
       'Content-Type': 'application/json',
-      'Authority': 'web.flow.com.ar',
+      //'Authority': 'web.flow.com.ar',
       'Origin': 'https://web.app.flow.com.ar/inicio',
       'Referer': 'https://web.app.flow.com.ar/',
-      'User-Agent': 'okhttp/4.11.0',
-      'x-dynatrace': `${FLOW_DYNATRACE}`,
-      'x-request-id': `${FLOW_REQUEST_ID}`
+      //'User-Agent': 'okhttp/4.11.0',
+      //'x-dynatrace': `${FLOW_DYNATRACE}`,
+      //'x-request-id': `${FLOW_REQUEST_ID}`
     },
     data : [ number ]
   };
