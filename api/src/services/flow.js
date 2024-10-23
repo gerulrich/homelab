@@ -70,12 +70,12 @@ const getMamushkaToken = async (sessionToken) => {
     url: 'https://authsdk.app.flow.com.ar/auth-sdk/v1/mamushka',
     headers: {
       'User-Agent': 'Ktor client', 
-      'x-request-id': 'Flow|AndroidTV|3.88.3|2797276|70584634|4689721462', 
-      'x-dynatrace': 'MT_3_5_1060612777_2-0_effb57ad-3688-40b8-9ac9-f53fe4d83711_25_68_75', 
+      'x-dynatrace': `${FLOW_DYNATRACE}`,
+      'x-request-id': `${FLOW_REQUEST_ID}`,
       'Authorization': `Bearer ${FLOW_ACCESS_TOKEN}`,
       'Content-Type': 'application/json'
     },
-    data: { token: sessionToken, ...mamushkaData }
+    data: { ...mamushkaData, token: sessionToken }
   };
   const response = await axios.request(config);
   const token = response.data.token_mamushka;
@@ -88,16 +88,16 @@ const getPrograms = async (jwt, number) => {
   const epoch_to = ts + (24 * 60 * 60);
   const config = {
     method: 'POST',
-    url: `https://web.flow.com.ar/api/v1/content/channel?size=10000&dateFrom=${epoch_from}000&dateTo=${epoch_to}999`,
+    url: `https://web.flow.com.ar/api/v1/content/channel?size=10000&dateFrom=${epoch_from}000&dateTo=${epoch_to}999&tvRating=6`,
     headers: { 
       'Authorization': `Bearer ${jwt}`,
       'Content-Type': 'application/json',
-      //'Authority': 'web.flow.com.ar',
+      'Authority': 'web.flow.com.ar',
       'Origin': 'https://web.app.flow.com.ar/inicio',
       'Referer': 'https://web.app.flow.com.ar/',
-      //'User-Agent': 'okhttp/4.11.0',
-      //'x-dynatrace': `${FLOW_DYNATRACE}`,
-      //'x-request-id': `${FLOW_REQUEST_ID}`
+      'User-Agent': 'okhttp/4.11.0',
+      'x-dynatrace': `${FLOW_DYNATRACE}`,
+      'x-request-id': `${FLOW_REQUEST_ID}`
     },
     data : [ number ]
   };
