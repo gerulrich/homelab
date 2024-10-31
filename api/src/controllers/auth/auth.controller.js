@@ -38,7 +38,8 @@ const renewToken = async (req, res) => {
     if (!user || !user.enabled) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
-    const token = await createJWT(user.id, user.roles, JWT_EXPIRES_SECONDS);
+    const level = user.plan === 'basic' ? 1 : user.plan === 'pro' ? 2 : 3;
+    const token = await createJWT(user.id, user.roles, level, JWT_EXPIRES_SECONDS);
     return res.json({
       user,
       token_type: 'Bearer',
