@@ -20,7 +20,7 @@ import {
   Snackbar,
 } from '@mui/material';
 import { IconCopy, IconPlus, IconSearch } from '@tabler/icons-react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useSearch } from '@app/hooks/useSearch';
 import { useTranslation } from 'react-i18next';
 import { DateTimeView } from '@app/components/utils/DateTimeView';
@@ -122,9 +122,15 @@ export const ProgramTableList = () => {
                             variant="rounded"
                           />
                           <Box>
-                            <Typography variant="h6" fontWeight="600">
-                              {row.title}
-                            </Typography>
+                            
+                            <Typography color="textSecondary" variant="h6" fontWeight="400"
+                                sx={{ display: 'inline', fontWeight: '', textDecoration: 'none' }}
+                                
+                                component={Link} to={`/settings/programs/${row.uid}`}
+                            >{row.title}
+                            
+                          </Typography>
+                            
                           </Box>
                         </Stack>
                       </TableCell>
@@ -147,7 +153,7 @@ export const ProgramTableList = () => {
                         {
                           (row.media_url != null && row.drm != null && activeRowIndex === index) && (
                             <CopyToClipboard
-                              text={`ffmpeg -cenc_decryption_key ${row.drm.key} -i ${row.media_url} -map 0:v:4 -map 0:a -c:v copy -c:a copy -map 0:s? "${row.title}.mkv"`}
+                              text={`ffmpeg -cenc_decryption_key ${row.drm.key} -i ${row.media_url} -map 0:v:4 -map 0:a -c:v copy -c:a copy -map \"0:s?\" "${row.title}.mkv"`}
                               onCopy={() => handleCopy(row)}>
                               <IconButton aria-label="settings">
                                   <IconCopy fontSize='small' />

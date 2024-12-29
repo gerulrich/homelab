@@ -208,6 +208,8 @@ export const TransactionsTableList = () => {
                               : row.type === 'coupon' ? 'Cupón'
                               : row.type === 'dividend' ? 'Dividendo'
                               : row.type === 'amortization' ? 'Amortizacion'
+                              : row.type === 'swap' ? 'Canje'
+                              : row.type === 'rescue' ? 'Rescate'
                               : 'Split'
                               }
                               sx={{

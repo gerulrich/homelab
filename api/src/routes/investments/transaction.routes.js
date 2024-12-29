@@ -15,7 +15,7 @@ const {
 // Middleware for validating transaction fields
 const validateTransactionFields = [
   body('asset').isMongoId().withMessage('El campo asset es requerido.'),
-  body('type').isIn(['buy', 'sell', 'dividend', 'coupon', 'amortization', 'split']).withMessage('Tipo de transacción inválido.'),
+  body('type').isIn(['buy', 'sell', 'dividend', 'coupon', 'amortization', 'split', 'swap', 'rescue']).withMessage('Tipo de transacción inválido.'),
   body('quantity').isNumeric().withMessage('La cantidad debe ser un número.'),
   body('price.amount').notEmpty().isNumeric().withMessage('El monto debe ser un número.'),
   body('price.currency').notEmpty().isString().withMessage('La moneda debe ser una cadena.'),

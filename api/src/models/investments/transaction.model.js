@@ -14,7 +14,7 @@ const TransactionSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['buy', 'sell', 'dividend', 'coupon', 'amortization', 'split'],
+      enum: ['buy', 'sell', 'dividend', 'coupon', 'amortization', 'split', 'swap', 'rescue'],
       required: true
     },
     quantity: {
