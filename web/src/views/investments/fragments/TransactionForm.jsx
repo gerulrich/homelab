@@ -41,7 +41,7 @@ export const TransactionForm = ({ initialValues, onSubmit }) => {
       .oneOf(['USD', 'EUR', 'ARS'], t('form.validation.currency.oneOf')),
     type: Yup.string()
       .required(t('form.validation.type.required'))
-      .oneOf(['buy', 'sell', 'dividend', 'coupon', 'amortization', 'split'], t('form.validation.type.oneOf')),
+      .oneOf(['buy', 'sell', 'dividend', 'coupon', 'amortization', 'split', 'swap', 'rescue'], t('form.validation.type.oneOf')),
     details: Yup.string()
       .optional(),
   });
@@ -197,6 +197,8 @@ export const TransactionForm = ({ initialValues, onSubmit }) => {
               <MenuItem value="coupon">Cupón</MenuItem>
               <MenuItem value="amortization">Amortización</MenuItem>
               <MenuItem value="split">Split</MenuItem>
+              <MenuItem value="swap">Canje</MenuItem>
+              <MenuItem value="rescue">Rescate</MenuItem>
             </CustomSelect>
             {touched.type && formik.errors.type && (
               <FormHelperText error>
