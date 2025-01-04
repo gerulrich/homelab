@@ -61,6 +61,7 @@ import {
     {
       navlabel: true,
       subheader: 'Home',
+      role: 'USER_ROLE'
     },
   
     {
@@ -70,44 +71,59 @@ import {
       href: '/dashboards/modern',
       chip: 'New',
       chipColor: 'secondary',
+      role: 'USER_ROLE'
     },
     {
       id: uniqueId(),
       title: 'eCommerce',
       icon: IconShoppingCart,
       href: '/dashboards/ecommerce',
+      role: 'USER_ROLE'
     },
     {
       navlabel: true,
       subheader: 'TV',
+      role: 'USER_ROLE'
+    },
+    {
+      id: uniqueId(),
+      title: 'Canales',
+      icon: IconDeviceTvOld,
+      href: '/tv/channels',
+      role: 'USER_ROLE'
     },
     {
       id: uniqueId(),
       title: 'Programas',
       icon: IconDeviceTvOld,
       href: '/settings/programs',
+      role: 'USER_ROLE'
     },
     {
       navlabel: true,
       subheader: 'Inversiones',
+      role: 'USER_ROLE'
     },
     {
       id: uniqueId(),
       title: 'Assets',
       icon: IconBrandStackshare,
       href: '/investments/assets',
+      role: 'USER_ROLE'
     },
     {
       id: uniqueId(),
       title: 'Transactions',
       icon: IconTransactionDollar,
       href: '/investments/transactions',
+      role: 'USER_ROLE'
     },
     {
       id: uniqueId(),
       title: 'Wallet',
       icon: IconWallet,
       href: '/investments/wallet',
+      role: 'USER_ROLE'
     },
     {
       navlabel: true,

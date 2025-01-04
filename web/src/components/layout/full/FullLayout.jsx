@@ -4,6 +4,10 @@ import { styled, Container, Box, useTheme } from '@mui/material';
 import Header from './vertical/header/Header';
 import Sidebar from './vertical/sidebar/Sidebar';
 import { DevelopmentHeader } from '@app/components/customs/DevelopmentHeader';
+import useAuth from '../../guards/UseAuth';
+import defineAbilityFor from '@app/services/abilities';
+import { AbilityContext } from '../../guards/Can';
+
 
 const MainWrapper = styled('div')(() => ({
   display: 'flex',
@@ -25,9 +29,11 @@ const FullLayout = () => {
   const customizer = useSelector((state) => state.customizer);
 
   const theme = useTheme();
+  const { user } = useAuth();
+  const ability = defineAbilityFor(user);
 
   return (
-    <>
+    <AbilityContext.Provider value={ability}>
       {
         import.meta.env.DEV ? (<DevelopmentHeader />) : (<></>)
       }
@@ -73,7 +79,7 @@ const FullLayout = () => {
         </Container>
       </PageWrapper>
     </MainWrapper>
-    </>
+    </AbilityContext.Provider>
   );
 };
 
