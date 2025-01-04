@@ -7,6 +7,8 @@ import { toggleMobileSidebar } from '@app/store/slices/CustomizerSlice';
 import NavItem from './NavItem';
 import NavCollapse from './NavCollapse';
 import NavGroup from './NavGroup';
+import { subject } from '@casl/ability';
+import { Can } from '@app/components/guards/Can';
 
 const SidebarItems = () => {
   const { pathname } = useLocation();
@@ -17,32 +19,37 @@ const SidebarItems = () => {
   const hideMenu = lgUp ? customizer.isCollapse && !customizer.isSidebarHover : '';
   const dispatch = useDispatch();
 
-  return (
-    <Box sx={{ px: 3 }}>
+   return (
+     <Box sx={{ px: 3 }}>
       <List sx={{ pt: 0 }} className="sidebarNav">
         {Menuitems.map((item, index) => {
           // {/********SubHeader**********/}
           if (item.subheader) {
-            return <NavGroup item={item} hideMenu={hideMenu} key={item.subheader} />;
-
+            return (
+              <Can I="view" a={subject('MenuItem', item)} key={`view-${item.subheader}`}> 
+                <NavGroup item={item} hideMenu={hideMenu} key={item.subheader} />
+              </Can>
+            );
             // {/********If Sub Menu**********/}
             /* eslint no-else-return: "off" */
           } else if (item.children) {
             return (
-              <NavCollapse
-                menu={item}
-                pathDirect={pathDirect}
-                hideMenu={hideMenu}
-                pathWithoutLastPart={pathWithoutLastPart}
-                level={1}
-                key={item.id}
-                onClick={() => dispatch(toggleMobileSidebar())}
+              <Can I="view" a={subject('MenuItem', item)} key={`view-${item.title}`}> 
+                <NavCollapse
+                  menu={item}
+                  pathDirect={pathDirect}
+                  hideMenu={hideMenu}
+                  pathWithoutLastPart={pathWithoutLastPart}
+                  level={1}
+                  key={item.id}
+                  onClick={() => dispatch(toggleMobileSidebar())}
               />
+              </Can>
             );
-
             // {/********If Sub No Menu**********/}
           } else {
             return (
+              <Can I="view" a={subject('MenuItem', item)} key={`view-${item.id}`}> 
               <NavItem
                 item={item}
                 key={item.id}
@@ -50,6 +57,7 @@ const SidebarItems = () => {
                 hideMenu={hideMenu}
                 onClick={() => dispatch(toggleMobileSidebar())}
               />
+              </Can>
             );
           }
         })}

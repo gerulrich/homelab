@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Box,
   Table,
@@ -24,6 +24,7 @@ import { useSearch } from '@app/hooks/useSearch';
 import { useTranslation } from 'react-i18next';
 import axios from '@app/services/homelab'
 import { EditAndDeleteMenu } from '@app/components/customs/EditAndDeleteMenu';
+import { AbilityContext, Can } from '@app/components/guards/Can';
 
 export const AssetsTableList = () => {
   const navigate = useNavigate();
@@ -42,6 +43,8 @@ export const AssetsTableList = () => {
     setError } = useSearch('/investments/assets');
   const [activeRowIndex, setActiveRowIndex] = useState(null);
   const emptyRows = Math.max(0, size - data.items.length);
+  const ability = useContext(AbilityContext);
+  const canEditOrDelete = ability.can('edit', 'Asset') || ability.can('delete', 'Asset');
 
   const handleChangePage = (_, newPage) => setPage(newPage);
 
@@ -89,11 +92,13 @@ export const AssetsTableList = () => {
           />
         </Box>
 
-        <Tooltip title="Agregar asset">
-            <IconButton component={NavLink} to="/investments/assets/new">
-              <IconPlus size="1.2rem" icon="filter" />
-            </IconButton>
-        </Tooltip>
+        <Can I="create" a="Asset">
+          <Tooltip title="Agregar asset">
+              <IconButton component={NavLink} to="/investments/assets/new">
+                <IconPlus size="1.2rem" icon="filter" />
+              </IconButton>
+          </Tooltip>
+        </Can>
 
       </Toolbar>
 
@@ -191,11 +196,12 @@ export const AssetsTableList = () => {
                         </Typography>
                       </TableCell>
                       <TableCell style={{ width: "48px", padding: "2px", marginRight: "25px" }}>
-                        {activeRowIndex === index && (
+                        {(canEditOrDelete && activeRowIndex) === index && (
                           <EditAndDeleteMenu
                             resource={row}
                             onEdit={onEdit}
                             onDelete={onDelete}
+                            type="Asset"
                           />)}
                       </TableCell>
                     </TableRow>

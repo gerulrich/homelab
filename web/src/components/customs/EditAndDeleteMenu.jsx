@@ -12,8 +12,9 @@ import {
   Button,
 } from '@mui/material';
 import { IconDotsVertical, IconPencil, IconTrash } from '@tabler/icons-react';
+import { Can } from '@app/components/guards/Can';
 
-export const EditAndDeleteMenu = ({ resource, onEdit, onDelete }) => {
+export const EditAndDeleteMenu = ({ resource, onEdit, onDelete, type }) => {
   // Menu options
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
@@ -63,19 +64,23 @@ export const EditAndDeleteMenu = ({ resource, onEdit, onDelete }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleEditOption}>
-          <ListItemIcon>
-            <IconPencil size="16" />
-          </ListItemIcon>
-          Editar
-        </MenuItem>
+        <Can I="edit" a={type}>
+          <MenuItem onClick={handleEditOption}>
+            <ListItemIcon>
+              <IconPencil size="16" />
+            </ListItemIcon>
+            Editar
+          </MenuItem>
+        </Can>
 
-        <MenuItem onClick={handleOpenDeleteDialog}>
-          <ListItemIcon>
-            <IconTrash size="16" />
-          </ListItemIcon>
-          Eliminar
-        </MenuItem>
+        <Can I="delete" a={type}>
+          <MenuItem onClick={handleOpenDeleteDialog}>
+            <ListItemIcon>
+              <IconTrash size="16" />
+            </ListItemIcon>
+            Eliminar
+          </MenuItem>
+        </Can>
         
       </Menu>
 

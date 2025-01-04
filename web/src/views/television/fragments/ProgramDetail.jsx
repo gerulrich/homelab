@@ -15,7 +15,7 @@ const ProgramDetail = ({program}) => {
         <>
           <Box display="flex" alignItems="center">
             {/* ------------------------------------------- */}
-            {/* Badge and category */}
+            {/* Genre and channel name */}
             {/* ------------------------------------------- */}
             <Chip label={program?.genre} color="success" size="small" />
             <Typography color="textSecondary" variant="caption" ml={1} textTransform="capitalize">
@@ -33,9 +33,9 @@ const ProgramDetail = ({program}) => {
           </Typography>
 
 
-          <Typography fontWeight="200" variant="h4" mt={1}>
+          {program.start && (<Typography fontWeight="200" variant="h4" mt={1}>
             Fecha de emision: <DateTimeView date={program.start}/>
-          </Typography>
+          </Typography>)}
 
           {/* ------------------------------------------- */}
           {/* Buttons */}

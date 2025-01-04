@@ -240,6 +240,7 @@ export const TransactionsTableList = () => {
                             resource={row}
                             onEdit={onEdit}
                             onDelete={onDelete}
+                            type="Transaction"
                           />)}
                       </TableCell>
                     </TableRow>

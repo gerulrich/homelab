@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@casl/ability": "^6.7.2",
+    "@casl/react": "^4.0.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.3.4",
@@ -25,6 +27,7 @@
     "date-fns": "^2.29.2",
     "formik": "^2.4.5",
     "i18next": "^23.11.4",
+    "install": "^0.13.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
