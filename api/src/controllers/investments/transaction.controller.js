@@ -56,7 +56,7 @@ const updateTransaction = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { uid, user, ...data } = req.body; // eslint-disable-line no-unused-vars
-    const transaction = await Transaction.findOneAndUpdate({ _id: id, user: req.user.uid }, data, { new: true });
+    const transaction = await Transaction.findOneAndUpdate({ _id: id, user: req.user.uid }, data, { new: false });
     return res.json(transaction);
   } catch (error) {
     next(error);

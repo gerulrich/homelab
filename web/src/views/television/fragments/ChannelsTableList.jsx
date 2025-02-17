@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Box,
   Table,
@@ -25,9 +25,12 @@ import { useSearch } from '@app/hooks/useSearch';
 import axios from '@app/services/homelab'
 import { useTranslation } from 'react-i18next';
 import { EditAndDeleteMenu } from '@app/components/customs/EditAndDeleteMenu';
+import { AbilityContext, Can } from '@app/components/guards/Can';
 
-export const ChannelsTableList = () => {
+
+export const ChannelsTableList = ({admin = false}) => {
   const navigate = useNavigate();
+  const url = admin ? '/tv/channels' : '/tv/channels/plan';
   const { t } = useTranslation();
   const {
     data,
@@ -40,9 +43,11 @@ export const ChannelsTableList = () => {
     setSize,
     loading,
     error,
-    setError } = useSearch('/tv/channels');
+    setError } = useSearch(url);
   const [activeRowIndex, setActiveRowIndex] = useState(null);
   const emptyRows = Math.max(0, size - data.items.length);
+  const ability = useContext(AbilityContext);
+  const canEditOrDelete = ability.can('edit', 'Channel') || ability.can('delete', 'Channel');
 
   const handleChangePage = (_, newPage) => setPage(newPage);
 
@@ -88,11 +93,13 @@ export const ChannelsTableList = () => {
           />
         </Box>
 
-        <Tooltip title="Nuevo canal">
-            <IconButton component={NavLink} to="/settings/channels/new">
-              <IconPlus size="1.2rem" icon="filter" />
-            </IconButton>
-        </Tooltip>
+        <Can I="create" a="Channel">
+          <Tooltip title="Nuevo canal">
+              <IconButton component={NavLink} to="/settings/channels/new">
+                <IconPlus size="1.2rem" icon="filter" />
+              </IconButton>
+          </Tooltip>
+        </Can>
 
       </Toolbar>
 
@@ -114,15 +121,17 @@ export const ChannelsTableList = () => {
                 <TableCell align="left" padding="normal">
                   <Typography variant="subtitle1" fontWeight="500">{t('form.fields.category')}</Typography>
                 </TableCell>                
-                <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.epg_id')}</Typography>
-                </TableCell>
-                <TableCell align="left" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.plan')}</Typography>
-                </TableCell>                
-                <TableCell align="center" padding="normal">
-                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.enabled')}</Typography>
-                </TableCell>
+                <Can I="manage" a="Channel">
+                  <TableCell align="left" padding="normal">
+                    <Typography variant="subtitle1" fontWeight="500">{t('form.fields.epg_id')}</Typography>
+                  </TableCell>
+                  <TableCell align="left" padding="normal">
+                    <Typography variant="subtitle1" fontWeight="500">{t('form.fields.plan')}</Typography>
+                  </TableCell>                
+                  <TableCell align="center" padding="normal">
+                    <Typography variant="subtitle1" fontWeight="500">{t('form.fields.enabled')}</Typography>
+                  </TableCell>
+                </Can>
                 <TableCell align="left" padding="normal">
                 </TableCell>
               </TableRow>
@@ -163,6 +172,7 @@ export const ChannelsTableList = () => {
                         </Typography>
                       </TableCell>
 
+                      <Can I="manage" a="Channel">
                       <TableCell>
                         <Typography variant="caption">
                           {row.epg_id}
@@ -182,13 +192,15 @@ export const ChannelsTableList = () => {
                            : (<IconSquare />)
                         }
                       </TableCell>
+                      </Can>
 
                       <TableCell style={{ width: "48px", padding: "2px", marginRight: "25px" }}>
-                        {activeRowIndex === index && (
+                        {(canEditOrDelete && activeRowIndex === index) && (
                             <EditAndDeleteMenu
                             resource={row}
                             onEdit={onEdit}
                             onDelete={onDelete}
+                            type="Channel"
                           />
                         )}
                       </TableCell>

@@ -20,6 +20,20 @@ const getPrograms = async(req, res) => {
   });
 };
 
+const getProgramById = async(req, res) => {
+  const { id } = req.params;
+  const program = await Program.findById(id);
+  if (!program) {
+    return res.status(404).json({msg: 'program not found'});
+  }
+  const user_level = req.user.level;
+  if (program.plan.level > user_level) {
+    return res.status(403).json({msg: 'forbidden'});
+  }
+  res.json(program);
+};
+
 module.exports = {
-  getPrograms
+  getPrograms,
+  getProgramById
 };

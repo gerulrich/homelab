@@ -17,6 +17,26 @@ const getChannels = async(req, res) => {
   });
 };
 
+const getChannelsByPlan = async(req, res) => {
+  const user_level = req.user.level;
+  const { limit = 25, offset = 0, q = '' } = req.query;
+  const query = q ? {
+    $and: [ { $text: { $search: q } }, { 'plan.level': { $lte: user_level } }]
+  } : { 'level': { $lte: user_level } };
+  const [total, channels] = await Promise.all([
+    Channel.countDocuments(query),
+    Channel.find(query).sort({ name: 1 }).limit(parseInt(limit)).skip(parseInt(offset))
+  ]);
+  res.json({
+    items: channels,
+    pagination: {
+      total,
+      limit: parseInt(limit),
+      offset: parseInt(offset),
+    }
+  });
+};
+
 const getChannelById = async(req, res) => {
   const { id } = req.params;
   const channel = await Channel.findById(id);
@@ -56,5 +76,6 @@ module.exports = {
   getChannels,
   createChannel,
   updateChannel,
-  deleteChannel
+  deleteChannel,
+  getChannelsByPlan
 };
