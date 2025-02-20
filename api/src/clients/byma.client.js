@@ -4,8 +4,8 @@ const https = require('https');
 const defaultBody = {
   T1:true,
   T0:false,
-  "Content-Type": "application/json"
-}
+  'Content-Type': 'application/json'
+};
 
 const byma = axios.create({
   httpsAgent: new https.Agent({

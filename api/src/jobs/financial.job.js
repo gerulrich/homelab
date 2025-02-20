@@ -5,11 +5,11 @@ const Notification = require('@app/models/notification.model');
 
 const fetchAndUpdateAssets = async (service, assetType, rate) => {
   try {
-    let headers = {};
+    const headers = {};
     if (assetType === 'on' || assetType === 'bono') {
       headers['Options'] = 'renta-fija';
     } else {
-      headers['Options'] = 'renta-variable'
+      headers['Options'] = 'renta-variable';
     }
     const resp = await byma.post(service, defaultBody, { headers });
     const items = resp.data.data || resp.data;

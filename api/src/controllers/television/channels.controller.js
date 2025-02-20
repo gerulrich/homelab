@@ -54,7 +54,7 @@ const getCurrentProgramForChannel = async(req, res) => {
   const now = new Date();
   const program = await Program.findOne({ channel: id, start: { $lt: now }, end: { $gt: now } });
   res.json(program);
-}
+};
 
 const getChannelById = async(req, res) => {
   const { id } = req.params;
