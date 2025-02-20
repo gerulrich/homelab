@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import axios from '@app/services/homelab'
 import { Alert } from '@mui/material';
 import ProgramDetail from './fragments/ProgramDetail';
-import img1 from '@app/assets/images/movie_poster.png';
+//import img1 from '@app/assets/images/movie_poster.png';
 
 const BCrumb = [
   {
@@ -34,7 +34,7 @@ const ViewChannel = () => {
   const [channel, setChannel] = useState({
     name: '',
     media_url: null,
-    image: img1,
+    image: '',
     drm: {type:'none'},
   });
 
