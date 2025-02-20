@@ -35,10 +35,8 @@ const fetchAndUpdateAssets = async (service, assetType, rate) => {
 };
 
 const fetchAndUpdateQuotes = async () => {
-  let headers = {};
-  headers['Options'] = 'renta-fija';
-  
-  
+  const headers = {};
+  headers['Options'] = 'renta-fija';  
   const resp = await byma.post('public-bonds', defaultBody,  { headers });
   const items = resp.data.data || resp.data;
 
