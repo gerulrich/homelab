@@ -17,10 +17,10 @@ const BCrumb = [
 export const ListChannels = () => {
   const { t } = useTranslation();
   return (
-    <PageContainer title={t('page.title.channels')} description={t('page.description.channels')}>
-      <Breadcrumb title={t('page.breadcrumb.channels')} items={BCrumb.map(item => ({ ...item, title: t(`page.breadcrumb.${item.title}`) }))} />
-        <BlankCard>
-          <ChannelsTableList admin={true}/>
+    <PageContainer description={t('page.description.channels')} title={t('page.title.channels')}>
+      <Breadcrumb items={BCrumb.map(item => ({ ...item, title: t(`page.breadcrumb.${item.title}`) }))} title={t('page.breadcrumb.channels')} />
+      <BlankCard>
+        <ChannelsTableList admin={false}/>
       </BlankCard>
     </PageContainer>
   )

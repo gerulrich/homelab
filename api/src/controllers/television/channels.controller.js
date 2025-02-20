@@ -1,4 +1,5 @@
 const Channel = require('@app/models/television/channel');
+const Program = require('@app/models/television/program');
 
 const getChannels = async(req, res) => {
   const { limit = 25, offset = 0, q = '' } = req.query;
@@ -20,15 +21,26 @@ const getChannels = async(req, res) => {
 const getChannelsByPlan = async(req, res) => {
   const user_level = req.user.level;
   const { limit = 25, offset = 0, q = '' } = req.query;
-  const query = q ? {
-    $and: [ { $text: { $search: q } }, { 'plan.level': { $lte: user_level } }]
-  } : { 'level': { $lte: user_level } };
+  const query = q ? { name: { $regex: q, $options: 'i' }, 'level': { $lte: user_level } } : { 'level': { $lte: user_level } };
   const [total, channels] = await Promise.all([
     Channel.countDocuments(query),
     Channel.find(query).sort({ name: 1 }).limit(parseInt(limit)).skip(parseInt(offset))
   ]);
+  
+  const now = new Date();
+  const channelsWithCurrentProgram = await Promise.all(channels.map(async (channel) => {
+    const program = await Program.findOne({ channel: channel._id, start: { $lt: now }, end: { $gt: now } });
+    return {
+      ...channel.toObject(),
+      program: program
+    };
+  }));
+
+  console.log('channelsWithCurrentProgram', JSON.stringify(channelsWithCurrentProgram));
+
+  
   res.json({
-    items: channels,
+    items: channelsWithCurrentProgram,
     pagination: {
       total,
       limit: parseInt(limit),
@@ -36,6 +48,13 @@ const getChannelsByPlan = async(req, res) => {
     }
   });
 };
+
+const getCurrentProgramForChannel = async(req, res) => {
+  const { id } = req.params;
+  const now = new Date();
+  const program = await Program.findOne({ channel: id, start: { $lt: now }, end: { $gt: now } });
+  res.json(program);
+}
 
 const getChannelById = async(req, res) => {
   const { id } = req.params;
@@ -56,9 +75,9 @@ const createChannel = async(req, res) => {
 
 const updateChannel = async(req, res) => {
   const { id } = req.params;
-  const { _id, plan, ...others } = req.body; // eslint-disable-line no-unused-vars
-  const level = plan === 'basic' ? 1 : plan === 'pro' ? 2 : 3;
-  const channel = await Channel.findByIdAndUpdate(id, {plan, level, ...others}, {new : true});
+  const { _id, plan, level, ...others } = req.body; // eslint-disable-line no-unused-vars
+  const newLevel = plan === 'basic' ? 1 : plan === 'pro' ? 2 : 3;
+  const channel = await Channel.findByIdAndUpdate(id, {plan, level: newLevel, ...others}, {new : true});
   res.json(channel);
 };
 
@@ -77,5 +96,6 @@ module.exports = {
   createChannel,
   updateChannel,
   deleteChannel,
-  getChannelsByPlan
+  getChannelsByPlan,
+  getCurrentProgramForChannel
 };

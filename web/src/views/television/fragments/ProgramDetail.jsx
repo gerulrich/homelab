@@ -4,11 +4,48 @@ import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-import { Link, useTheme } from '@mui/material';
+import { Link, Switch, useTheme } from '@mui/material';
 import { DateTimeView } from '../../../components/utils/DateTimeView';
+
+import React from 'react';
+import { styled } from '@mui/material/styles';
+
+const CustomSwitch = styled((props) => <Switch {...props} />)(({ theme }) => ({
+  '&.MuiSwitch-root': {
+    width: '68px',
+    height: '49px',
+  },
+  '&  .MuiButtonBase-root': {
+    top: '6px',
+    left: '6px',
+  },
+  '&  .MuiButtonBase-root.Mui-checked .MuiSwitch-thumb': {
+    backgroundColor: 'primary.main',
+  },
+  '& .MuiSwitch-thumb': {
+    width: '18px',
+    height: '18px',
+    borderRadius: '6px',
+  },
+
+  '& .MuiSwitch-track': {
+    backgroundColor: theme.palette.grey[200],
+    opacity: 1,
+    borderRadius: '5px',
+  },
+  '& .MuiSwitch-switchBase': {
+    '&.Mui-checked': {
+      '& + .MuiSwitch-track': {
+        backgroundColor: 'primary',
+        opacity: 0.18,
+      },
+    },
+  },
+}));
 
 const ProgramDetail = ({program}) => {
   const theme = useTheme();
+  const viewPlayer = program?.media_url?.startsWith('http');
   return (
     <Box p={2}>
       {program ? (
@@ -36,6 +73,17 @@ const ProgramDetail = ({program}) => {
           {program.start && (<Typography fontWeight="200" variant="h4" mt={1}>
             Fecha de emision: <DateTimeView date={program.start}/>
           </Typography>)}
+
+          {new Date(program.start) > new Date() ? <Typography sx={{ color: (theme) => theme.palette.warning.main }} variant="h6">
+              Programa no emitido
+            </Typography> : null}
+
+          {
+            viewPlayer ? <Box alignItems="center" display="flex" mt={2}>
+              <CustomSwitch name="proxy" />
+                <Typography ml={1} variant="body1">Utilizar proxy server</Typography>
+            </Box> : null
+          }
 
           {/* ------------------------------------------- */}
           {/* Buttons */}

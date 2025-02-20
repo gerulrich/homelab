@@ -20,7 +20,7 @@ import {
   Checkbox
 } from '@mui/material';
 import { IconPlus, IconSearch, IconSquare, IconSquareCheck } from '@tabler/icons-react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useSearch } from '@app/hooks/useSearch';
 import axios from '@app/services/homelab'
 import { useTranslation } from 'react-i18next';
@@ -118,6 +118,11 @@ export const ChannelsTableList = ({admin = false}) => {
                 <TableCell align="left" padding="normal">
                   <Typography variant="subtitle1" fontWeight="500">{t('form.fields.number')}</Typography>
                 </TableCell>
+                {
+                  (!admin) ? <TableCell fontWeight="500" variant="subtitle1">
+                  <Typography fontWeight="500" variant="subtitle1">Programa</Typography>
+                  </TableCell> : null
+                }
                 <TableCell align="left" padding="normal">
                   <Typography variant="subtitle1" fontWeight="500">{t('form.fields.category')}</Typography>
                 </TableCell>                
@@ -153,9 +158,19 @@ export const ChannelsTableList = ({admin = false}) => {
                             width="32"
                           />
                           <Box>
-                            <Typography variant="h6" fontWeight="600">
-                              {row.name}
-                            </Typography>
+                          {
+                              admin 
+                              ? (
+                                <Typography fontWeight="600" variant="h6">
+                                {row.name}
+                                </Typography>)
+                              : (<Typography color="textSecondary" component={Link} fontWeight="400"
+                                sx={{ display: 'inline', fontWeight: '', textDecoration: 'none' }}
+                                
+                                to={`/tv/channel/${row.uid}`} variant="h6"
+                            > {row.name}
+                              </Typography>)
+                            }
                           </Box>
                         </Stack>
                       </TableCell>
@@ -165,6 +180,14 @@ export const ChannelsTableList = ({admin = false}) => {
                           {row.number}
                         </Typography>
                       </TableCell>
+
+                      {
+                        (!admin) ? <TableCell>
+                          <Typography fontWeight="600" variant="h6">
+                            {row.program?.title}
+                          </Typography>
+                        </TableCell> : null
+                      }
 
                       <TableCell>
                         <Typography color="textSecondary" variant="h6" fontWeight="400">
