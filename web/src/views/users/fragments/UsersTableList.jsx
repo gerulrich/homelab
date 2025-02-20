@@ -190,6 +190,7 @@ export const UsersTableList = () => {
                             resource={row}
                             onEdit={onEdit}
                             onDelete={onDelete}
+                            type="User"
                           />
                         )}
                       </TableCell>

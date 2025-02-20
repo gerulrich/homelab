@@ -4,6 +4,7 @@ import Loadable from '@app/components/layout/full/shared/Loadable';
 import AuthGuard from '@app/components/guards/AuthGuard';
 import GuestGuard from '@app/components/guards/GuestGaurd';
 import { Websocket } from '@app/services/Websocket';
+import ProtectedRoute from './ProtectedRoute';
 
 
 const FullLayout = Loadable(lazy(() => import('@app/components/layout/full/FullLayout')));
@@ -30,6 +31,9 @@ const AddChannel = Loadable(lazy(() => import('@app/views/television/AddChannel'
 const ListPrograms = Loadable(lazy(() => import('@app/views/television/ListPrograms')));
 const ViewProgram = Loadable(lazy(() => import('@app/views/television/ViewProgram')));
 
+const ViewChannels = Loadable(lazy(() => import('@app/views/television/ViewChannels')));
+const ViewChannel = Loadable(lazy(() => import('@app/views/television/ViewChannel')));
+
 const Home = Loadable(lazy(() => import('@app/views/Home')));
 const Page = Loadable(lazy(() => import('@app/views/Page')));
 
@@ -47,19 +51,54 @@ export const AppRouter = [
         { path: '/', element: <Home /> },
         { path: '/page', element: <Page /> },
         { path: '/investments/assets', element: <ListAssets /> },
-        { path: '/investments/assets/new', element: <AddAsset /> },
-        { path: '/investments/assets/:assetId', element: <EditAsset /> },
+        { path: '/investments/assets/new', element: 
+            <ProtectedRoute I="create" a="Asset">
+              <AddAsset /> 
+            </ProtectedRoute>
+        },
+        { path: '/investments/assets/:assetId', element: 
+            <ProtectedRoute I="edit" a="Asset">
+              <EditAsset /> 
+            </ProtectedRoute>
+        },
         { path: '/investments/transactions', element: <ListTransactions /> },
         { path: '/investments/transactions/new', element: <AddTransaction /> },
         { path: '/investments/transactions/:transactionId', element: <EditTransaction /> },
-        { path: '/settings/users', element: <ListUsers /> },
-        { path: '/settings/users/:userId', element: <EditUser /> },
-        { path: '/settings/users/new', element: <AddUser /> },
-        { path: '/settings/channels', element: <ListChannels /> },
-        { path: '/settings/channels/new', element: <AddChannel />},
-        { path: '/settings/channels/:channelId', element: <EditChannel />},
+        { path: '/settings/users', element: 
+            <ProtectedRoute I="manage" a="User">
+              <ListUsers />
+            </ProtectedRoute>
+        },
+        { path: '/settings/users/:userId', element: 
+            <ProtectedRoute I="edit" a="User">
+              <EditUser /> 
+            </ProtectedRoute>
+        },
+        { path: '/settings/users/new', element: 
+            <ProtectedRoute I="create" a="User">
+              <AddUser /> 
+            </ProtectedRoute>
+        },
+        { path: '/settings/channels', element:
+            <ProtectedRoute I="manage" a="Channel">
+              <ListChannels />
+            </ProtectedRoute>
+        },
+        { path: '/settings/channels/new', element: 
+          <ProtectedRoute I="create" a="Channel">
+            <AddChannel />
+          </ProtectedRoute>
+        },
+        { path: '/settings/channels/:channelId', element: 
+            <ProtectedRoute I="edit" a="Channel">
+              <EditChannel />
+            </ProtectedRoute>
+        },
         { path: '/settings/programs', element: <ListPrograms /> },
         { path: '/settings/programs/:programId', element: <ViewProgram /> },
+
+        { path: '/tv/channels', element: <ViewChannels /> },
+        { path: '/tv/channel/:channelId', element: <ViewChannel /> },
 
         { path: '*', element: <Navigate to="/" /> },
       ],
