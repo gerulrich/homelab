@@ -7,7 +7,7 @@ const getContainers = async(req, res) => {
     }
   });
   res.json(containers.data);
-}
+};
 
 const startContainer = async(req, res) => {
   try {
@@ -16,7 +16,7 @@ const startContainer = async(req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}
+};
 
 const stopContainer = async(req, res) => {
   try {
@@ -25,7 +25,7 @@ const stopContainer = async(req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}
+};
 
 const restartContainer = async(req, res) => {
   try {
@@ -34,7 +34,7 @@ const restartContainer = async(req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}
+};
 
 module.exports = {
   getContainers,
