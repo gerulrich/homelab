@@ -48,11 +48,15 @@ import {
     IconBorderStyle2,
     IconAppWindow,
     IconLockAccess,
+    IconBrandDocker,
     IconWallet,
+    IconCloudComputing,
     IconBrandStackshare,
     IconTransactionDollar,
     IconUsers,
     IconDeviceTvOld,
+    IconAccessPoint,
+    IconContainer
   } from '@tabler/icons-react';
   
   import { uniqueId } from 'lodash';
@@ -97,6 +101,32 @@ import {
       title: 'Programas',
       icon: IconDeviceTvOld,
       href: '/settings/programs',
+      role: 'USER_ROLE'
+    },
+    {
+      navlabel: true,
+      subheader: 'Homelab',
+      role: 'USER_ROLE'
+    },
+    {
+      id: uniqueId(),
+      title: 'Podman',
+      icon: IconBrandDocker,
+      href: '/containers/podman',
+      role: 'USER_ROLE'
+    },
+    {
+      id: uniqueId(),
+      title: 'Qemu',
+      icon: IconCloudComputing,
+      href: '/vm/qemu',
+      role: 'USER_ROLE'
+    },
+    {
+      id: uniqueId(),
+      title: 'IoT',
+      icon: IconAccessPoint,
+      href: '/vm/qemu',
       role: 'USER_ROLE'
     },
     {
