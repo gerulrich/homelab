@@ -33,6 +33,7 @@ app.use('/auth/users', require('./routes/auth/user.routes.js'));
 app.use('/tv/channels', require('./routes/television/channel.routes.js'));
 app.use('/tv/programs', require('./routes/television/program.routes.js'));
 app.use('/notifications', require('./routes/notification.routes.js'));
+app.use('/containers', require('./routes/containers/podman.routes.js'));
 
 // HTTP 404 error handling
 app.use((req, res, next) => {  

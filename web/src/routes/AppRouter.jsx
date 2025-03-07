@@ -34,6 +34,8 @@ const ViewProgram = Loadable(lazy(() => import('@app/views/television/ViewProgra
 const ViewChannels = Loadable(lazy(() => import('@app/views/television/ViewChannels')));
 const ViewChannel = Loadable(lazy(() => import('@app/views/television/ViewChannel')));
 
+const ViewPodmanContainers = Loadable(lazy(() => import('@app/views/containers/ViewPodmanContainers')));
+
 const Home = Loadable(lazy(() => import('@app/views/Home')));
 const Page = Loadable(lazy(() => import('@app/views/Page')));
 
@@ -99,6 +101,8 @@ export const AppRouter = [
 
         { path: '/tv/channels', element: <ViewChannels /> },
         { path: '/tv/channel/:channelId', element: <ViewChannel /> },
+
+        { path: '/containers/podman', element: <ViewPodmanContainers /> },
 
         { path: '*', element: <Navigate to="/" /> },
       ],

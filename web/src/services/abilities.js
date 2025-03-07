@@ -6,6 +6,7 @@ export default (user) => defineAbility((can) => {
     can('manage', 'Asset'); // can create, edit, delete
     can('manage', 'Channel'); // can create, edit, delete
     can('manage', 'User'); // can create, edit, delete
+    can('manage', 'Container'); // can create, edit, delete
   } else {
     can('view', 'MenuItem', { role: 'USER_ROLE' });
   }
