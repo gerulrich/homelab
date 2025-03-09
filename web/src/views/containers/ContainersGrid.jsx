@@ -11,16 +11,7 @@ export const ContainersGrid = () => {
   
   useEffect(() => {
     axios.get('/containers')
-      .then(response => {
-        const c = response.data;
-        c.sort((a, b) => {
-          if (a.State === b.State) {
-            return a.Names[0] > b.Names[0] ? 1 : -1;
-          }
-          return a.State === 'exited' ? 1 : -1;
-        });
-        setContainers(c);
-      })
+      .then(response => setContainers(response.data))
       .catch(error => console.error(error));
     }, [counter]);
 

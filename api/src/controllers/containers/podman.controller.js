@@ -1,12 +1,24 @@
 const { podman } = require('@app/clients/podman.client.js');
 
-const getContainers = async(req, res) => {
-  const containers = await podman.get('/containers/json', {
-    params: {
-      all: true
-    }
-  });
-  res.json(containers.data);
+const getContainers = async (req, res) => {
+  try {
+    const { data } = await podman.get('/containers/json', { params: { all: true } });
+    const containers = data.map(({ Id, Names, Image, State, Status }) => ({
+      id: Id,
+      name: Names[0].slice(1),
+      image: Image,
+      state: State,
+      status: Status
+    }));
+
+    containers.sort((a, b) => 
+      a.state === b.state ? a.name.localeCompare(b.name) : a.state === 'exited' ? 1 : -1
+    );
+
+    res.json(containers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 const startContainer = async(req, res) => {

@@ -5,7 +5,7 @@ let podman;
 
 if (process.env.NODE_ENV === 'production') {
   podman = axios.create({
-    baseURL: 'http://d/v4.9.5/libpod',
+    baseURL: 'http://d',
     socketPath: '/run/user/1000/podman/podman.sock',
     httpsAgent: new https.Agent({
       rejectUnauthorized: false
