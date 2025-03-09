@@ -12,7 +12,7 @@ const getContainers = async (req, res) => {
     }));
 
     containers.sort((a, b) => 
-      a.state === b.state ? a.name.localeCompare(b.name) : a.state === 'exited' ? 1 : -1
+      (a.state === b.state ? a.name.localeCompare(b.name) : a.state === 'exited' ? 1 : -1)
     );
 
     res.json(containers);
