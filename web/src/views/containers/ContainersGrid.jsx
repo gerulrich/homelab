@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
-import PageContainer from '@app/components/container/PageContainer';
 import axios from '@app/services/homelab'
 import PodmanCard from '@app/components/cards/PodmanCard';
 
@@ -29,26 +28,33 @@ export const ContainersGrid = () => {
       await axios.post(`/containers/${id}/restart`);
       setCounter(counter + 1);
     };
+
+    const pause = async (id) => {
+      await axios.post(`/containers/${id}/pause`);
+      setCounter(counter + 1);
+    };
+
+    const unpause = async (id) => {
+      await axios.post(`/containers/${id}/unpause`);
+      setCounter(counter + 1);
+    }
     
 
   return (
-    <PageContainer title="Containers" description="list of containers">
-      <Grid container spacing={3}>
-        <Grid item sm={12}>
-          <Grid container spacing={3} style={{ padding: '16px' }}>
-            {containers.map((card, index) => (
-              <Grid item xs={12} sm={4} key={index}>
-                <PodmanCard 
-                  container={card}
-                  startContainer={start}
-                  stopContainer={stop}
-                  restartContainer={restart} />
-              </Grid>
-            ))}
+    <Grid container spacing={3} p={2}>
+      {containers.map((container, index) => (
+        <Grid item xs={12} sm={3} key={index}>
+          <PodmanCard 
+            container={container}
+            startContainer={start}
+            stopContainer={stop}
+            restartContainer={restart}
+            pauseContainer={pause}
+            unpauseContainer={unpause}
+             />
           </Grid>
-        </Grid>
-      </Grid>
-    </PageContainer>
+      ))}
+    </Grid>
   )
 }
 

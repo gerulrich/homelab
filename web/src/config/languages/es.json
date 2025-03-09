@@ -147,7 +147,8 @@
           "transactions": "Registro de Transacciones",
           "assets": "Activos",
           "addAsset": "Nuevo Activo",
-          "editAsset": "Editar Activo"
+          "editAsset": "Editar Activo",
+          "homelab": "Homelab"
       },
       "breadcrumb":
       {
@@ -164,7 +165,10 @@
           "newUser": "New User",
           "editUser": "Editar Usuario",
           "programs": "Programas emitidos",
-          "channels": "Canales en vivo"
+          "channels": "Canales en vivo",
+          "homelab": "Homelab",
+          "podman": "Podman"
+
       }
   },
   "clipboard":

@@ -19,10 +19,10 @@ import PhotoprismIcon from '@app/assets/containers/photoprism.svg';
 import MongoExpressIcon from '@app/assets/containers/mongo-express.png';
 import LedFxIcon from '@app/assets/containers/ledfx.png';
 import MqttExplorerIcon from '@app/assets/containers/mqtt-explorer.png';
-import { IconDotsVertical, IconRefresh, IconPlayerPlay, IconPlayerStop, IconLink } from '@tabler/icons-react';
+import { IconDotsVertical, IconRefresh, IconPlayerPlay, IconPlayerStop, IconLink, IconPlayerPause } from '@tabler/icons-react';
 import { Can } from '@app/components/guards/Can';
 
-const PodmanCard = ({ container, stopContainer, startContainer, restartContainer }) => {
+const PodmanCard = ({ container, stopContainer, startContainer, restartContainer, pauseContainer, unpauseContainer }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
@@ -87,6 +87,16 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
     restartContainer(id);
   }
 
+  const onPause = (id) => {
+    handleClose();
+    pauseContainer(id);
+  }
+
+  const onUnpause = (id) => {
+    handleClose();
+    unpauseContainer(id);
+  }
+
   return (
     <BlankCard>
       <CardContent>
@@ -130,7 +140,18 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          
+        
+        {
+            container.state === 'paused' &&
+             (<Can I="manage" a="Container">
+                  <MenuItem onClick={() => onUnpause(container.id)}>
+                    <ListItemIcon>
+                      <IconPlayerPlay size="16" />
+                    </ListItemIcon>
+                    Continuar
+                  </MenuItem>
+                </Can>)
+          }
           {
             container.state === 'exited' &&
              (<Can I="manage" a="Container">
@@ -138,9 +159,22 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
                     <ListItemIcon>
                       <IconPlayerPlay size="16" />
                     </ListItemIcon>
-                    Start
+                    Iniciar
                   </MenuItem>
                 </Can>)
+          }
+
+          {
+            container.state === 'running' && (
+              <Can I="manage" a="Container">
+              <MenuItem onClick={() => onPause(container.id)}>
+              <ListItemIcon>
+                <IconPlayerPause size="16" />
+              </ListItemIcon>
+              Pausar
+            </MenuItem>
+            </Can>
+            )
           }
 
           {
@@ -150,27 +184,33 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
               <ListItemIcon>
                 <IconPlayerStop size="16" />
               </ListItemIcon>
-              Stop
+              Detener
             </MenuItem>
             </Can>
             )
           }
 
+          {
+            container.state === 'running' && (
             <Can I="manage" a="Container">
               <MenuItem onClick={() => onRestart(container.id)}>
                 <ListItemIcon>
                   <IconRefresh size="16" />
                 </ListItemIcon>
-                Restart
+                Reiniciar
               </MenuItem>
             </Can>
+            )
+          }
 
+          {/*
             <MenuItem onClick={() => console.log('clicked')}>
               <ListItemIcon>
                 <IconLink size="16" />
               </ListItemIcon>
               Visitar
             </MenuItem>
+            */}
 
         </Menu>
 

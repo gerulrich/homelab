@@ -39,6 +39,7 @@ import {
     IconBox,
     IconAperture,
     IconShoppingCart,
+    IconDeviceRemote,
     IconHelp,
     IconBoxAlignBottom,
     IconBoxAlignLeft,
@@ -99,7 +100,7 @@ import {
     {
       id: uniqueId(),
       title: 'Programas',
-      icon: IconDeviceTvOld,
+      icon: IconDeviceRemote,
       href: '/settings/programs',
       role: 'USER_ROLE'
     },

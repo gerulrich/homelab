@@ -147,7 +147,8 @@
           "transactions": "Transactions",
           "assets": "Assets",
           "addAsset": "New Asset",
-          "editAsset": "Edit Asset"
+          "editAsset": "Edit Asset",
+          "homelab": "Homelab"
       },
       "breadcrumb":
       {
@@ -164,7 +165,9 @@
           "newUser": "New User",
           "editUser": "Edit User",
           "programs": "Programs",
-          "channels": "Live Channels"
+          "channels": "Live Channels",
+          "homelab": "Homelab",
+          "podman": "Podman"
       }
   },
   "clipboard":
