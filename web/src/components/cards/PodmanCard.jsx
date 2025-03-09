@@ -27,44 +27,45 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
+ 
 
   const getIcon = (name) => {
     switch (name) {
-      case '/mqtt':
+      case 'mqtt':
         return <MqttIcon height={32} fill='#660066' />;
-      case '/zigbee':
+      case 'zigbee':
         return <ZigbeeIcon height={32} fill='#FFC135' />;
-      case '/vaultwarden':
+      case 'vaultwarden':
         return <VaultwargenIcon height={32} fill='#FFFFFF' />;
-      case '/pihole':
+      case 'pihole':
         return <PiholeIcon height={32} fill='#96060C' />;
-      case '/transmission':
+      case 'transmission':
         return <TransmissionIcon height={32} fill='#D70008' />;
-      case '/mongo':
+      case 'mongo':
         return <MongoIcon height={32} fill='#47A248' />;
-      case '/guacamole':
+      case 'guacamole':
         return <GuacamoleIcon height={32} fill='#578B34' />;
-      case '/homeassistant':
+      case 'homeassistant':
         return <HomeassistantIcon height={32} fill='#18BCF2' />;
-      case '/nodered':
+      case 'nodered':
         return <NoderedIcon height={32} fill='#8F0000' />;
-      case '/plex':
+      case 'plex':
         return <PlexIcon height={32} fill='#EBAF00' />;
-      case '/cloudflare':
+      case 'cloudflare':
         return <CloudflareIcon height={32} fill='#F38020' />;
-      case '/wireguard':
+      case 'wireguard':
         return <WireguardIcon height={32} fill='#88171A' />;
-      case '/esphome':
+      case 'esphome':
         return <ESPHomeIcon height={32} fill='#FFFFFF' />;
-      case '/nginx':
+      case 'nginx':
         return <NginxIcon height={32} fill='#009639' />;
-      case '/photoprism':
+      case 'photoprism':
         return <PhotoprismIcon height={36} />;
-      case '/mongo-express':
+      case 'mongo-express':
         return <Avatar src={MongoExpressIcon} />;
-      case '/ledfx':
+      case 'ledfx':
         return <Avatar src={LedFxIcon} />;
-      case '/mqtt-explorer':
+      case 'mqtt-explorer':
         return <Avatar src={MqttExplorerIcon} />;
       default:
         return <Avatar>{name[0].toUpperCase()}</Avatar>;
@@ -91,9 +92,9 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
       <CardContent>
         <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
           <Stack direction="row" spacing={2}>
-            {getIcon(container.Names[0])}
+            {getIcon(container.name)}
             <Box>
-              <Typography variant="h6">{container.Names[0].slice(1)}</Typography>
+              <Typography variant="h6">{container.name}</Typography>
                 <Typography
                   variant="subtitle1"
                   color="textSecondary"
@@ -109,7 +110,7 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
                 alignItems="center"
                 gap="3px"
                 >
-                {container.Status}
+                {container.status}
               </Typography>
             </Box>
           </Stack>
@@ -131,9 +132,9 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
         >
           
           {
-            container.State === 'exited' &&
+            container.state === 'exited' &&
              (<Can I="manage" a="Container">
-                  <MenuItem onClick={() => onStart(container.Id)}>
+                  <MenuItem onClick={() => onStart(container.id)}>
                     <ListItemIcon>
                       <IconPlayerPlay size="16" />
                     </ListItemIcon>
@@ -143,9 +144,9 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
           }
 
           {
-            container.State === 'running' && (
+            container.state === 'running' && (
               <Can I="manage" a="Container">
-              <MenuItem onClick={() => onStop(container.Id)}>
+              <MenuItem onClick={() => onStop(container.id)}>
               <ListItemIcon>
                 <IconPlayerStop size="16" />
               </ListItemIcon>
@@ -156,7 +157,7 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
           }
 
             <Can I="manage" a="Container">
-              <MenuItem onClick={() => onRestart(container.Id)}>
+              <MenuItem onClick={() => onRestart(container.id)}>
                 <ListItemIcon>
                   <IconRefresh size="16" />
                 </ListItemIcon>
