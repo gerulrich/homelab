@@ -4,7 +4,7 @@ const router = express.Router();
 const validateJWT = require('@app/middlewares/validate-jwt');
 const requestValidator = require('@app/middlewares/request-validator');
 const { rolesAllowed } = require('@app/middlewares/roles-allowed');
-const { getContainers, startContainer, stopContainer, restartContainer } = require('../../controllers/containers/podman.controller');
+const { getContainers, startContainer, stopContainer, restartContainer, pauseContainer, unpauseContainer } = require('../../controllers/containers/podman.controller');
 
 router.get('/', [
   validateJWT,
@@ -18,6 +18,19 @@ router.post('/:id/start', [
   rolesAllowed('ADMIN_ROLE'),
   requestValidator
 ], startContainer);
+
+
+router.post('/:id/pause', [
+  validateJWT,
+  rolesAllowed('ADMIN_ROLE'),
+  requestValidator
+], pauseContainer);
+
+router.post('/:id/unpause', [
+  validateJWT,
+  rolesAllowed('ADMIN_ROLE'),
+  requestValidator
+], unpauseContainer);
 
 router.post('/:id/stop', [
   validateJWT,

@@ -30,6 +30,24 @@ const startContainer = async(req, res) => {
   }
 };
 
+const pauseContainer = async(req, res) => {
+  try {
+    const container = await podman.post(`/containers/${req.params.id}/pause`);
+    res.json(container.data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const unpauseContainer = async(req, res) => {
+  try {
+    const container = await podman.post(`/containers/${req.params.id}/unpause`);
+    res.json(container.data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 const stopContainer = async(req, res) => {
   try {
     const container = await podman.post(`/containers/${req.params.id}/stop`);
@@ -51,6 +69,8 @@ const restartContainer = async(req, res) => {
 module.exports = {
   getContainers,
   startContainer,
+  pauseContainer,
+  unpauseContainer,
   stopContainer,
   restartContainer
 };

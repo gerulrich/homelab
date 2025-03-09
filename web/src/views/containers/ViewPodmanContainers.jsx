@@ -10,7 +10,7 @@ const BCrumb = [
     title: 'home',
   },
   {
-    title: 'homelab',
+    title: 'podman',
   },
 ];
 
