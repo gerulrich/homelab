@@ -66,11 +66,21 @@ const restartContainer = async(req, res) => {
   }
 };
 
+const removeContainer = async(req, res) => {
+  try {
+    const container = await podman.delete(`/containers/${req.params.id}`);
+    res.json(container.data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getContainers,
   startContainer,
   pauseContainer,
   unpauseContainer,
   stopContainer,
-  restartContainer
+  restartContainer,
+  removeContainer
 };

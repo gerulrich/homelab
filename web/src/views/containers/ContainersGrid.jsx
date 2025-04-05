@@ -38,6 +38,11 @@ export const ContainersGrid = () => {
       await axios.post(`/containers/${id}/unpause`);
       setCounter(counter + 1);
     }
+
+    const remove = async (id) => {
+      await axios.delete(`/containers/${id}`);
+      setCounter(counter + 1);
+    }
     
 
   return (
@@ -51,6 +56,7 @@ export const ContainersGrid = () => {
             restartContainer={restart}
             pauseContainer={pause}
             unpauseContainer={unpause}
+            removeContainer={remove}
              />
           </Grid>
       ))}
