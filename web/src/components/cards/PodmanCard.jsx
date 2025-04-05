@@ -19,6 +19,8 @@ import PhotoprismIcon from '@app/assets/containers/photoprism.svg';
 import MongoExpressIcon from '@app/assets/containers/mongo-express.png';
 import LedFxIcon from '@app/assets/containers/ledfx.png';
 import MqttExplorerIcon from '@app/assets/containers/mqtt-explorer.png';
+import PiperIcon from '@app/assets/containers/piper.png';
+import WhisperIcon from '@app/assets/containers/whisper.png';
 import { IconDotsVertical, IconRefresh, IconPlayerPlay, IconPlayerStop, IconPlayerPause, IconTrash } from '@tabler/icons-react';
 import { Can } from '@app/components/guards/Can';
 
@@ -61,12 +63,17 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
         return <NginxIcon height={32} fill='#009639' />;
       case 'photoprism':
         return <PhotoprismIcon height={36} />;
-      case 'mongo-express':
+      case 'mongo-ui':
         return <Avatar src={MongoExpressIcon} />;
       case 'ledfx':
         return <Avatar src={LedFxIcon} />;
-      case 'mqtt-ui':
+      case 'mqtt-explorer':
         return <Avatar src={MqttExplorerIcon} />;
+      case 'piper':
+        return <Avatar src={PiperIcon} />;
+      case 'whisper':
+      case 'faster-whisper':
+          return <Avatar src={WhisperIcon} />;
       default:
         return <Avatar>{name[0].toUpperCase()}</Avatar>;
     }
