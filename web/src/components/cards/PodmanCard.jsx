@@ -19,10 +19,10 @@ import PhotoprismIcon from '@app/assets/containers/photoprism.svg';
 import MongoExpressIcon from '@app/assets/containers/mongo-express.png';
 import LedFxIcon from '@app/assets/containers/ledfx.png';
 import MqttExplorerIcon from '@app/assets/containers/mqtt-explorer.png';
-import { IconDotsVertical, IconRefresh, IconPlayerPlay, IconPlayerStop, IconLink, IconPlayerPause } from '@tabler/icons-react';
+import { IconDotsVertical, IconRefresh, IconPlayerPlay, IconPlayerStop, IconPlayerPause, IconTrash } from '@tabler/icons-react';
 import { Can } from '@app/components/guards/Can';
 
-const PodmanCard = ({ container, stopContainer, startContainer, restartContainer, pauseContainer, unpauseContainer }) => {
+const PodmanCard = ({ container, stopContainer, startContainer, restartContainer, pauseContainer, unpauseContainer, removeContainer }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
@@ -65,7 +65,7 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
         return <Avatar src={MongoExpressIcon} />;
       case 'ledfx':
         return <Avatar src={LedFxIcon} />;
-      case 'mqtt-explorer':
+      case 'mqtt-ui':
         return <Avatar src={MqttExplorerIcon} />;
       default:
         return <Avatar>{name[0].toUpperCase()}</Avatar>;
@@ -95,6 +95,11 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
   const onUnpause = (id) => {
     handleClose();
     unpauseContainer(id);
+  }
+
+  const onRemove = (id) => {
+    handleClose();
+    removeContainer(id);
   }
 
   return (
@@ -198,6 +203,19 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
                   <IconRefresh size="16" />
                 </ListItemIcon>
                 Reiniciar
+              </MenuItem>
+            </Can>
+            )
+          }
+
+          {
+            container.state === 'exited' && (
+            <Can I="manage" a="Container">
+              <MenuItem onClick={() => onRemove(container.id)}>
+                <ListItemIcon>
+                  <IconTrash size="16" />
+                </ListItemIcon>
+                Eliminar
               </MenuItem>
             </Can>
             )
