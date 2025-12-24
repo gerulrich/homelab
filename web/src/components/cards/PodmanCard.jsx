@@ -21,6 +21,15 @@ import LedFxIcon from '@app/assets/containers/ledfx.png';
 import MqttExplorerIcon from '@app/assets/containers/mqtt-explorer.png';
 import PiperIcon from '@app/assets/containers/piper.png';
 import WhisperIcon from '@app/assets/containers/whisper.png';
+import TailscaleIcon from '@app/assets/containers/tailscale.svg';
+import FrigateIcon from '@app/assets/containers/frigate.svg';
+import N8nIcon from '@app/assets/containers/n8n.svg';
+import CalibreWebIcon from '@app/assets/containers/calibre-web.svg';
+import QmusicIcon from '@app/assets/containers/qmusic.svg';
+import QvideoIcon from '@app/assets/containers/qvideo.svg';
+import MinioIcon from '@app/assets/containers/minio.svg';
+import NetBootxyzIcon from '@app/assets/containers/netbootxyz.svg';
+import FalconIncon from '@app/assets/containers/falcon.svg';
 import { IconDotsVertical, IconRefresh, IconPlayerPlay, IconPlayerStop, IconPlayerPause, IconTrash } from '@tabler/icons-react';
 import { Can } from '@app/components/guards/Can';
 
@@ -71,6 +80,25 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
         return <Avatar src={MqttExplorerIcon} />;
       case 'piper':
         return <Avatar src={PiperIcon} />;
+      case 'tailscale':
+        return <TailscaleIcon height={32} fill='#ffffffff' />;
+      case 'frigate':
+        return <FrigateIcon height={32} fill='#ffffffff' />;
+      case 'n8n':
+        return <N8nIcon height={32} fill='#ffffffff' />;
+      case 'calibre-web':
+        return <CalibreWebIcon height={32} fill='#45B29D' />;
+      case 'qmusic':
+        return <QmusicIcon height={32} />;
+      case 'qvideo':
+        return <QvideoIcon height={32} />;
+      case 'minio':
+      case 'minio-test':
+        return <MinioIcon height={32} fill='#C72E49' />;
+      case 'netbootxyz':
+        return <NetBootxyzIcon height={32} fill='#000000' />;
+      case 'falcon-fpp':
+        return <FalconIncon height={32}/>;
       case 'whisper':
       case 'faster-whisper':
           return <Avatar src={WhisperIcon} />;
