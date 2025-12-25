@@ -29,7 +29,7 @@ import QmusicIcon from '@app/assets/containers/qmusic.svg';
 import QvideoIcon from '@app/assets/containers/qvideo.svg';
 import MinioIcon from '@app/assets/containers/minio.svg';
 import NetBootxyzIcon from '@app/assets/containers/netbootxyz.svg';
-import FalconIncon from '@app/assets/containers/falcon.svg';
+import FalconIcon from '@app/assets/containers/falcon.svg';
 import { IconDotsVertical, IconRefresh, IconPlayerPlay, IconPlayerStop, IconPlayerPause, IconTrash } from '@tabler/icons-react';
 import { Can } from '@app/components/guards/Can';
 
@@ -43,33 +43,31 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
   const getIcon = (name) => {
     switch (name) {
       case 'mqtt':
-        return <MqttIcon height={32} fill='#660066' />;
+        return <MqttIcon height={32} />;
       case 'zigbee':
         return <ZigbeeIcon height={32} fill='#FFC135' />;
       case 'vaultwarden':
         return <VaultwargenIcon height={32} fill='#FFFFFF' />;
       case 'pihole':
-        return <PiholeIcon height={32} fill='#96060C' />;
+        return <PiholeIcon height={32} />;
       case 'transmission':
-        return <TransmissionIcon height={32} fill='#D70008' />;
+        return <TransmissionIcon height={32}/>;
       case 'mongo':
-        return <MongoIcon height={32} fill='#47A248' />;
+        return <MongoIcon height={32} />;
       case 'guacamole':
         return <GuacamoleIcon height={32} fill='#578B34' />;
       case 'homeassistant':
         return <HomeassistantIcon height={32} fill='#18BCF2' />;
       case 'nodered':
-        return <NoderedIcon height={32} fill='#8F0000' />;
+        return <NoderedIcon height={32} />;
       case 'plex':
         return <PlexIcon height={32} fill='#EBAF00' />;
       case 'cloudflare':
-        return <CloudflareIcon height={32} fill='#F38020' />;
-      case 'wireguard':
-        return <WireguardIcon height={32} fill='#88171A' />;
+        return <CloudflareIcon height={32}/>;
       case 'esphome':
         return <ESPHomeIcon height={32} fill='#FFFFFF' />;
       case 'nginx':
-        return <NginxIcon height={32} fill='#009639' />;
+        return <NginxIcon height={32} />;
       case 'photoprism':
         return <PhotoprismIcon height={36} />;
       case 'mongo-ui':
@@ -81,9 +79,9 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
       case 'piper':
         return <Avatar src={PiperIcon} />;
       case 'tailscale':
-        return <TailscaleIcon height={32} fill='#ffffffff' />;
+        return <TailscaleIcon height={32} />;
       case 'frigate':
-        return <FrigateIcon height={32} fill='#ffffffff' />;
+        return <FrigateIcon height={32} />;
       case 'n8n':
         return <N8nIcon height={32} fill='#ffffffff' />;
       case 'calibre-web':
@@ -96,9 +94,9 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
       case 'minio-test':
         return <MinioIcon height={32} fill='#C72E49' />;
       case 'netbootxyz':
-        return <NetBootxyzIcon height={32} fill='#000000' />;
+        return <NetBootxyzIcon height={32}/>;
       case 'falcon-fpp':
-        return <FalconIncon height={32}/>;
+        return <FalconIcon height={32} fill='#ffffffff'/>;
       case 'whisper':
       case 'faster-whisper':
           return <Avatar src={WhisperIcon} />;
