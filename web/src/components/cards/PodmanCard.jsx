@@ -11,9 +11,8 @@ import GuacamoleIcon from '@app/assets/containers/guacamole.svg';
 import HomeassistantIcon from '@app/assets/containers/homeassistant.svg';
 import NoderedIcon from '@app/assets/containers/nodered.svg';
 import PlexIcon from '@app/assets/containers/plex.svg';
-import CloudflareIcon from '@app/assets/containers/cloudflare.svg';
-import WireguardIcon from '@app/assets/containers/wireguard.svg';
-import ESPHomeIcon from '@app/assets/containers/esphome.svg';
+import CloudflareIcon from '@app/assets/containers/cloudflare.png';
+import ESPHomeIcon from '@app/assets/containers/esphome.png';
 import NginxIcon from '@app/assets/containers/nginx.svg';
 import PhotoprismIcon from '@app/assets/containers/photoprism.svg';
 import MongoExpressIcon from '@app/assets/containers/mongo-express.png';
@@ -30,6 +29,10 @@ import QvideoIcon from '@app/assets/containers/qvideo.svg';
 import MinioIcon from '@app/assets/containers/minio.svg';
 import NetBootxyzIcon from '@app/assets/containers/netbootxyz.svg';
 import FalconIcon from '@app/assets/containers/falcon.svg';
+import RadarrIcon from '@app/assets/containers/radarr.svg';
+import SonarrIcon from '@app/assets/containers/sonarr.svg';
+import ProwlarrIcon from '@app/assets/containers/prowlarr.svg';
+import SeerrIcon from '@app/assets/containers/seerr.svg';
 import { IconDotsVertical, IconRefresh, IconPlayerPlay, IconPlayerStop, IconPlayerPause, IconTrash } from '@tabler/icons-react';
 import { Can } from '@app/components/guards/Can';
 
@@ -44,15 +47,19 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
     switch (name) {
       case 'mqtt':
         return <MqttIcon height={32} />;
+        return <MqttIcon height={32} />;
       case 'zigbee':
         return <ZigbeeIcon height={32} fill='#FFC135' />;
       case 'vaultwarden':
         return <VaultwargenIcon height={32} fill='#FFFFFF' />;
       case 'pihole':
         return <PiholeIcon height={32} />;
+        return <PiholeIcon height={32} />;
       case 'transmission':
         return <TransmissionIcon height={32}/>;
+        return <TransmissionIcon height={32}/>;
       case 'mongo':
+        return <MongoIcon height={32} />;
         return <MongoIcon height={32} />;
       case 'guacamole':
         return <GuacamoleIcon height={32} fill='#578B34' />;
@@ -60,13 +67,15 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
         return <HomeassistantIcon height={32} fill='#18BCF2' />;
       case 'nodered':
         return <NoderedIcon height={32} />;
+        return <NoderedIcon height={32} />;
       case 'plex':
         return <PlexIcon height={32} fill='#EBAF00' />;
       case 'cloudflare':
-        return <CloudflareIcon height={32}/>;
+        return <Avatar src={CloudflareIcon} height={32} />;
       case 'esphome':
-        return <ESPHomeIcon height={32} fill='#FFFFFF' />;
+        return <Avatar src={ESPHomeIcon} variant="square" />;
       case 'nginx':
+        return <NginxIcon height={32} />;
         return <NginxIcon height={32} />;
       case 'photoprism':
         return <PhotoprismIcon height={36} />;
@@ -82,6 +91,7 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
         return <TailscaleIcon height={32} />;
       case 'frigate':
         return <FrigateIcon height={32} />;
+        return <FrigateIcon height={32} />;
       case 'n8n':
         return <N8nIcon height={32} fill='#ffffffff' />;
       case 'calibre-web':
@@ -95,8 +105,17 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
         return <MinioIcon height={32} fill='#C72E49' />;
       case 'netbootxyz':
         return <NetBootxyzIcon height={32}/>;
+        return <NetBootxyzIcon height={32}/>;
       case 'falcon-fpp':
-        return <FalconIcon height={32} fill='#ffffffff'/>;
+        return <FalconIcon height={32} />;
+      case 'radarr':
+        return <RadarrIcon height={32} />;
+      case 'sonarr':
+        return <SonarrIcon height={32} />;
+      case 'prowlarr':
+        return <ProwlarrIcon height={32} />;
+      case 'seerr':
+        return <SeerrIcon height={32} />;
       case 'whisper':
       case 'faster-whisper':
           return <Avatar src={WhisperIcon} />;
