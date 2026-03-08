@@ -47,21 +47,26 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
     switch (name) {
       case 'mqtt':
         return <MqttIcon height={32} />;
+        return <MqttIcon height={32} />;
       case 'zigbee':
         return <ZigbeeIcon height={32} fill='#FFC135' />;
       case 'vaultwarden':
         return <VaultwargenIcon height={32} fill='#FFFFFF' />;
       case 'pihole':
         return <PiholeIcon height={32} />;
+        return <PiholeIcon height={32} />;
       case 'transmission':
         return <TransmissionIcon height={32}/>;
+        return <TransmissionIcon height={32}/>;
       case 'mongo':
+        return <MongoIcon height={32} />;
         return <MongoIcon height={32} />;
       case 'guacamole':
         return <GuacamoleIcon height={32} fill='#578B34' />;
       case 'homeassistant':
         return <HomeassistantIcon height={32} fill='#18BCF2' />;
       case 'nodered':
+        return <NoderedIcon height={32} />;
         return <NoderedIcon height={32} />;
       case 'plex':
         return <PlexIcon height={32} fill='#EBAF00' />;
@@ -70,6 +75,7 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
       case 'esphome':
         return <Avatar src={ESPHomeIcon} variant="square" />;
       case 'nginx':
+        return <NginxIcon height={32} />;
         return <NginxIcon height={32} />;
       case 'photoprism':
         return <PhotoprismIcon height={36} />;
@@ -82,8 +88,9 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
       case 'piper':
         return <Avatar src={PiperIcon} />;
       case 'tailscale':
-        return <TailscaleIcon height={32} fill='#ffffffff' />;
+        return <TailscaleIcon height={32} />;
       case 'frigate':
+        return <FrigateIcon height={32} />;
         return <FrigateIcon height={32} />;
       case 'n8n':
         return <N8nIcon height={32} fill='#ffffffff' />;
@@ -97,6 +104,7 @@ const PodmanCard = ({ container, stopContainer, startContainer, restartContainer
       case 'minio-test':
         return <MinioIcon height={32} fill='#C72E49' />;
       case 'netbootxyz':
+        return <NetBootxyzIcon height={32}/>;
         return <NetBootxyzIcon height={32}/>;
       case 'falcon-fpp':
         return <FalconIcon height={32} />;
