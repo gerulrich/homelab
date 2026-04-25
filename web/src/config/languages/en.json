@@ -174,5 +174,17 @@
   {
       "copied": "Copied to clipboard!",
       "cliCopied": "cli copied to clipboard!"
+  },
+  "investments":
+  {
+      "assetStatus":
+      {
+          "matured": "Matured asset"
+      },
+      "quoteStatus":
+      {
+          "matured": "No quote due to maturity",
+          "outdated": "Outdated quote"
+      }
   }
 }

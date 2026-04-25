@@ -25,6 +25,7 @@ import { useTranslation } from 'react-i18next';
 import axios from '@app/services/homelab'
 import { EditAndDeleteMenu } from '@app/components/customs/EditAndDeleteMenu';
 import { AbilityContext, Can } from '@app/components/guards/Can';
+import { TimeView } from '../../../components/utils/TimeView';
 
 export const AssetsTableList = () => {
   const navigate = useNavigate();
@@ -45,6 +46,23 @@ export const AssetsTableList = () => {
   const emptyRows = Math.max(0, size - data.items.length);
   const ability = useContext(AbilityContext);
   const canEditOrDelete = ability.can('edit', 'Asset') || ability.can('delete', 'Asset');
+
+  const isQuoteStale = (date) => {
+    if (!date) return true;
+    const parsedDate = new Date(date);
+    const diffInMs = Date.now() - parsedDate.getTime();
+    const oneWeekInMs = 7 * 24 * 60 * 60 * 1000;
+    return diffInMs > oneWeekInMs;
+  };
+
+  const isAssetMatured = (maturityDate) => {
+    if (!maturityDate) return false;
+    const parsedDate = new Date(maturityDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    parsedDate.setHours(0, 0, 0, 0);
+    return parsedDate < today;
+  };
 
   const handleChangePage = (_, newPage) => setPage(newPage);
 
@@ -127,6 +145,9 @@ export const AssetsTableList = () => {
                   <Typography variant="subtitle1" fontWeight="500">{t('form.fields.market')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
+                  <Typography variant="subtitle1" fontWeight="500">{t('form.fields.updated')}</Typography>
+                </TableCell>
+                <TableCell align="left" padding="normal">
                   <Typography variant="subtitle1" fontWeight="500">{t('form.fields.price')}</Typography>
                 </TableCell>
                 <TableCell align="left" padding="normal">
@@ -135,6 +156,8 @@ export const AssetsTableList = () => {
             </TableHead>
             <TableBody>
               {data.items.map((row, index) => {
+                  const quoteStale = isQuoteStale(row.updated_at);
+                  const assetMatured = isAssetMatured(row.maturity_date);
                   return (
                     <TableRow
                       hover
@@ -154,6 +177,11 @@ export const AssetsTableList = () => {
                             <Typography variant="h6" fontWeight="600">
                               {row.name}
                             </Typography>
+                            {assetMatured && (
+                              <Typography variant="caption" color="error.main">
+                                {t('investments.assetStatus.matured')}
+                              </Typography>
+                            )}
                           </Box>
                         </Stack>
 
@@ -192,8 +220,29 @@ export const AssetsTableList = () => {
                       </TableCell>
                       <TableCell>
                         <Typography>
-                          {row.price.value} {row.price.currency}
+                          {row.updated_at ? <TimeView date={row.updated_at} /> : '-'}
                         </Typography>
+                      </TableCell>
+                      <TableCell>
+                        {assetMatured ? (
+                          <Chip
+                            label={t('investments.quoteStatus.matured')}
+                            size="small"
+                            color="error"
+                            variant="outlined"
+                          />
+                        ) : quoteStale ? (
+                          <Chip
+                            label={t('investments.quoteStatus.outdated')}
+                            size="small"
+                            color="warning"
+                            variant="outlined"
+                          />
+                        ) : (
+                          <Typography>
+                            {row.price?.value} {row.price?.currency}
+                          </Typography>
+                        )}
                       </TableCell>
                       <TableCell style={{ width: "48px", padding: "2px", marginRight: "25px" }}>
                         {(canEditOrDelete && activeRowIndex) === index && (
