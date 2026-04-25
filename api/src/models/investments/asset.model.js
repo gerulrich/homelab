@@ -40,25 +40,24 @@ const AssetSchema = new mongoose.Schema({
   }
 }, 
 {
-    toObject: {
-      transform: function (doc, ret) {
-        ret.uid = ret._id;
-        ret.updated_at = ret.updatedAt;
-        delete ret._id;
-        delete ret.__v;
-      }
-    },
-    toJSON: {
-      transform: function (doc, ret) {
-        ret.uid = ret._id;
-        ret.updated_at = ret.updatedAt;
-        delete ret._id;
-        delete ret.__v;
-      }
-    },
-    timestamps: true
-  });
-
+  toObject: {
+    transform: function (doc, ret) {
+    ret.uid = ret._id;
+    ret.updated_at = ret.updatedAt;
+    delete ret._id;
+    delete ret.__v;
+    }
+  },
+  toJSON: {
+    transform: function (doc, ret) {
+      ret.uid = ret._id;
+      ret.updated_at = ret.updatedAt;
+      delete ret._id;
+      delete ret.__v;
+    }
+  },
+  timestamps: true
+});
 
 const Asset = mongoose.model('Asset', AssetSchema);
 
