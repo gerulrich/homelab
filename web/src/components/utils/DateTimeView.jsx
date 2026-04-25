@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types';
 
-export const DateTimeView = ({date}) => {
+export const DateTimeView = ({ date }) => {
   const formatDate = (date) => {
     if (!date) return '';
+    const parsedDate = new Date(date);
     const locale = navigator.language;
+
     return new Intl.DateTimeFormat(locale, {
       year: 'numeric',
       month: 'numeric',
       day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
-    }).format(new Date(date));
+    }).format(parsedDate);
   };
 
   return (
