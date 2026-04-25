@@ -53,7 +53,7 @@ const updateAssetById = async (req, res) => {
 
   // TODO type cedear-etf -> cedear.
 
-  const asset = await Asset.findByIdAndUpdate(id, data, { new: true });
+  const asset = await Asset.findByIdAndUpdate(id, data, { new: true, timestamps: true });
   return res.json(asset);
 };
 

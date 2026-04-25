@@ -19,12 +19,15 @@ const fetchAndUpdateAssets = async (service, assetType, rate) => {
 
     const itemsToUpdate = items.filter(item => symbols.includes(item.symbol) && item.trade > 0);
     const updateOperations = itemsToUpdate.map(item => {
-      const value = item.denominationCcy === 'ARS' ? Number(item.trade * rate).toFixed(2) : item.trade;
+      const value = item.denominationCcy === 'ARS' ? Number(item.bidPrice * rate).toFixed(2) : item.trade;
       const currency = 'USD';
+      const updatedAt = new Date();
       return {
         updateOne: {
           filter: { symbol: item.symbol },
-          update: { $set: { price: { value, currency } } }
+          update: {
+            $set: { price: { value, currency }, updatedAt }
+          }
         }
       };
     });
@@ -49,9 +52,9 @@ const fetchAndUpdateQuotes = async () => {
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
   await Quote.findOneAndUpdate(
-    { asset: 'ARS', date:  currentDate },
-    { $set: { rate: rate, date:  new Date() }},
-    { upsert: true }
+    { asset: 'ARS', date: currentDate },
+    { $set: { rate: rate, date: new Date() }},
+    { upsert: true, new: true }
   );
   return rate;
 };
@@ -72,7 +75,7 @@ const financialJob = async (io, mqtt) => {
       fetchAndUpdateAssets('cedears', 'cedear', rate),
       fetchAndUpdateAssets('public-bonds', 'bono', rate),
       fetchAndUpdateAssets('negociable-obligations', 'on', rate),
-      fetchAndUpdateAssets('leading-equity', 'local-stock', rate),
+      fetchAndUpdateAssets('general-equity', 'local-stock', rate),
     ];
     await Promise.all(requests);
   } catch (error) {

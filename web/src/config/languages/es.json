@@ -175,5 +175,17 @@
   {
       "copied": "¡Texto copiado al portapapeles!",
       "cliCopied": "cli copiado al portapapeles!"
+  },
+  "investments":
+  {
+      "assetStatus":
+      {
+          "matured": "Activo vencido"
+      },
+      "quoteStatus":
+      {
+          "matured": "Sin cotizacion",
+          "outdated": "Cotización desactualizada"
+      }
   }
 }
